@@ -33,12 +33,12 @@ import org.xml.sax.InputSource;
 import com.topografix.gpx.model.Gpx;
 import com.topografix.gpx.model.factory.ModelBuilder;
 import com.topografix.gpx.model.factory.ModelWriter;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class GpxDataObject extends XmlMultiViewDataObject {
 
     private final ModelSynchronizer modelSynchronizer;
-
     private Gpx gpx;
 
     public GpxDataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException, IOException {
@@ -49,6 +49,8 @@ public class GpxDataObject extends XmlMultiViewDataObject {
         InputSource is = DataObjectAdapters.inputSource(this);
         cookies.add((Node.Cookie) new CheckXMLSupport(is));
         cookies.add((Node.Cookie) new ValidateXMLSupport(is));
+
+        gpx = loadFromFile();
     }
 
     @Override
@@ -68,23 +70,19 @@ public class GpxDataObject extends XmlMultiViewDataObject {
 
     @Override
     protected DesignMultiViewDesc[] getMultiViewDesc() {
-        return new DesignMultiViewDesc[] {new GeneralViewDesc(this)};
+        return new DesignMultiViewDesc[]{new GeneralViewDesc(this)};
     }
 
     private void parseDocument() throws IOException {
         if (gpx == null) {
-            gpx = getGpx();
-        }
-        else {
+            gpx = loadFromFile();
+        } else {
             gpx = loadFromEditor();
         }
     }
 
-    public Gpx getGpx() throws IOException {
+    public Gpx getGpx() {
 
-        if (gpx == null) {
-            gpx = loadFromFile();
-        }
         return gpx;
     }
 
@@ -154,15 +152,7 @@ public class GpxDataObject extends XmlMultiViewDataObject {
         @Override
         protected Object getModel() {
 
-            Gpx gpx = null;
-            try {
-                gpx = getGpx();
-            } catch (IOException ex) {
-                Exceptions.printStackTrace(ex);
-                ErrorManager.getDefault().notify(ErrorManager.INFORMATIONAL, ex);
-            }
-
-            return gpx;
+            return getGpx();
         }
 
         @Override
@@ -170,9 +160,8 @@ public class GpxDataObject extends XmlMultiViewDataObject {
             try {
                 parseDocument();
             } catch (IOException ex) {
+                Logger.getLogger(getClass().getName()).log(Level.WARNING, null, ex);
             }
         }
-
     }
-
 }

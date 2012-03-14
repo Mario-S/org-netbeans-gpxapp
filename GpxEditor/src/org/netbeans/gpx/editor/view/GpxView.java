@@ -29,15 +29,15 @@ public class GpxView extends SectionView {
     public GpxView(InnerPanelFactory factory, GpxDataObject gpxDataObject) {
         super(factory);
         this.gpxDataObject = gpxDataObject;
-
         init();
+        
     }
 
     private void init() {
         Children rootChildren = new Children.Array();
         Node root = new AbstractNode(rootChildren);
 
-        try {
+//        try {
 
             Gpx gpx = gpxDataObject.getGpx();
             Node gpxNode = new GpxSchemaNode(gpxDataObject.getPrimaryFile().getName());
@@ -47,11 +47,14 @@ public class GpxView extends SectionView {
             Node metadataNode = new GpxSchemaNode(metadata.getName());
             addSection(new SectionPanel(this, metadataNode, metadata));
 
-        } catch (IOException ex) {
-            Exceptions.printStackTrace(ex);
-        }
+//        } catch (IOException ex) {
+//            Exceptions.printStackTrace(ex);
+//        }
 
         setRoot(root);
+        
+        openPanel(gpx);
+        openPanel(metadata);
     }
 
     private class GpxSchemaNode extends AbstractNode {

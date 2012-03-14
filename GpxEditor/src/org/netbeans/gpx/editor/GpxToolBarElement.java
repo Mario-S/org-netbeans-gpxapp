@@ -20,8 +20,8 @@ import org.netbeans.modules.xml.multiview.ui.ToolBarDesignEditor;
  *
  * @author msc
  */
-public class GpxToolBarElement extends ToolBarMultiViewElement{
-    
+public class GpxToolBarElement extends ToolBarMultiViewElement {
+
     private GpxDataObject gpxDataObject;
     private ToolBarDesignEditor designEditor;
     private SectionView view;
@@ -43,20 +43,14 @@ public class GpxToolBarElement extends ToolBarMultiViewElement{
     @Override
     public void componentShowing() {
         super.componentShowing();
-        view = createView();
+        
+        gpxDataObject.updateModel();
+        
+        view = new GpxView(factory, gpxDataObject);
+        
         designEditor.setContentView(view);
-        try {
-            view.openPanel(gpxDataObject.getGpx());
-        } catch (IOException ex) {
-            Logger.getLogger(Gpx.class.getName()).log(Level.SEVERE, null, ex);;
-        }
+        
         view.checkValidity();
     }
- 
-    private SectionView createView() {
-        return new GpxView(factory, gpxDataObject);
-    }
-    
-    
-    
+
 }
