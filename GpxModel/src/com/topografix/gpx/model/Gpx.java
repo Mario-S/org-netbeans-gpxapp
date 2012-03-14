@@ -57,6 +57,8 @@ import javax.xml.bind.annotation.XmlType;
     "extensions"
 })
 public class Gpx {
+    
+    public static final String CREATOR = "creator";
 
     protected Metadata metadata;
     protected List<Waypoint> wpt;
@@ -65,7 +67,7 @@ public class Gpx {
     protected Extensions extensions;
     @XmlAttribute(name = "version", required = true)
     protected String version;
-    @XmlAttribute(name = "creator", required = true)
+    @XmlAttribute(name = CREATOR, required = true)
     protected String creator;
 
     /**

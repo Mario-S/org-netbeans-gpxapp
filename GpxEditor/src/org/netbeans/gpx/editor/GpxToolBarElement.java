@@ -52,7 +52,7 @@ public class GpxToolBarElement extends ToolBarMultiViewElement{
         }
         view.checkValidity();
     }
-
+ 
     private SectionView createView() {
         return new GpxView(factory, gpxDataObject);
     }

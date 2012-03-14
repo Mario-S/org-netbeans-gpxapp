@@ -33,6 +33,7 @@ import org.xml.sax.InputSource;
 import com.topografix.gpx.model.Gpx;
 import com.topografix.gpx.model.factory.ModelBuilder;
 import com.topografix.gpx.model.factory.ModelWriter;
+import java.util.logging.Logger;
 
 public class GpxDataObject extends XmlMultiViewDataObject {
 
@@ -114,7 +115,6 @@ public class GpxDataObject extends XmlMultiViewDataObject {
         modelSynchronizer.requestUpdateData();
     }
 
-    
     /**
      * class to synchronize model with editor content
      */
@@ -170,8 +170,6 @@ public class GpxDataObject extends XmlMultiViewDataObject {
             try {
                 parseDocument();
             } catch (IOException ex) {
-                Exceptions.printStackTrace(ex);
-                ErrorManager.getDefault().notify(ErrorManager.INFORMATIONAL, ex);
             }
         }
 
