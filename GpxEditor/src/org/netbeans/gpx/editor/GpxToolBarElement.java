@@ -6,12 +6,9 @@
  */
 package org.netbeans.gpx.editor;
 
-import org.netbeans.gpx.editor.view.GpxView;
+import org.netbeans.gpx.editor.view.GeneralView;
 import org.netbeans.gpx.editor.panel.PanelFactory;
-import com.topografix.gpx.model.Gpx;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.netbeans.gpx.editor.view.AbstractGpxView;
 import org.netbeans.modules.xml.multiview.ToolBarMultiViewElement;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
 import org.netbeans.modules.xml.multiview.ui.ToolBarDesignEditor;
@@ -24,7 +21,7 @@ public class GpxToolBarElement extends ToolBarMultiViewElement {
 
     private GpxDataObject gpxDataObject;
     private ToolBarDesignEditor designEditor;
-    private SectionView view;
+    private AbstractGpxView view;
     private PanelFactory factory;
 
     public GpxToolBarElement(GpxDataObject gpxDataObject) {
@@ -46,11 +43,11 @@ public class GpxToolBarElement extends ToolBarMultiViewElement {
         
         gpxDataObject.updateModel();
         
-        view = new GpxView(factory, gpxDataObject);
+        view = new GeneralView(factory);
         
         designEditor.setContentView(view);
         
-        view.checkValidity();
+        view.open(gpxDataObject);
     }
 
 }

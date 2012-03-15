@@ -16,7 +16,6 @@ import org.netbeans.modules.xml.multiview.XmlMultiViewDataSynchronizer;
 import org.netbeans.spi.xml.cookies.CheckXMLSupport;
 import org.netbeans.spi.xml.cookies.DataObjectAdapters;
 import org.netbeans.spi.xml.cookies.ValidateXMLSupport;
-import org.openide.ErrorManager;
 import org.openide.filesystems.FileLock;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
@@ -35,13 +34,14 @@ import com.topografix.gpx.model.factory.ModelBuilder;
 import com.topografix.gpx.model.factory.ModelWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.openide.text.DataEditorSupport;
 
-public class GpxDataObject extends XmlMultiViewDataObject {
+public final class GpxDataObject extends XmlMultiViewDataObject {
 
     private final ModelSynchronizer modelSynchronizer;
     private Gpx gpx;
 
-    public GpxDataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException, IOException {
+    public GpxDataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException{
         super(pf, loader);
         modelSynchronizer = new ModelSynchronizer(this);
 
@@ -49,8 +49,9 @@ public class GpxDataObject extends XmlMultiViewDataObject {
         InputSource is = DataObjectAdapters.inputSource(this);
         cookies.add((Node.Cookie) new CheckXMLSupport(is));
         cookies.add((Node.Cookie) new ValidateXMLSupport(is));
+        
+//        cookies.add((Node.Cookie) DataEditorSupport.create(this, getPrimaryEntry(), cookies));
 
-        gpx = loadFromFile();
     }
 
     @Override
@@ -83,6 +84,13 @@ public class GpxDataObject extends XmlMultiViewDataObject {
 
     public Gpx getGpx() {
 
+        if (gpx == null) {
+            try {
+                gpx = loadFromFile();
+            } catch (IOException ex) {
+                Logger.getLogger(getClass().getName()).log(Level.WARNING, null, ex);
+            }
+        }
         return gpx;
     }
 

@@ -64,8 +64,8 @@
                 </folder>
                 <folder name="Factories">
                     <file name="GpxDataLoader.instance">
-                        <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/gpx/editor/resources/gpx.gif"/>
                         <attr name="dataObjectClass" stringvalue="org.netbeans.gpx.editor.GpxDataObject"/>
+                        <attr name="iconBase" stringvalue="org/netbeans/gpx/editor/resources/gpx.gif"/>
                         <attr name="instanceCreate" methodvalue="org.openide.loaders.DataLoaderPool.factory"/>
                         <attr name="mimeType" stringvalue="text/gpx+xml"/>
                     </file>
@@ -83,8 +83,8 @@
     <folder name="Templates">
         <folder name="XML">
             <file name="GPX_File.gpx" url="GpxTemplate.gpx">
+                <attr name="iconBase" stringvalue="org/netbeans/gpx/editor/resources/gpx.gif"/>
                 <attr name="template" boolvalue="true"/>
-                <attr name="SystemFileSystem.icon" urlvalue="nbresloc:/org/netbeans/gpx/editor/resources/gpx.gif"/>
                 <attr name="templateWizardURL" urlvalue="nbresloc:/org/netbeans/gpxe/ditor/resources/description.html"/>
             </file>
         </folder>
