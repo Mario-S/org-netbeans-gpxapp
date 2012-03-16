@@ -10,11 +10,7 @@ import com.topografix.gpx.model.Gpx;
 import com.topografix.gpx.model.Metadata;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.modules.xml.multiview.ui.InnerPanelFactory;
-import org.netbeans.modules.xml.multiview.ui.SectionContainer;
-import org.netbeans.modules.xml.multiview.ui.SectionContainerNode;
 import org.netbeans.modules.xml.multiview.ui.SectionPanel;
-import org.netbeans.modules.xml.multiview.ui.SectionView;
-import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 

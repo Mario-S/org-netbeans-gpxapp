@@ -21,7 +21,6 @@ import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
 import org.openide.loaders.DataNode;
 import org.openide.loaders.DataObjectExistsException;
-import org.openide.loaders.MultiFileLoader;
 import org.openide.nodes.Children;
 import org.openide.nodes.CookieSet;
 import org.openide.nodes.Node;
@@ -34,9 +33,9 @@ import com.topografix.gpx.model.factory.ModelBuilder;
 import com.topografix.gpx.model.factory.ModelWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.openide.text.DataEditorSupport;
+import org.openide.loaders.MultiFileLoader;
 
-public final class GpxDataObject extends XmlMultiViewDataObject {
+public class GpxDataObject extends XmlMultiViewDataObject {
 
     private final ModelSynchronizer modelSynchronizer;
     private Gpx gpx;
@@ -56,12 +55,7 @@ public final class GpxDataObject extends XmlMultiViewDataObject {
 
     @Override
     protected Node createNodeDelegate() {
-        return new DataNode(this, Children.LEAF, getLookup());
-    }
-
-    @Override
-    public Lookup getLookup() {
-        return getCookieSet().getLookup();
+        return new DataNode(this, Children.LEAF);
     }
 
     @Override

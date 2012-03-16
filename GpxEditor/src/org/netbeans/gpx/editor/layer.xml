@@ -85,7 +85,7 @@
             <file name="GPX_File.gpx" url="GpxTemplate.gpx">
                 <attr name="iconBase" stringvalue="org/netbeans/gpx/editor/resources/gpx.gif"/>
                 <attr name="template" boolvalue="true"/>
-                <attr name="templateWizardURL" urlvalue="nbresloc:/org/netbeans/gpxe/ditor/resources/description.html"/>
+                <attr name="templateWizardURL" urlvalue="nbresloc:/org/netbeans/gpx/editor/resources/description.html"/>
             </file>
         </folder>
     </folder>
