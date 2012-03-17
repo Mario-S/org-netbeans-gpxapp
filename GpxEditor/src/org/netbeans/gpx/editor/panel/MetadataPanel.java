@@ -56,6 +56,16 @@ public class MetadataPanel extends AbstractInnerPanel {
         txtAreaDesc = new javax.swing.JTextArea();
         lblTime = new javax.swing.JLabel();
         txtTime = new javax.swing.JTextField();
+        lblAuthor = new javax.swing.JLabel();
+        txtAuthor = new javax.swing.JTextField();
+        lblKeywords = new javax.swing.JLabel();
+        txtKeywords = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblBounds = new javax.swing.JTable();
+        lblBounds = new javax.swing.JLabel();
+        lblLinks = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        lstLinks = new javax.swing.JList();
 
         lblName.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblName.text")); // NOI18N
 
@@ -71,26 +81,84 @@ public class MetadataPanel extends AbstractInnerPanel {
 
         txtTime.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.txtTime.text")); // NOI18N
 
+        lblAuthor.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblAuthor.text")); // NOI18N
+
+        txtAuthor.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.txtAuthor.text")); // NOI18N
+
+        lblKeywords.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblKeywords.text")); // NOI18N
+
+        txtKeywords.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.txtKeywords.text")); // NOI18N
+        txtKeywords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKeywordsActionPerformed(evt);
+            }
+        });
+
+        tblBounds.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "", "Latitude", "Longitude"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblBounds);
+        tblBounds.getColumnModel().getColumn(0).setHeaderValue(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.tblBounds.columnModel.title0_1")); // NOI18N
+        tblBounds.getColumnModel().getColumn(1).setHeaderValue(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.tblBounds.columnModel.title1_1")); // NOI18N
+        tblBounds.getColumnModel().getColumn(2).setHeaderValue(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.tblBounds.columnModel.title2_1")); // NOI18N
+
+        lblBounds.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblBounds.text")); // NOI18N
+
+        lblLinks.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblLinks.text")); // NOI18N
+
+        lstLinks.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(lstLinks);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(lblTime)
-                        .addGap(84, 84, 84)
-                        .addComponent(txtTime))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtName))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTime)
+                    .addComponent(lblKeywords)
+                    .addComponent(lblBounds)
+                    .addComponent(lblLinks)
+                    .addComponent(lblAuthor)
+                    .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                    .addComponent(txtKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(txtTime, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtAuthor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,24 +167,54 @@ public class MetadataPanel extends AbstractInnerPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTime)
                     .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblName)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblName))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAuthor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblKeywords))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblDesc)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(112, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDesc))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblBounds))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblLinks))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKeywordsActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblAuthor;
+    private javax.swing.JLabel lblBounds;
     private javax.swing.JLabel lblDesc;
+    private javax.swing.JLabel lblKeywords;
+    private javax.swing.JLabel lblLinks;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblTime;
+    private javax.swing.JList lstLinks;
+    private javax.swing.JTable tblBounds;
     private javax.swing.JTextArea txtAreaDesc;
+    private javax.swing.JTextField txtAuthor;
+    private javax.swing.JTextField txtKeywords;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtTime;
     // End of variables declaration//GEN-END:variables
