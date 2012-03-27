@@ -22,4 +22,10 @@ abstract class AbstractInnerPanel extends SectionInnerPanel{
         this.gpxDataObject = gpxDataObject;
     }
     
+    /**
+     * Shall return the object which represents the model.
+     * @return Object
+     */
+    abstract public Object getModel();
+    
 }
