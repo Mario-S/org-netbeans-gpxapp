@@ -13,6 +13,12 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.text.JTextComponent;
+import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.jdesktop.beansbinding.BeanProperty;
+import org.jdesktop.beansbinding.Binding;
+import org.jdesktop.beansbinding.BindingGroup;
+import org.jdesktop.beansbinding.Bindings;
+import org.jdesktop.beansbinding.ELProperty;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.modules.xml.multiview.ui.SectionInnerPanel;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
@@ -33,13 +39,6 @@ public class GpxPanel extends AbstractInnerPanel {
         super(sectionView, dataObject);
         this.gpx = gpx;
         initComponents();
-        
-        setComponentValues(gpx);
-    }
-
-    private void setComponentValues(Gpx gpx) {
-        lblVersionValue.setText(gpx.getVersion());
-        setCreatorInText();
         
         addModifier(txtCreator);
     }
@@ -102,16 +101,23 @@ public class GpxPanel extends AbstractInnerPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        bindingGroup = new BindingGroup();
 
         lblCreator = new JLabel();
         lblVersion = new JLabel();
         txtCreator = new JTextField();
         lblVersionValue = new JLabel();
 
-        lblCreator.setText(NbBundle.getMessage(GpxPanel.class, "GpxPanel.lblCreator.text")); 
-        lblVersion.setText(NbBundle.getMessage(GpxPanel.class, "GpxPanel.lblVersion.text")); 
-        txtCreator.setText(NbBundle.getMessage(GpxPanel.class, "GpxPanel.txtCreator.text")); 
-        lblVersionValue.setText(NbBundle.getMessage(GpxPanel.class, "GpxPanel.lblVersionValue.text")); 
+        lblCreator.setText(NbBundle.getMessage(GpxPanel.class, "GpxPanel.lblCreator.text")); // NOI18N
+
+        lblVersion.setText(NbBundle.getMessage(GpxPanel.class, "GpxPanel.lblVersion.text")); // NOI18N
+
+        Binding binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${model.creator}"), txtCreator, BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_ONCE, this, ELProperty.create("${model.version}"), lblVersionValue, BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         GroupLayout layout = new GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,12 +149,22 @@ public class GpxPanel extends AbstractInnerPanel {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblCreator.getAccessibleContext().setAccessibleName(NbBundle.getMessage(GpxPanel.class, "GpxPanel.jLabel1.AccessibleContext.accessibleName"));         lblVersion.getAccessibleContext().setAccessibleName(NbBundle.getMessage(GpxPanel.class, "GpxPanel.jLabel2.AccessibleContext.accessibleName"));     }// </editor-fold>//GEN-END:initComponents
+        lblCreator.getAccessibleContext().setAccessibleName(NbBundle.getMessage(GpxPanel.class, "GpxPanel.jLabel1.AccessibleContext.accessibleName")); // NOI18N
+        lblVersion.getAccessibleContext().setAccessibleName(NbBundle.getMessage(GpxPanel.class, "GpxPanel.jLabel2.AccessibleContext.accessibleName")); // NOI18N
+
+        bindingGroup.bind();
+    }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JLabel lblCreator;
     private JLabel lblVersion;
     private JLabel lblVersionValue;
     private JTextField txtCreator;
+    private BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public Object getModel() {
+        return gpx;
+    }
 }
