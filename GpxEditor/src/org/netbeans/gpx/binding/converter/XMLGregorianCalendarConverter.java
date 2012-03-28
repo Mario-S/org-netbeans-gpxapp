@@ -1,4 +1,4 @@
-package org.netbeans.gpx.model.converter;
+package org.netbeans.gpx.binding.converter;
 
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.datatype.DatatypeConfigurationException;

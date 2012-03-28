@@ -17,9 +17,9 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblName" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
@@ -38,7 +38,6 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="lblDesc" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
                           <Component id="lblLinks" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -147,7 +146,7 @@
         <BindingProperty name="text" source="Form" sourcePath="${model.time}" target="txtTime" targetPath="text" updateStrategy="0" immediately="false">
           <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_ACTION_OR_FOCUS_LOST"/>
           <Property name="converter" type="org.jdesktop.beansbinding.Converter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-            <Connection code="new org.netbeans.gpx.model.converter.XMLGregorianCalendarConverter()" type="code"/>
+            <Connection code="new org.netbeans.gpx.binding.converter.XMLGregorianCalendarConverter()" type="code"/>
           </Property>
         </BindingProperty>
       </BindingProperties>
@@ -397,11 +396,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtAuthorEmail">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="MetadataPanel.txtAuthorEmail.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
+          <BindingProperties>
+            <BindingProperty name="text" source="Form" sourcePath="${model.author.email}" target="txtAuthorEmail" targetPath="text" updateStrategy="0" immediately="false">
+              <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_ACTION_OR_FOCUS_LOST"/>
+              <Property name="converter" type="org.jdesktop.beansbinding.Converter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                <Connection code="new org.netbeans.gpx.binding.converter.EmailConverter()" type="code"/>
+              </Property>
+            </BindingProperty>
+          </BindingProperties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblAuthorLink">
           <Properties>

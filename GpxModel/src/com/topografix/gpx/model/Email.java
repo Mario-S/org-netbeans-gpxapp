@@ -4,15 +4,12 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2012.03.08 at 11:55:13 AM CET 
 //
-
-
 package com.topografix.gpx.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * 
@@ -93,4 +90,10 @@ public class Email {
         this.domain = value;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(id).append("@").append(domain);
+        return builder.toString();
+    }
 }

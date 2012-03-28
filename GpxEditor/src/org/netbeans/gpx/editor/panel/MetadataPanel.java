@@ -97,7 +97,7 @@ public class MetadataPanel extends AbstractInnerPanel {
         lblTime.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblTime.text")); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.time}"), txtTime, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
-        binding.setConverter(new org.netbeans.gpx.model.converter.XMLGregorianCalendarConverter());
+        binding.setConverter(new org.netbeans.gpx.binding.converter.XMLGregorianCalendarConverter());
         bindingGroup.addBinding(binding);
 
         lblKeywords.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblKeywords.text")); // NOI18N
@@ -205,7 +205,9 @@ public class MetadataPanel extends AbstractInnerPanel {
 
         lblAuthorEmail.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblAuthorEmail.text")); // NOI18N
 
-        txtAuthorEmail.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.txtAuthorEmail.text")); // NOI18N
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.author.email}"), txtAuthorEmail, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
+        binding.setConverter(new org.netbeans.gpx.binding.converter.EmailConverter());
+        bindingGroup.addBinding(binding);
 
         lblAuthorLink.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblAuthorLink.text")); // NOI18N
 
@@ -255,9 +257,9 @@ public class MetadataPanel extends AbstractInnerPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTime)
                             .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -271,7 +273,6 @@ public class MetadataPanel extends AbstractInnerPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE))
                             .addComponent(txtKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblLinks))
