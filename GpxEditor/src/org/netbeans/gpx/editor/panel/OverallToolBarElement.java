@@ -4,10 +4,11 @@
  * $$LastChangedBy: msc $$ 
  * 
  */
-package org.netbeans.gpx.editor;
+package org.netbeans.gpx.editor.panel;
 
-import org.netbeans.gpx.editor.view.GeneralView;
-import org.netbeans.gpx.editor.panel.PanelFactory;
+import org.netbeans.gpx.editor.GpxDataObject;
+import org.netbeans.gpx.editor.view.OverallView;
+import org.netbeans.gpx.editor.panel.OverallPanelFactory;
 import org.netbeans.gpx.editor.view.AbstractGpxView;
 import org.netbeans.modules.xml.multiview.ToolBarMultiViewElement;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
@@ -17,18 +18,18 @@ import org.netbeans.modules.xml.multiview.ui.ToolBarDesignEditor;
  *
  * @author msc
  */
-public class GpxToolBarElement extends ToolBarMultiViewElement {
+public class OverallToolBarElement extends ToolBarMultiViewElement {
 
     private GpxDataObject gpxDataObject;
     private ToolBarDesignEditor designEditor;
     private AbstractGpxView view;
-    private PanelFactory factory;
+    private OverallPanelFactory factory;
 
-    public GpxToolBarElement(GpxDataObject gpxDataObject) {
+    public OverallToolBarElement(GpxDataObject gpxDataObject) {
         super(gpxDataObject);
         this.gpxDataObject = gpxDataObject;
         designEditor = new ToolBarDesignEditor();
-        factory = new PanelFactory(gpxDataObject, designEditor);
+        factory = new OverallPanelFactory(gpxDataObject, designEditor);
         setVisualEditor(designEditor);
     }
 
@@ -40,14 +41,13 @@ public class GpxToolBarElement extends ToolBarMultiViewElement {
     @Override
     public void componentShowing() {
         super.componentShowing();
-        
+
         gpxDataObject.updateModel();
-        
-        view = new GeneralView(factory);
-        
+
+        view = new OverallView(factory);
+
         designEditor.setContentView(view);
-        
+
         view.open(gpxDataObject);
     }
-
 }

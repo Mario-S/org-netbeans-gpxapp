@@ -12,6 +12,7 @@ package org.netbeans.gpx.editor.panel;
 
 import com.topografix.gpx.model.Metadata;
 import javax.swing.JComponent;
+import org.netbeans.gpx.editor.binding.converter.XMLGregorianCalendarConverter;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
 
@@ -19,25 +20,38 @@ import org.netbeans.modules.xml.multiview.ui.SectionView;
  *
  * @author msc
  */
-public class MetadataPanel extends AbstractInnerPanel {
+public class MetadataPanel extends AbstractMetadataPanel {
 
-    private Metadata metadata;
+    private XMLGregorianCalendarConverter calendarConverter;
 
     /** Creates new form MetadataPanel */
-    public MetadataPanel(SectionView sectionView, GpxDataObject gpxDataObject, Metadata metadata) {
+    public MetadataPanel(SectionView sectionView, GpxDataObject gpxDataObject) {
         super(sectionView, gpxDataObject);
-        this.metadata = metadata;
-        initComponents();
 
-        setComponentValues();
+        calendarConverter = new XMLGregorianCalendarConverter();
+        initComponents();
+        
+        addModifiers();
+
+        setValues();
+    }
+    
+    private void addModifiers(){
+        
+        addModifier(txtName);
+        addModifier(txtTime);
+        addModifier(txtKeywords);
+        addModifier(txtAreaDesc);
     }
 
-    private void setComponentValues() {
-        
-        txtName.setText(metadata.getName());
-        txtTime.setText(metadata.getTime().toString());
-        
-//        addModifier(txtName);
+    private void setValues() {
+        Metadata metadata = getMetadata();
+        if (metadata != null) {
+            txtName.setText(metadata.getName());
+            txtTime.setText(calendarConverter.convertForward(metadata.getTime()));
+            txtKeywords.setText(metadata.getKeywords());
+            txtAreaDesc.setText(metadata.getDesc());
+        }
     }
 
     /** This method is called from within the constructor to
@@ -48,7 +62,6 @@ public class MetadataPanel extends AbstractInnerPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
@@ -62,54 +75,18 @@ public class MetadataPanel extends AbstractInnerPanel {
         lblLinks = new javax.swing.JLabel();
         scrollLinks = new javax.swing.JScrollPane();
         lstLinks = new javax.swing.JList();
-        pnlBounds = new javax.swing.JPanel();
-        lblLat = new javax.swing.JLabel();
-        lblLon = new javax.swing.JLabel();
-        lblMin = new javax.swing.JLabel();
-        lblMax = new javax.swing.JLabel();
-        txtMinLat = new javax.swing.JTextField();
-        txtMaxLat = new javax.swing.JTextField();
-        txtMinLon = new javax.swing.JTextField();
-        txtMaxLon = new javax.swing.JTextField();
-        pnlAuthor = new javax.swing.JPanel();
-        lblAuthorName = new javax.swing.JLabel();
-        txtAuthorName = new javax.swing.JTextField();
-        lblAuthorEmail = new javax.swing.JLabel();
-        txtAuthorEmail = new javax.swing.JTextField();
-        lblAuthorLink = new javax.swing.JLabel();
-        txtAuthorLink = new javax.swing.JTextField();
 
         lblName.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblName.text")); // NOI18N
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.name}"), txtName, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
-        bindingGroup.addBinding(binding);
 
         lblDesc.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblDesc.text")); // NOI18N
 
         txtAreaDesc.setColumns(20);
         txtAreaDesc.setRows(5);
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.desc}"), txtAreaDesc, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
-        bindingGroup.addBinding(binding);
-
         scrollDesc.setViewportView(txtAreaDesc);
 
         lblTime.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblTime.text")); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.time}"), txtTime, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
-        binding.setConverter(new org.netbeans.gpx.binding.converter.XMLGregorianCalendarConverter());
-        bindingGroup.addBinding(binding);
-
         lblKeywords.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblKeywords.text")); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.keywords}"), txtKeywords, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
-        bindingGroup.addBinding(binding);
-
-        txtKeywords.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtKeywordsActionPerformed(evt);
-            }
-        });
 
         lblLinks.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblLinks.text")); // NOI18N
 
@@ -120,138 +97,6 @@ public class MetadataPanel extends AbstractInnerPanel {
         });
         scrollLinks.setViewportView(lstLinks);
 
-        pnlBounds.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.pnlBounds.border.title"))); // NOI18N
-        pnlBounds.setOpaque(false);
-
-        lblLat.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblLat.text")); // NOI18N
-
-        lblLon.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblLon.text")); // NOI18N
-
-        lblMin.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblMin.text")); // NOI18N
-
-        lblMax.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblMax.text")); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.bounds.minLat}"), txtMinLat, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.maxLat}"), txtMaxLat, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
-        bindingGroup.addBinding(binding);
-
-        txtMaxLat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaxLatActionPerformed(evt);
-            }
-        });
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.minLon}"), txtMinLon, org.jdesktop.beansbinding.BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        txtMinLon.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMinLonActionPerformed(evt);
-            }
-        });
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.maxLon}"), txtMaxLon, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
-        bindingGroup.addBinding(binding);
-
-        javax.swing.GroupLayout pnlBoundsLayout = new javax.swing.GroupLayout(pnlBounds);
-        pnlBounds.setLayout(pnlBoundsLayout);
-        pnlBoundsLayout.setHorizontalGroup(
-            pnlBoundsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBoundsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlBoundsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblMin)
-                    .addComponent(lblMax))
-                .addGap(36, 36, 36)
-                .addGroup(pnlBoundsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMinLat, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                    .addComponent(txtMaxLat, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)
-                    .addComponent(lblLat))
-                .addGap(11, 11, 11)
-                .addGroup(pnlBoundsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMinLon, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                    .addComponent(lblLon)
-                    .addComponent(txtMaxLon, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        pnlBoundsLayout.setVerticalGroup(
-            pnlBoundsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlBoundsLayout.createSequentialGroup()
-                .addGroup(pnlBoundsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblLat, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblLon))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlBoundsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMin)
-                    .addComponent(txtMinLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMinLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlBoundsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblMax)
-                    .addComponent(txtMaxLat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMaxLon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        pnlAuthor.setBorder(javax.swing.BorderFactory.createTitledBorder(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.pnlAuthor.border.title"))); // NOI18N
-        pnlAuthor.setOpaque(false);
-
-        lblAuthorName.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblAuthorName.text")); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.author.name}"), txtAuthorName, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
-        bindingGroup.addBinding(binding);
-
-        lblAuthorEmail.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblAuthorEmail.text")); // NOI18N
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.author.email}"), txtAuthorEmail, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
-        binding.setConverter(new org.netbeans.gpx.binding.converter.EmailConverter());
-        bindingGroup.addBinding(binding);
-
-        lblAuthorLink.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblAuthorLink.text")); // NOI18N
-
-        txtAuthorLink.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.txtAuthorLink.text")); // NOI18N
-        txtAuthorLink.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtAuthorLinkActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pnlAuthorLayout = new javax.swing.GroupLayout(pnlAuthor);
-        pnlAuthor.setLayout(pnlAuthorLayout);
-        pnlAuthorLayout.setHorizontalGroup(
-            pnlAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAuthorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblAuthorName)
-                    .addComponent(lblAuthorEmail)
-                    .addComponent(lblAuthorLink))
-                .addGap(18, 18, 18)
-                .addGroup(pnlAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtAuthorLink)
-                    .addComponent(txtAuthorEmail)
-                    .addComponent(txtAuthorName, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
-                .addContainerGap(131, Short.MAX_VALUE))
-        );
-        pnlAuthorLayout.setVerticalGroup(
-            pnlAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlAuthorLayout.createSequentialGroup()
-                .addGroup(pnlAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblAuthorName)
-                    .addComponent(txtAuthorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblAuthorEmail)
-                    .addComponent(txtAuthorEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlAuthorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblAuthorLink)
-                    .addComponent(txtAuthorLink, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -259,46 +104,41 @@ public class MetadataPanel extends AbstractInnerPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblKeywords)
                             .addComponent(lblTime)
-                            .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblKeywords))
+                            .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtTime, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 236, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE))
-                            .addComponent(txtKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtKeywords, javax.swing.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                            .addComponent(txtName)
+                            .addComponent(txtTime)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblLinks))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(pnlBounds, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(scrollLinks, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
-                            .addComponent(scrollDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)
-                            .addComponent(pnlAuthor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(133, 133, 133))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(scrollDesc)
+                            .addComponent(scrollLinks, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE))))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTime)
-                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblName)
+                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblName))
+                    .addComponent(lblTime)
+                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblKeywords))
+                    .addComponent(lblKeywords)
+                    .addComponent(txtKeywords, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblDesc)
@@ -306,73 +146,37 @@ public class MetadataPanel extends AbstractInnerPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblLinks)
-                    .addComponent(scrollLinks, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pnlAuthor, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
-                .addComponent(pnlBounds, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                    .addComponent(scrollLinks, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34))
         );
-
-        bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtKeywordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtKeywordsActionPerformed
-
-    private void txtMaxLatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaxLatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaxLatActionPerformed
-
-    private void txtMinLonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMinLonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMinLonActionPerformed
-
-    private void txtAuthorLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAuthorLinkActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtAuthorLinkActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel lblAuthorEmail;
-    private javax.swing.JLabel lblAuthorLink;
-    private javax.swing.JLabel lblAuthorName;
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblKeywords;
-    private javax.swing.JLabel lblLat;
     private javax.swing.JLabel lblLinks;
-    private javax.swing.JLabel lblLon;
-    private javax.swing.JLabel lblMax;
-    private javax.swing.JLabel lblMin;
     private javax.swing.JLabel lblName;
     private javax.swing.JLabel lblTime;
     private javax.swing.JList lstLinks;
-    private javax.swing.JPanel pnlAuthor;
-    private javax.swing.JPanel pnlBounds;
     private javax.swing.JScrollPane scrollDesc;
     private javax.swing.JScrollPane scrollLinks;
     private javax.swing.JTextArea txtAreaDesc;
-    private javax.swing.JTextField txtAuthorEmail;
-    private javax.swing.JTextField txtAuthorLink;
-    private javax.swing.JTextField txtAuthorName;
     private javax.swing.JTextField txtKeywords;
-    private javax.swing.JTextField txtMaxLat;
-    private javax.swing.JTextField txtMaxLon;
-    private javax.swing.JTextField txtMinLat;
-    private javax.swing.JTextField txtMinLon;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtTime;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
     @Override
-    public Object getModel() {
-        return metadata;
-    }
-    
-    @Override
-    public void setValue(JComponent jc, Object o) {
-        //TODO implement
+    public void setValue(JComponent source, Object o) {
+        Metadata metadata = checkMetadata();
+        if (source == txtName) {
+            metadata.setName((String) o);
+        } else if (source == txtTime) {
+            metadata.setTime(calendarConverter.convertReverse((String) o));
+        } else if (source == txtKeywords) {
+            metadata.setKeywords((String) o);
+        } else if (source == txtAreaDesc) {
+            metadata.setDesc((String) o);
+        }
     }
 
     @Override
@@ -384,5 +188,6 @@ public class MetadataPanel extends AbstractInnerPanel {
     public JComponent getErrorComponent(String string) {
         return null;
     }
-
+    
+    
 }

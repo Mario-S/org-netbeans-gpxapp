@@ -4,6 +4,7 @@
  */
 package org.netbeans.gpx.binding.converter;
 
+import org.netbeans.gpx.editor.binding.converter.XMLGregorianCalendarConverter;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;

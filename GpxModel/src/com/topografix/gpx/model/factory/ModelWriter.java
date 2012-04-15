@@ -44,8 +44,4 @@ public class ModelWriter {
         marshaller.marshal(model, writer);
     }
 
-    public void write(OutputStream stream) throws JAXBException {
-        marshaller.marshal(model, stream);
-    }
-
 }

@@ -20,34 +20,31 @@ import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.beansbinding.Bindings;
 import org.jdesktop.beansbinding.ELProperty;
 import org.netbeans.gpx.editor.GpxDataObject;
-import org.netbeans.modules.xml.multiview.ui.SectionInnerPanel;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
 import org.openide.util.NbBundle;
 import org.netbeans.modules.xml.multiview.Error;
-
-
 
 /**
  *
  * @author msc
  */
-public class GpxPanel extends AbstractInnerPanel {
+public class GpxBasicPanel extends AbstractInnerPanel {
 
     private Gpx gpx;
 
-    public GpxPanel(SectionView sectionView, GpxDataObject dataObject, Gpx gpx) {
+    public GpxBasicPanel(SectionView sectionView, GpxDataObject dataObject) {
         super(sectionView, dataObject);
-        this.gpx = gpx;
+        this.gpx = getGpx();
         initComponents();
-        
+
+        setCreatorInText();
         addModifier(txtCreator);
     }
-       
 
     @Override
     public void setValue(JComponent source, Object value) {
-        if(source == txtCreator){
-            gpx.setCreator((String)value);
+        if (source == txtCreator) {
+            gpx.setCreator((String) value);
         }
     }
 
@@ -58,7 +55,7 @@ public class GpxPanel extends AbstractInnerPanel {
     @Override
     public JComponent getErrorComponent(String errorId) {
         JComponent comp = null;
-        if(errorId.equals("creator")){
+        if (errorId.equals("creator")) {
             comp = txtCreator;
         }
         return comp;
@@ -66,7 +63,7 @@ public class GpxPanel extends AbstractInnerPanel {
 
     @Override
     public void rollbackValue(JTextComponent source) {
-        if(source == txtCreator){
+        if (source == txtCreator) {
             setCreatorInText();
         }
     }
@@ -78,21 +75,13 @@ public class GpxPanel extends AbstractInnerPanel {
     @Override
     public void documentChanged(JTextComponent source, String value) {
         if (source == txtCreator) {
-            if (value.length()==0) {
+            if (value.length() == 0) {
                 getSectionView().getErrorPanel().setError(new Error(Error.MISSING_VALUE_MESSAGE, "title", source));
                 return;
             }
             getSectionView().getErrorPanel().clearError();
         }
     }
-
-    @Override
-    protected void endUIChange() {
-        gpxDataObject.updateModel();
-    }
-
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form. WARNING: Do NOT modify this code. The
@@ -108,14 +97,11 @@ public class GpxPanel extends AbstractInnerPanel {
         txtCreator = new JTextField();
         lblVersionValue = new JLabel();
 
-        lblCreator.setText(NbBundle.getMessage(GpxPanel.class, "GpxPanel.lblCreator.text")); // NOI18N
+        lblCreator.setText(NbBundle.getMessage(GpxBasicPanel.class, "GpxBasicPanel.lblCreator.text")); // NOI18N
 
-        lblVersion.setText(NbBundle.getMessage(GpxPanel.class, "GpxPanel.lblVersion.text")); // NOI18N
+        lblVersion.setText(NbBundle.getMessage(GpxBasicPanel.class, "GpxBasicPanel.lblVersion.text")); // NOI18N
 
-        Binding binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${model.creator}"), txtCreator, BeanProperty.create("text"));
-        bindingGroup.addBinding(binding);
-
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_ONCE, this, ELProperty.create("${model.version}"), lblVersionValue, BeanProperty.create("text"));
+        Binding binding = Bindings.createAutoBinding(UpdateStrategy.READ_ONCE, this, ELProperty.create("${model.version}"), lblVersionValue, BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         GroupLayout layout = new GroupLayout(this);
@@ -149,12 +135,11 @@ public class GpxPanel extends AbstractInnerPanel {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblCreator.getAccessibleContext().setAccessibleName(NbBundle.getMessage(GpxPanel.class, "GpxPanel.jLabel1.AccessibleContext.accessibleName")); // NOI18N
-        lblVersion.getAccessibleContext().setAccessibleName(NbBundle.getMessage(GpxPanel.class, "GpxPanel.jLabel2.AccessibleContext.accessibleName")); // NOI18N
+        lblCreator.getAccessibleContext().setAccessibleName(NbBundle.getMessage(GpxBasicPanel.class, "GpxPanel.jLabel1.AccessibleContext.accessibleName")); // NOI18N
+        lblVersion.getAccessibleContext().setAccessibleName(NbBundle.getMessage(GpxBasicPanel.class, "GpxPanel.jLabel2.AccessibleContext.accessibleName")); // NOI18N
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private JLabel lblCreator;
     private JLabel lblVersion;
@@ -163,8 +148,7 @@ public class GpxPanel extends AbstractInnerPanel {
     private BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    public Object getModel() {
+    public Gpx getModel() {
         return gpx;
     }
 }

@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  */
 public class PanelFactoryTest {
     
-    private PanelFactory classUnderTest;
+    private OverallPanelFactory classUnderTest;
     
     @Before
     public void setUp() {
@@ -30,7 +30,7 @@ public class PanelFactoryTest {
         
         ToolBarDesignEditor designEditor = new ToolBarDesignEditor();
         designEditor.setContentView(sectionView);
-        classUnderTest = new PanelFactory(dataObject, designEditor);
+        classUnderTest = new OverallPanelFactory(dataObject, designEditor);
         
     }
 
@@ -60,7 +60,7 @@ public class PanelFactoryTest {
         
         SectionInnerPanel panel = classUnderTest.createInnerPanel(gpx);
         assertNotNull(panel);
-        assertTrue("panel is not of expected type", panel instanceof GpxPanel);
+        assertTrue("panel is not of expected type", panel instanceof GpxBasicPanel);
         
         verify(gpx);
     }

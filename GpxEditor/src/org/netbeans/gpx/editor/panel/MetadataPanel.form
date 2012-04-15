@@ -19,22 +19,17 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lblKeywords" min="-2" max="-2" attributes="0"/>
                           <Component id="lblTime" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblName" alignment="0" min="-2" pref="103" max="-2" attributes="0"/>
-                          <Component id="lblKeywords" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="txtName" alignment="0" max="32767" attributes="1"/>
-                                  <Component id="txtTime" alignment="0" pref="236" max="32767" attributes="1"/>
-                              </Group>
-                              <EmptySpace pref="166" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="txtKeywords" pref="402" max="32767" attributes="1"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txtKeywords" alignment="0" pref="318" max="32767" attributes="1"/>
+                          <Component id="txtName" alignment="0" max="32767" attributes="1"/>
+                          <Component id="txtTime" alignment="0" max="32767" attributes="1"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -43,15 +38,13 @@
                           <Component id="lblLinks" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="pnlBounds" alignment="1" max="32767" attributes="1"/>
-                          <Component id="scrollLinks" alignment="0" pref="402" max="32767" attributes="1"/>
-                          <Component id="scrollDesc" alignment="0" pref="402" max="32767" attributes="1"/>
-                          <Component id="pnlAuthor" alignment="0" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="scrollDesc" max="32767" attributes="1"/>
+                          <Component id="scrollLinks" alignment="0" pref="413" max="32767" attributes="1"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="133" max="-2" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -60,18 +53,18 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lblTime" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtKeywords" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lblKeywords" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtKeywords" alignment="3" min="-2" pref="28" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -81,13 +74,9 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lblLinks" min="-2" max="-2" attributes="0"/>
-                  <Component id="scrollLinks" min="-2" pref="94" max="-2" attributes="0"/>
+                  <Component id="scrollLinks" min="-2" pref="80" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="pnlAuthor" min="-2" pref="144" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-              <Component id="pnlBounds" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -101,11 +90,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtName">
-      <BindingProperties>
-        <BindingProperty name="text" source="Form" sourcePath="${model.name}" target="txtName" targetPath="text" updateStrategy="0" immediately="false">
-          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_ACTION_OR_FOCUS_LOST"/>
-        </BindingProperty>
-      </BindingProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblDesc">
       <Properties>
@@ -126,11 +110,6 @@
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
-          <BindingProperties>
-            <BindingProperty name="text" source="Form" sourcePath="${model.desc}" target="txtAreaDesc" targetPath="text" updateStrategy="0" immediately="false">
-              <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_ACTION_OR_FOCUS_LOST"/>
-            </BindingProperty>
-          </BindingProperties>
         </Component>
       </SubComponents>
     </Container>
@@ -142,14 +121,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtTime">
-      <BindingProperties>
-        <BindingProperty name="text" source="Form" sourcePath="${model.time}" target="txtTime" targetPath="text" updateStrategy="0" immediately="false">
-          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_ACTION_OR_FOCUS_LOST"/>
-          <Property name="converter" type="org.jdesktop.beansbinding.Converter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-            <Connection code="new org.netbeans.gpx.binding.converter.XMLGregorianCalendarConverter()" type="code"/>
-          </Property>
-        </BindingProperty>
-      </BindingProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblKeywords">
       <Properties>
@@ -159,14 +130,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtKeywords">
-      <BindingProperties>
-        <BindingProperty name="text" source="Form" sourcePath="${model.keywords}" target="txtKeywords" targetPath="text" updateStrategy="0" immediately="false">
-          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_ACTION_OR_FOCUS_LOST"/>
-        </BindingProperty>
-      </BindingProperties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtKeywordsActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblLinks">
       <Properties>
@@ -190,237 +153,6 @@
               </StringArray>
             </Property>
           </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
-    <Container class="javax.swing.JPanel" name="pnlBounds">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Bounds">
-              <ResourceString PropertyName="titleX" bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="MetadataPanel.pnlBounds.border.title" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-            </TitledBorder>
-          </Border>
-        </Property>
-        <Property name="opaque" type="boolean" value="false"/>
-      </Properties>
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblMin" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblMax" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtMinLat" alignment="0" pref="118" max="32767" attributes="1"/>
-                      <Component id="txtMaxLat" alignment="0" pref="118" max="32767" attributes="0"/>
-                      <Component id="lblLat" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="txtMinLon" alignment="0" pref="123" max="32767" attributes="0"/>
-                      <Component id="lblLon" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMaxLon" pref="123" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblLat" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
-                      <Component id="lblLon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblMin" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMinLat" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMinLon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblMax" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMaxLat" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtMaxLon" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblLat">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="MetadataPanel.lblLat.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblLon">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="MetadataPanel.lblLon.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblMin">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="MetadataPanel.lblMin.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblMax">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="MetadataPanel.lblMax.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtMinLat">
-          <BindingProperties>
-            <BindingProperty name="text" source="Form" sourcePath="${model.bounds.minLat}" target="txtMinLat" targetPath="text" updateStrategy="0" immediately="false">
-              <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-            </BindingProperty>
-          </BindingProperties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtMaxLat">
-          <BindingProperties>
-            <BindingProperty name="text" source="Form" sourcePath="${model.maxLat}" target="txtMaxLat" targetPath="text" updateStrategy="0" immediately="false">
-              <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_ACTION_OR_FOCUS_LOST"/>
-            </BindingProperty>
-          </BindingProperties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMaxLatActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtMinLon">
-          <BindingProperties>
-            <BindingProperty name="text" source="Form" sourcePath="${model.minLon}" target="txtMinLon" targetPath="text" updateStrategy="0" immediately="false">
-              <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-            </BindingProperty>
-          </BindingProperties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMinLonActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtMaxLon">
-          <BindingProperties>
-            <BindingProperty name="text" source="Form" sourcePath="${model.maxLon}" target="txtMaxLon" targetPath="text" updateStrategy="0" immediately="false">
-              <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_ACTION_OR_FOCUS_LOST"/>
-            </BindingProperty>
-          </BindingProperties>
-        </Component>
-      </SubComponents>
-    </Container>
-    <Container class="javax.swing.JPanel" name="pnlAuthor">
-      <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Author">
-              <ResourceString PropertyName="titleX" bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="MetadataPanel.pnlAuthor.border.title" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-            </TitledBorder>
-          </Border>
-        </Property>
-        <Property name="opaque" type="boolean" value="false"/>
-      </Properties>
-
-      <Layout>
-        <DimensionLayout dim="0">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblAuthorName" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblAuthorEmail" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblAuthorLink" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="txtAuthorLink" max="32767" attributes="1"/>
-                      <Component id="txtAuthorEmail" max="32767" attributes="1"/>
-                      <Component id="txtAuthorName" alignment="0" pref="180" max="32767" attributes="1"/>
-                  </Group>
-                  <EmptySpace pref="131" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-        <DimensionLayout dim="1">
-          <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblAuthorName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtAuthorName" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="lblAuthorEmail" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtAuthorEmail" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="lblAuthorLink" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtAuthorLink" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="16" max="32767" attributes="0"/>
-              </Group>
-          </Group>
-        </DimensionLayout>
-      </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="lblAuthorName">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="MetadataPanel.lblAuthorName.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtAuthorName">
-          <BindingProperties>
-            <BindingProperty name="text" source="Form" sourcePath="${model.author.name}" target="txtAuthorName" targetPath="text" updateStrategy="0" immediately="false">
-              <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_ACTION_OR_FOCUS_LOST"/>
-            </BindingProperty>
-          </BindingProperties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblAuthorEmail">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="MetadataPanel.lblAuthorEmail.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtAuthorEmail">
-          <BindingProperties>
-            <BindingProperty name="text" source="Form" sourcePath="${model.author.email}" target="txtAuthorEmail" targetPath="text" updateStrategy="0" immediately="false">
-              <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_ACTION_OR_FOCUS_LOST"/>
-              <Property name="converter" type="org.jdesktop.beansbinding.Converter" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                <Connection code="new org.netbeans.gpx.binding.converter.EmailConverter()" type="code"/>
-              </Property>
-            </BindingProperty>
-          </BindingProperties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblAuthorLink">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="MetadataPanel.lblAuthorLink.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtAuthorLink">
-          <Properties>
-            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="MetadataPanel.txtAuthorLink.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAuthorLinkActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

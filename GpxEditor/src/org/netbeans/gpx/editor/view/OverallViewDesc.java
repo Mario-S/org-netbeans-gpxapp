@@ -10,25 +10,25 @@ import java.awt.Image;
 import org.netbeans.modules.xml.multiview.DesignMultiViewDesc;
 import org.netbeans.core.spi.multiview.MultiViewElement;
 import org.netbeans.gpx.editor.GpxDataObject;
-import org.netbeans.gpx.editor.GpxToolBarElement;
+import org.netbeans.gpx.editor.panel.OverallToolBarElement;
 import org.openide.util.ImageUtilities;
 
 /**
  *
  * @author msc
  */
-public class GeneralViewDesc extends DesignMultiViewDesc{
+public class OverallViewDesc extends DesignMultiViewDesc{
     
     private static final String NAME = "General";
 
-    public GeneralViewDesc(GpxDataObject dObj) {
+    public OverallViewDesc(GpxDataObject dObj) {
         super(dObj, NAME);
     }
 
     @Override
     public MultiViewElement createElement() {
         GpxDataObject dObj = (GpxDataObject) getDataObject();
-        return new GpxToolBarElement(dObj);
+        return new OverallToolBarElement(dObj);
     }
 
     @Override

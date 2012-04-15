@@ -1,5 +1,6 @@
 package org.netbeans.gpx.binding.converter;
 
+import org.netbeans.gpx.editor.binding.converter.EmailConverter;
 import com.topografix.gpx.model.Email;
 import org.junit.Test;
 import static org.junit.Assert.*;

@@ -1,11 +1,11 @@
-package org.netbeans.gpx.binding.converter;
+package org.netbeans.gpx.editor.binding.converter;
 
 import javax.xml.bind.DatatypeConverter;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.jdesktop.beansbinding.Converter;
-import org.openide.util.Exceptions;
+
 
 /**
  *
@@ -15,18 +15,26 @@ public class XMLGregorianCalendarConverter extends Converter<XMLGregorianCalenda
 
     @Override
     public String convertForward(XMLGregorianCalendar cal) {
-        return cal.toString();
+
+        String str = "";
+        if (cal != null) {
+            str = cal.toString();
+        }
+        return str;
     }
 
     @Override
     public XMLGregorianCalendar convertReverse(String value) {
 
         XMLGregorianCalendar cal = null;
-        try {
-            DatatypeFactory factory = DatatypeFactory.newInstance();
-            cal = factory.newXMLGregorianCalendar(value);
-        } catch (DatatypeConfigurationException ex) {
-            Exceptions.printStackTrace(ex);
+        if (value != null) {
+            try {
+                DatatypeFactory factory = DatatypeFactory.newInstance();
+                cal = factory.newXMLGregorianCalendar(value);
+            } catch (DatatypeConfigurationException ex) {
+                //TODO Log the exception
+                
+            }
         }
         return cal;
     }

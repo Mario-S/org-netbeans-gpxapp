@@ -44,11 +44,11 @@ import javax.xml.bind.annotation.XmlType;
     "email",
     "link"
 })
-public class Person {
+public class Person{
 
     protected String name;
     protected Email email;
-    protected Link link;
+    protected Link link;      
 
     /**
      * Gets the value of the name property.
@@ -121,5 +121,5 @@ public class Person {
     public void setLink(Link value) {
         this.link = value;
     }
-
+    
 }
