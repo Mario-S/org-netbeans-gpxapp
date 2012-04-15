@@ -1,4 +1,4 @@
-package org.netbeans.gpx.binding.converter;
+package org.netbeans.gpx.editor.binding.converter;
 
 import com.topografix.gpx.model.Email;
 import org.jdesktop.beansbinding.Converter;

@@ -56,7 +56,7 @@
     <Component class="javax.swing.JLabel" name="lblCreator">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="GpxPanel.lblCreator.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="GpxBasicPanel.lblCreator.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <AccessibilityProperties>
@@ -68,7 +68,7 @@
     <Component class="javax.swing.JLabel" name="lblVersion">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="GpxPanel.lblVersion.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="GpxBasicPanel.lblVersion.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <AccessibilityProperties>
@@ -78,11 +78,6 @@
       </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtCreator">
-      <BindingProperties>
-        <BindingProperty name="text" source="Form" sourcePath="${model.creator}" target="txtCreator" targetPath="text" updateStrategy="0" immediately="false">
-          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
-        </BindingProperty>
-      </BindingProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblVersionValue">
       <BindingProperties>

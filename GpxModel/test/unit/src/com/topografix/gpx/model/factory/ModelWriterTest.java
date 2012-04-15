@@ -7,6 +7,7 @@
 package com.topografix.gpx.model.factory;
 
 import com.topografix.gpx.model.Gpx;
+import com.topografix.gpx.model.Metadata;
 import com.topografix.gpx.model.Track;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -32,6 +33,8 @@ public class ModelWriterTest {
 
         Gpx model = new Gpx();
         model.setCreator(creator);
+        Metadata metadata = new Metadata();
+        model.setMetadata(metadata);
 
         Track track = new Track();
         track.setName(trackName);

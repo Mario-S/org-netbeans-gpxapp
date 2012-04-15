@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "emailType")
-public class Email {
+public class Email{
 
     @XmlAttribute(name = "id", required = true)
     protected String id;

@@ -5,3 +5,4 @@
 \.conflict\~$
 \private$
 \.*~
+\.DS_Store

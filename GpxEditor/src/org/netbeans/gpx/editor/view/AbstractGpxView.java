@@ -24,15 +24,6 @@ public abstract class AbstractGpxView extends SectionView {
         root = new Children.Array();
         setRoot(new AbstractNode(root));
     }
-
-    protected class GpxSchemaNode extends AbstractNode {
-
-        public GpxSchemaNode(String name) {
-            super(Children.LEAF);
-            setDisplayName(name);
-        }
-
-    }
     
     public void open(GpxDataObject gpxDataObject){
         

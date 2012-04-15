@@ -1,6 +1,6 @@
 package org.netbeans.gpx.editor;
 
-import org.netbeans.gpx.editor.view.GeneralViewDesc;
+import org.netbeans.gpx.editor.view.OverallViewDesc;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -38,9 +38,10 @@ import org.openide.loaders.MultiFileLoader;
 public class GpxDataObject extends XmlMultiViewDataObject {
 
     private final ModelSynchronizer modelSynchronizer;
+    private boolean changedFromUI;
     private Gpx gpx;
 
-    public GpxDataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException{
+    public GpxDataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException {
         super(pf, loader);
         modelSynchronizer = new ModelSynchronizer(this);
 
@@ -48,7 +49,7 @@ public class GpxDataObject extends XmlMultiViewDataObject {
         InputSource is = DataObjectAdapters.inputSource(this);
         cookies.add((Node.Cookie) new CheckXMLSupport(is));
         cookies.add((Node.Cookie) new ValidateXMLSupport(is));
-        
+
 //        cookies.add((Node.Cookie) DataEditorSupport.create(this, getPrimaryEntry(), cookies));
 
     }
@@ -65,7 +66,7 @@ public class GpxDataObject extends XmlMultiViewDataObject {
 
     @Override
     protected DesignMultiViewDesc[] getMultiViewDesc() {
-        return new DesignMultiViewDesc[]{new GeneralViewDesc(this)};
+        return new DesignMultiViewDesc[]{new OverallViewDesc(this)};
     }
 
     private void parseDocument() throws IOException {
@@ -165,5 +166,13 @@ public class GpxDataObject extends XmlMultiViewDataObject {
                 Logger.getLogger(getClass().getName()).log(Level.WARNING, null, ex);
             }
         }
+    }
+
+    public boolean isChangedFromUI() {
+        return changedFromUI;
+    }
+
+    public void setChangedFromUI(boolean changedFromUI) {
+        this.changedFromUI = changedFromUI;
     }
 }

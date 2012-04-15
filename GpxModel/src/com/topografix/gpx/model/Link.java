@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
     "text",
     "type"
 })
-public class Link {
+public class Link{
 
     protected String text;
     protected String type;
@@ -124,5 +124,5 @@ public class Link {
     public void setHref(String value) {
         this.href = value;
     }
-
+    
 }
