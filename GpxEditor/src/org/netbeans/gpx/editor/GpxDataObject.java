@@ -31,6 +31,7 @@ import org.xml.sax.InputSource;
 import com.topografix.gpx.model.Gpx;
 import com.topografix.gpx.model.factory.ModelBuilder;
 import com.topografix.gpx.model.factory.ModelWriter;
+import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.openide.loaders.MultiFileLoader;
@@ -140,7 +141,7 @@ public class GpxDataObject extends XmlMultiViewDataObject {
         protected void updateDataFromModel(Object model, FileLock lock, boolean modify) {
             if (model != null) {
                 try {
-                    Writer out = new StringWriter();
+                    OutputStream out = getDataCache().createOutputStream(lock, modify);
                     ModelWriter writer = new ModelWriter((Gpx) model);
                     writer.write(out);
                     getDataCache().setData(lock, out.toString(), modify);

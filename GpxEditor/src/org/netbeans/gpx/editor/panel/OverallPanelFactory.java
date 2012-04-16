@@ -6,9 +6,8 @@
  */
 package org.netbeans.gpx.editor.panel;
 
-import com.topografix.gpx.model.Gpx;
+import com.topografix.gpx.model.GpxModel.SchemaType;
 import com.topografix.gpx.model.Metadata;
-import com.topografix.gpx.model.SchemaType;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.modules.xml.multiview.ui.InnerPanelFactory;
 import org.netbeans.modules.xml.multiview.ui.SectionInnerPanel;

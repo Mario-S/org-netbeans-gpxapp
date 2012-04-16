@@ -7,16 +7,18 @@
 package com.topografix.gpx.model.factory;
 
 import com.topografix.gpx.model.Gpx;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.io.PrintStream;
 import java.io.Writer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 
 /**
  *
@@ -25,7 +27,6 @@ import javax.xml.stream.XMLStreamWriter;
 public class ModelWriter {
 
     private Gpx model;
-
     private Marshaller marshaller;
 
     public ModelWriter(Gpx model) throws JAXBException {
@@ -44,4 +45,8 @@ public class ModelWriter {
         marshaller.marshal(model, writer);
     }
 
+    public void write(OutputStream stream) throws JAXBException {
+
+        marshaller.marshal(model, stream);
+    }
 }
