@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "emailType")
-public class Email{
+public class Email implements GpxModel{
 
     @XmlAttribute(name = "id", required = true)
     protected String id;
@@ -95,5 +95,12 @@ public class Email{
         StringBuilder builder = new StringBuilder();
         builder.append(id).append("@").append(domain);
         return builder.toString();
+    }
+
+    @Override
+    public boolean hasContent() {
+        
+        return((id != null && !id.trim().isEmpty()) ||
+                (domain != null && !domain.trim().isEmpty()));
     }
 }
