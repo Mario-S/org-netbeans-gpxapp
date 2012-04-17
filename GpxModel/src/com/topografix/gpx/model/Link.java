@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlType;
     "text",
     "type"
 })
-public class Link{
+public class Link implements GpxModel{
 
     protected String text;
     protected String type;
@@ -123,6 +123,13 @@ public class Link{
      */
     public void setHref(String value) {
         this.href = value;
+    }
+
+    @Override
+    public boolean hasContent() {
+         return ((text != null && !text.isEmpty()) ||
+                 (href != null && !href.isEmpty()) ||
+                 (type != null && !type.isEmpty()));
     }
     
 }
