@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlType;
     "email",
     "link"
 })
-public class Person{
+public class Person implements GpxModel{
 
     protected String name;
     protected Email email;
@@ -120,6 +120,13 @@ public class Person{
      */
     public void setLink(Link value) {
         this.link = value;
+    }
+
+    @Override
+    public boolean hasContent() {
+        return ((name != null && !name.isEmpty()) 
+                || email != null && email.hasContent() ||
+                (link != null && link.hasContent()));
     }
     
 }
