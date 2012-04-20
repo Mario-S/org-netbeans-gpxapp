@@ -164,7 +164,6 @@ public class GpxDataObject extends XmlMultiViewDataObject {
             try {
                 parseDocument();
             } catch (IOException ex) {
-                Logger.getLogger(getClass().getName()).log(Level.WARNING, null, ex);
             }
         }
     }
