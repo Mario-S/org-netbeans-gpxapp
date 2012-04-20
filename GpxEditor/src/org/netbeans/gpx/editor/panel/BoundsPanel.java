@@ -25,36 +25,34 @@ import org.netbeans.modules.xml.multiview.ui.SectionView;
 public class BoundsPanel extends AbstractMetadataPanel {
 
     private Bounds bounds;
-    
     private BigDecimalConverter converter;
-    
 
     /** Creates new form BoundsPanel */
     public BoundsPanel(SectionView view, GpxDataObject gpxDataObject) {
         super(view, gpxDataObject);
-        
+
         converter = new BigDecimalConverter();
 
         Metadata metaData = getGpx().getMetadata();
         if (metaData != null) {
             this.bounds = metaData.getBounds();
         }
-        
+
         initComponents();
         setValues();
         addModifiers();
     }
 
     private void setValues() {
-        
-        if(bounds != null){
+
+        if (bounds != null) {
             txtMinLat.setText(converter.convertForward(bounds.getMinlat()));
             txtMinLon.setText(converter.convertForward(bounds.getMinlon()));
             txtMaxLat.setText(converter.convertForward(bounds.getMaxlat()));
             txtMaxLon.setText(converter.convertForward(bounds.getMaxlon()));
         }
     }
-    
+
     private void addModifiers() {
         addModifier(txtMinLat);
         addModifier(txtMinLon);
@@ -142,19 +140,19 @@ public class BoundsPanel extends AbstractMetadataPanel {
 
     @Override
     public void setValue(JComponent source, Object value) {
-        
-        if(bounds == null){
+
+        if (bounds == null) {
             bounds = new Bounds();
         }
-        
-        BigDecimal newValue = converter.convertReverse((String)value);
-        if(source == txtMaxLat){
+
+        BigDecimal newValue = converter.convertReverse((String) value);
+        if (source == txtMaxLat) {
             bounds.setMaxlat(newValue);
-        }else if(source == txtMaxLon){
+        } else if (source == txtMaxLon) {
             bounds.setMaxlat(newValue);
-        }else if(source == txtMinLat){
+        } else if (source == txtMinLat) {
             bounds.setMinlat(newValue);
-        }else if(source == txtMinLon){
+        } else if (source == txtMinLon) {
             bounds.setMinlon(newValue);
         }
     }
@@ -162,10 +160,11 @@ public class BoundsPanel extends AbstractMetadataPanel {
     @Override
     protected void merge() {
         Metadata metadata = checkMetadata();
-        metadata.setBounds(bounds);
+        if (bounds.hasContent()) {
+            metadata.setBounds(bounds);
+        }
         super.merge();
     }
-    
 
     @Override
     public void linkButtonPressed(Object ddBean, String ddProperty) {
@@ -176,6 +175,4 @@ public class BoundsPanel extends AbstractMetadataPanel {
     public JComponent getErrorComponent(String errorId) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
 }
