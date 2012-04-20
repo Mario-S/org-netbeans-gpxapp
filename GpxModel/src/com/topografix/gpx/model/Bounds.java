@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2012.03.08 at 11:55:13 AM CET 
 //
-
-
 package com.topografix.gpx.model;
 
 import java.math.BigDecimal;
@@ -13,7 +11,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
-
 
 /**
  * 
@@ -41,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "boundsType")
-public class Bounds {
+public class Bounds implements GpxModel {
 
     @XmlAttribute(name = "minlat", required = true)
     protected BigDecimal minlat;
@@ -148,4 +145,11 @@ public class Bounds {
         this.maxlon = value;
     }
 
+    @Override
+    public boolean hasContent() {
+        return ((minlat != null && !minlat.toString().isEmpty()) 
+                || (minlon != null && !minlon.toString().isEmpty())
+                || (maxlat != null && !maxlat.toString().isEmpty())
+                || (maxlon != null && !maxlon.toString().isEmpty()));
+    }
 }
