@@ -51,17 +51,15 @@ public class OverallView extends AbstractGpxView {
         root.add(new Node[] {gpxNode, metadataNode});
         
         //add panels
-        SectionPanel gpxPanel = new SectionPanel(this, gpxNode, SchemaType.GPX);
+        SectionPanel gpxPanel = new SectionPanel(this, gpxNode, SchemaType.GPX, true);
         addSection(gpxPanel, true);
         
         SectionContainer metadataContainer = new SectionContainer(this,metadataNode,"Metadata");
-        metadataContainer.addSection(new SectionPanel(this, metadataNodes[0], SchemaType.METADATA), true);
+        metadataContainer.addSection(new SectionPanel(this, metadataNodes[0], SchemaType.METADATA));
         metadataContainer.addSection(new SectionPanel(this, metadataNodes[1], SchemaType.PERSON));
         metadataContainer.addSection(new SectionPanel(this, metadataNodes[2], SchemaType.BOUNDS));
         addSection(metadataContainer);
 
-        //sets the focus
-        gpxPanel.setActive(true);
     }
     
 }
