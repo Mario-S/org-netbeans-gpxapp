@@ -8,13 +8,6 @@ and open the template in the editor.
     <file>
         <ext name="gpx"/>
         <ext name="GPX"/>
-        <resolver mime="text/gpx+xml">
-            <xml-rule>
-                <element name="gpx" 
-                  ns="http://www.topografix.com/GPX/1/1">
-                    <attr name="version" text="1.1"/>
-                </element>
-            </xml-rule>
-        </resolver>
+        <resolver mime="text/gpx+xml"/>
     </file>
 </MIME-resolver>
