@@ -25,6 +25,7 @@ public class ModelWriter {
         this.model = model;
         marshaller = createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+        marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
     }
 
     private Marshaller createMarshaller() throws JAXBException {

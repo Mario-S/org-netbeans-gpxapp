@@ -11,6 +11,8 @@ import com.topografix.gpx.model.Metadata;
 import com.topografix.gpx.model.Track;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,9 +26,13 @@ public class ModelWriterTest {
 
     private ModelWriter classUnderTest;
     
+    private Logger logger;
+    
 
     @Before
     public void setUp() throws JAXBException {
+        
+        logger = Logger.getLogger(getClass().getName());
         
         String creator = "TEST";
         String trackName = "a track";
@@ -48,9 +54,13 @@ public class ModelWriterTest {
         OutputStream stream = new ByteArrayOutputStream();
         classUnderTest.write(stream);
         String str = stream.toString();
+        
+        logger.log(Level.INFO, str);
+        
         assertNotNull(str);
         assertFalse(str.isEmpty());
         assertTrue(str.contains("\n"));
+        assertTrue(str.contains("http://www.topografix.com/GPX/1/1/gpx.xsd"));
     }
 
 }
