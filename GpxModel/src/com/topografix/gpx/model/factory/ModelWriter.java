@@ -8,7 +8,6 @@ package com.topografix.gpx.model.factory;
 
 import com.topografix.gpx.model.Gpx;
 import java.io.OutputStream;
-import java.io.Writer;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
