@@ -11,8 +11,6 @@ import com.topografix.gpx.model.Metadata;
 import com.topografix.gpx.model.Track;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
-import java.io.StringWriter;
-import java.io.Writer;
 import javax.xml.bind.JAXBException;
 import org.junit.Before;
 import org.junit.Test;
