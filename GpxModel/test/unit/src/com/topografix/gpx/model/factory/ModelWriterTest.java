@@ -9,6 +9,8 @@ package com.topografix.gpx.model.factory;
 import com.topografix.gpx.model.Gpx;
 import com.topografix.gpx.model.Metadata;
 import com.topografix.gpx.model.Track;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import javax.xml.bind.JAXBException;
@@ -44,10 +46,10 @@ public class ModelWriterTest {
     }
 
     @Test
-    public void testWithWriter() throws JAXBException {
-        Writer writer = new StringWriter();
-        classUnderTest.write(writer);
-        String str = writer.toString();
+    public void testWrite() throws JAXBException {
+        OutputStream stream = new ByteArrayOutputStream();
+        classUnderTest.write(stream);
+        String str = stream.toString();
         assertNotNull(str);
         assertFalse(str.isEmpty());
         assertTrue(str.contains("\n"));

@@ -33,11 +33,6 @@ public class ModelWriter {
         return context.createMarshaller();
     }
 
-    public void write(Writer writer) throws JAXBException {
-
-        marshaller.marshal(model, writer);
-    }
-
     public void write(OutputStream stream) throws JAXBException {
 
         marshaller.marshal(model, stream);
