@@ -21,16 +21,16 @@ import org.netbeans.modules.xml.multiview.ui.ToolBarDesignEditor;
 public class OverallToolBarElement extends ToolBarMultiViewElement {
 
     private GpxDataObject gpxDataObject;
-    private ToolBarDesignEditor designEditor;
+    private ToolBarDesignEditor toolbarEditor;
     private AbstractGpxView view;
     private OverallPanelFactory factory;
 
     public OverallToolBarElement(GpxDataObject gpxDataObject) {
         super(gpxDataObject);
         this.gpxDataObject = gpxDataObject;
-        designEditor = new ToolBarDesignEditor();
-        factory = new OverallPanelFactory(gpxDataObject, designEditor);
-        setVisualEditor(designEditor);
+        toolbarEditor = new ToolBarDesignEditor();
+        factory = new OverallPanelFactory(gpxDataObject, toolbarEditor);
+        setVisualEditor(toolbarEditor);
     }
 
     @Override
@@ -45,9 +45,8 @@ public class OverallToolBarElement extends ToolBarMultiViewElement {
         gpxDataObject.updateModel();
 
         view = new OverallView(factory);
+        toolbarEditor.setContentView(view);
 
-        designEditor.setContentView(view);
-
-        view.open(gpxDataObject);
+        view.open(gpxDataObject, toolbarEditor.getLastActive());
     }
 }
