@@ -20,7 +20,7 @@ import org.openide.nodes.Children;
 import org.openide.nodes.Node;
 
 /**
- *
+ * Section view for meta data, creator and version.
  * @author msc
  */
 public class OverallView extends AbstractGpxView {

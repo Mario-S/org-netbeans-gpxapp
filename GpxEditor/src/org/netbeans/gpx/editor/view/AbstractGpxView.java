@@ -12,28 +12,32 @@ import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
 
 /**
- *
+ * Abstract section view for the Gpx model.
  * @author msc
  */
 public abstract class AbstractGpxView extends SectionView {
-
+    
     private Children root;
-
+    
     public AbstractGpxView(InnerPanelFactory factory) {
         super(factory);
         root = new Children.Array();
         setRoot(new AbstractNode(root));
     }
     
-    public void open(GpxDataObject gpxDataObject){
+    public void open(GpxDataObject gpxDataObject, Object lastActive) {
         
         addNodes(root, gpxDataObject);
         
-        openPanel(getPanelKey(gpxDataObject));
+        if (lastActive != null) {
+            openPanel(lastActive);
+        } else {
+            openPanel(getPanelKey(gpxDataObject));
+        }
         checkValidity();
     }
     
     public abstract void addNodes(Children root, GpxDataObject gpxDataObject);
-
+    
     protected abstract Object getPanelKey(GpxDataObject gpxDataObject);
 }
