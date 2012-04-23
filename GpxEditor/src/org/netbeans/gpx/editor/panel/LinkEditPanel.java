@@ -1,4 +1,4 @@
-package org.netbeans.gpx.editor.panel.sub;
+package org.netbeans.gpx.editor.panel;
 
 import com.topografix.gpx.model.Link;
 
@@ -37,12 +37,12 @@ public class LinkEditPanel extends LinkPanel {
         lblType = new javax.swing.JLabel();
         txtType = new javax.swing.JTextField();
 
-        lblText.setText(org.openide.util.NbBundle.getMessage(LinkEditPanel.class, "LinkEditPanel.lblText.text")); // NOI18N
+        lblText.setText(org.openide.util.NbBundle.getMessage(LinkEditPanel.class, "LinkEditPanel.lblText.text_1")); // NOI18N
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${link.text}"), txtText, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
         bindingGroup.addBinding(binding);
 
-        lblHref.setText(org.openide.util.NbBundle.getMessage(LinkEditPanel.class, "LinkEditPanel.lblHref.text")); // NOI18N
+        lblHref.setText(org.openide.util.NbBundle.getMessage(LinkEditPanel.class, "LinkEditPanel.lblHref.text_1")); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${link.href}"), txtHref, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
         bindingGroup.addBinding(binding);
@@ -53,7 +53,7 @@ public class LinkEditPanel extends LinkPanel {
             }
         });
 
-        lblType.setText(org.openide.util.NbBundle.getMessage(LinkEditPanel.class, "LinkEditPanel.lblType.text")); // NOI18N
+        lblType.setText(org.openide.util.NbBundle.getMessage(LinkEditPanel.class, "LinkEditPanel.lblType.text_1")); // NOI18N
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${link.type}"), txtType, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
         bindingGroup.addBinding(binding);

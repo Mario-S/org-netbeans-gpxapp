@@ -1,20 +1,19 @@
-package org.netbeans.gpx.editor.panel.sub;
+package org.netbeans.gpx.editor.panel;
 
 import com.topografix.gpx.model.Link;
+import javax.swing.JPanel;
 
 /**
  *
  * @author msc
  */
-public class LinkPanel extends AbstractSubPanel<Link> {
+public class LinkPanel extends JPanel {
     protected Link link;
     
-    @Override
     public Link getModel() {
         return link;
     }
 
-    @Override
     public void setModel(Link model) {
         this.link = model;
     }
