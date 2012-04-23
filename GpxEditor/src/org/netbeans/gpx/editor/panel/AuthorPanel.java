@@ -62,6 +62,7 @@ public class AuthorPanel extends AbstractMetadataPanel {
         lblAuthorEmail = new javax.swing.JLabel();
         lblAuthorName = new javax.swing.JLabel();
         lblAuthorLink = new javax.swing.JLabel();
+        linkDisplayPanel1 = new org.netbeans.gpx.editor.panel.LinkDisplayPanel();
 
         lblAuthorEmail.setText(org.openide.util.NbBundle.getMessage(AuthorPanel.class, "AuthorPanel.lblAuthorEmail.text")); // NOI18N
 
@@ -76,26 +77,28 @@ public class AuthorPanel extends AbstractMetadataPanel {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(layout.createSequentialGroup()
-                                .add(lblAuthorName)
-                                .add(23, 23, 23))
-                            .add(layout.createSequentialGroup()
-                                .add(lblAuthorEmail)
-                                .add(18, 18, 18)))
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(txtAuthorEmail)
-                            .add(txtAuthorName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 180, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                        .add(layout.createSequentialGroup()
+                            .add(lblAuthorName)
+                            .add(23, 23, 23))
+                        .add(layout.createSequentialGroup()
+                            .add(lblAuthorEmail)
+                            .add(18, 18, 18)))
                     .add(lblAuthorLink))
+                .add(18, 18, 18)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(linkDisplayPanel1, 0, 0, Short.MAX_VALUE)
+                    .add(txtAuthorEmail)
+                    .add(txtAuthorName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
+                .add(10, 10, 10)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(lblAuthorName))
                     .add(layout.createSequentialGroup()
                         .add(10, 10, 10)
@@ -105,7 +108,9 @@ public class AuthorPanel extends AbstractMetadataPanel {
                             .add(txtAuthorEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(lblAuthorEmail))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(lblAuthorLink)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblAuthorLink)
+                    .add(linkDisplayPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -113,6 +118,7 @@ public class AuthorPanel extends AbstractMetadataPanel {
     private javax.swing.JLabel lblAuthorEmail;
     private javax.swing.JLabel lblAuthorLink;
     private javax.swing.JLabel lblAuthorName;
+    private org.netbeans.gpx.editor.panel.LinkDisplayPanel linkDisplayPanel1;
     private javax.swing.JTextField txtAuthorEmail;
     private javax.swing.JTextField txtAuthorName;
     // End of variables declaration//GEN-END:variables

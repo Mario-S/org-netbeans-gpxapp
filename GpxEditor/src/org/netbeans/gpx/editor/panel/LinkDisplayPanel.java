@@ -1,4 +1,4 @@
-package org.netbeans.gpx.editor.panel.sub;
+package org.netbeans.gpx.editor.panel;
 
 import com.topografix.gpx.model.Link;
 
@@ -48,7 +48,7 @@ public class LinkDisplayPanel extends LinkPanel {
         add(lblLinkName);
         add(filler);
 
-        btnEditLink.setText(org.openide.util.NbBundle.getMessage(LinkDisplayPanel.class, "LinkDisplayPanel.btnEditLink.text")); // NOI18N
+        btnEditLink.setText(org.openide.util.NbBundle.getMessage(LinkDisplayPanel.class, "LinkDisplayPanel.btnEditLink.text_1")); // NOI18N
         btnEditLink.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditLinkActionPerformed(evt);

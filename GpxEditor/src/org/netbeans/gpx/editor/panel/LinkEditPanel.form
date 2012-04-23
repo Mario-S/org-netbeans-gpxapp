@@ -60,7 +60,7 @@
     <Component class="javax.swing.JLabel" name="lblText">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/sub/Bundle.properties" key="LinkEditPanel.lblText.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="LinkEditPanel.lblText.text_1" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -74,7 +74,7 @@
     <Component class="javax.swing.JLabel" name="lblHref">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/sub/Bundle.properties" key="LinkEditPanel.lblHref.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="LinkEditPanel.lblHref.text_1" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -91,7 +91,7 @@
     <Component class="javax.swing.JLabel" name="lblType">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/sub/Bundle.properties" key="LinkEditPanel.lblType.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="LinkEditPanel.lblType.text_1" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
