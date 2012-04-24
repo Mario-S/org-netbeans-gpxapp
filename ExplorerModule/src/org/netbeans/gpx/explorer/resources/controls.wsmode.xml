@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mode PUBLIC
+          "-//NetBeans//DTD Mode Properties 2.0//EN"
+          "http://www.netbeans.org/dtds/mode-properties2_0.dtd">
+
+<mode version="2.0">
+    <name unique="controls" />
+    <kind type="view" />
+    <state type="joined" />
+
+<!-- same constraint and bounds as org.netbeans.modules.palette.resources.commonpalette.wsmode -->
+    <constraints>
+        <path orientation="horizontal" number="60" weight="0.7"/>
+        <path orientation="vertical" number="40" weight="0.7"/>
+        <path orientation="horizontal" number="80" weight="0.3"/>
+        <path orientation="vertical" number="40" weight="0.5" />
+    </constraints>
+    <relative-bounds x="75" y="56" width="15" height="32" />
+    <empty-behavior permanent="true" />
+</mode>
