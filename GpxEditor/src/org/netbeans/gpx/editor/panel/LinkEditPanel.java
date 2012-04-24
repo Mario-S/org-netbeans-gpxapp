@@ -1,18 +1,19 @@
 package org.netbeans.gpx.editor.panel;
 
 import com.topografix.gpx.model.Link;
+import javax.swing.JPanel;
 
 /**
  *
  * @author msc
  */
-public class LinkEditPanel extends LinkPanel {
+public class LinkEditPanel extends JPanel {
+
+    private Link link;
 
     public LinkEditPanel() {
         this(null);
     }
-    
-    
 
     /** Creates new form LinkEditorPanel */
     public LinkEditPanel(Link link) {
@@ -39,23 +40,17 @@ public class LinkEditPanel extends LinkPanel {
 
         lblText.setText(org.openide.util.NbBundle.getMessage(LinkEditPanel.class, "LinkEditPanel.lblText.text_1")); // NOI18N
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${link.text}"), txtText, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.text}"), txtText, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
         bindingGroup.addBinding(binding);
 
         lblHref.setText(org.openide.util.NbBundle.getMessage(LinkEditPanel.class, "LinkEditPanel.lblHref.text_1")); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${link.href}"), txtHref, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.href}"), txtHref, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
         bindingGroup.addBinding(binding);
-
-        txtHref.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtHrefActionPerformed(evt);
-            }
-        });
 
         lblType.setText(org.openide.util.NbBundle.getMessage(LinkEditPanel.class, "LinkEditPanel.lblType.text_1")); // NOI18N
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${link.type}"), txtType, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${model.type}"), txtType, org.jdesktop.beansbinding.BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
         bindingGroup.addBinding(binding);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -69,11 +64,11 @@ public class LinkEditPanel extends LinkPanel {
                     .add(lblHref)
                     .add(lblType))
                 .add(24, 24, 24)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(txtType, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE)
-                    .add(txtHref)
-                    .add(txtText))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(txtHref, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                    .add(txtText, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+                    .add(txtType, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -96,10 +91,6 @@ public class LinkEditPanel extends LinkPanel {
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtHrefActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHrefActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtHrefActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel lblHref;
     private javax.swing.JLabel lblText;
@@ -110,4 +101,11 @@ public class LinkEditPanel extends LinkPanel {
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
+    public Link getModel() {
+        return link;
+    }
+
+    public void setModel(Link model) {
+        this.link = model;
+    }
 }

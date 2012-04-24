@@ -1,12 +1,15 @@
 package org.netbeans.gpx.editor.panel;
 
 import com.topografix.gpx.model.Email;
+import com.topografix.gpx.model.Link;
 import com.topografix.gpx.model.Metadata;
 import com.topografix.gpx.model.Person;
 import javax.swing.JComponent;
 import org.netbeans.gpx.editor.binding.converter.EmailConverter;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
+import org.openide.DialogDescriptor;
+import org.openide.DialogDisplayer;
 
 /**
  *
@@ -37,6 +40,12 @@ public class AuthorPanel extends AbstractMetadataPanel {
         addModifier(txtAuthorEmail);
     }
 
+    private void checkPerson() {
+        if (person == null) {
+            person = new Person();
+        }
+    }
+
     private void setValues() {
 
         if (person != null) {
@@ -44,6 +53,11 @@ public class AuthorPanel extends AbstractMetadataPanel {
             Email email = person.getEmail();
             if (email != null) {
                 txtAuthorEmail.setText(emailConverter.convertForward(email));
+            }
+            Link link = person.getLink();
+            if(link != null){
+                lblLinkValue.setText(link.getText());
+                lblLinkValue.setToolTipText(link.getHref());
             }
         }
     }
@@ -62,13 +76,23 @@ public class AuthorPanel extends AbstractMetadataPanel {
         lblAuthorEmail = new javax.swing.JLabel();
         lblAuthorName = new javax.swing.JLabel();
         lblAuthorLink = new javax.swing.JLabel();
-        linkDisplayPanel1 = new org.netbeans.gpx.editor.panel.LinkDisplayPanel();
+        lblLinkValue = new javax.swing.JLabel();
+        btnEditLink = new javax.swing.JButton();
 
         lblAuthorEmail.setText(org.openide.util.NbBundle.getMessage(AuthorPanel.class, "AuthorPanel.lblAuthorEmail.text")); // NOI18N
 
         lblAuthorName.setText(org.openide.util.NbBundle.getMessage(AuthorPanel.class, "AuthorPanel.lblAuthorName.text")); // NOI18N
 
         lblAuthorLink.setText(org.openide.util.NbBundle.getMessage(AuthorPanel.class, "AuthorPanel.lblAuthorLink.text")); // NOI18N
+
+        lblLinkValue.setText(org.openide.util.NbBundle.getMessage(AuthorPanel.class, "AuthorPanel.lblLinkValue.text")); // NOI18N
+
+        btnEditLink.setText(org.openide.util.NbBundle.getMessage(AuthorPanel.class, "AuthorPanel.btnEditLink.text")); // NOI18N
+        btnEditLink.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditLinkActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -77,58 +101,72 @@ public class AuthorPanel extends AbstractMetadataPanel {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(layout.createSequentialGroup()
-                            .add(lblAuthorName)
-                            .add(23, 23, 23))
-                        .add(layout.createSequentialGroup()
-                            .add(lblAuthorEmail)
-                            .add(18, 18, 18)))
+                    .add(lblAuthorName)
+                    .add(lblAuthorEmail)
                     .add(lblAuthorLink))
-                .add(18, 18, 18)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(linkDisplayPanel1, 0, 0, Short.MAX_VALUE)
-                    .add(txtAuthorEmail)
-                    .add(txtAuthorName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(27, 27, 27)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(lblLinkValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                        .add(18, 18, 18)
+                        .add(btnEditLink))
+                    .add(txtAuthorEmail, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                    .add(txtAuthorName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
+                .add(29, 29, 29))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(10, 10, 10)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(lblAuthorName))
-                    .add(layout.createSequentialGroup()
-                        .add(10, 10, 10)
-                        .add(txtAuthorName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(txtAuthorEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(lblAuthorEmail))))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(lblAuthorLink)
-                    .add(linkDisplayPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(24, 24, 24)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblAuthorName)
+                    .add(txtAuthorName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblAuthorEmail)
+                    .add(txtAuthorEmail, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(lblLinkValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(btnEditLink, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(lblAuthorLink, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnEditLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditLinkActionPerformed
+
+        checkPerson();
+
+        Link link = person.getLink();
+        if (link == null) {
+            link = new Link();
+        }
+        
+        LinkEditPanel panel = new LinkEditPanel(link);
+        DialogDescriptor descriptor = new DialogDescriptor(panel, "Link");
+        DialogDisplayer.getDefault().notify(descriptor);
+        
+        if(link.hasContent()){
+            person.setLink(link);
+            setValues();
+        }
+        
+    }//GEN-LAST:event_btnEditLinkActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditLink;
     private javax.swing.JLabel lblAuthorEmail;
     private javax.swing.JLabel lblAuthorLink;
     private javax.swing.JLabel lblAuthorName;
-    private org.netbeans.gpx.editor.panel.LinkDisplayPanel linkDisplayPanel1;
+    private javax.swing.JLabel lblLinkValue;
     private javax.swing.JTextField txtAuthorEmail;
     private javax.swing.JTextField txtAuthorName;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void setValue(JComponent source, Object value) {
-
-        if (person == null) {
-            person = new Person();
-        }
+        checkPerson();
 
         if (source == txtAuthorName) {
             person.setName((String) value);
