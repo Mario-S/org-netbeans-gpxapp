@@ -54,6 +54,28 @@ public class Link implements GpxModel{
     protected String href;
 
     /**
+     * Default constructor
+     */
+    public Link() {
+    }
+
+    public Link(String text, String type, String href) {
+        this.text = text;
+        this.type = type;
+        this.href = href;
+    }
+    
+    /**
+     * copy constructor
+     * @param other 
+     */
+    public Link(Link other){
+        this(other.getText(), other.getType(), other.getHref());
+    }
+    
+    
+
+    /**
      * Gets the value of the text property.
      * 
      * @return

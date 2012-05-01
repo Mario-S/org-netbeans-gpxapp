@@ -10,6 +10,7 @@ import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 
 /**
  *
@@ -55,7 +56,7 @@ public class AuthorPanel extends AbstractMetadataPanel {
                 txtAuthorEmail.setText(emailConverter.convertForward(email));
             }
             Link link = person.getLink();
-            if(link != null){
+            if (link != null) {
                 lblLinkValue.setText(link.getText());
                 lblLinkValue.setToolTipText(link.getHref());
             }
@@ -139,20 +140,21 @@ public class AuthorPanel extends AbstractMetadataPanel {
 
         checkPerson();
 
+        Link copy;
         Link link = person.getLink();
         if (link == null) {
-            link = new Link();
+            copy = new Link();
+        }else{
+            copy = new Link(link);
         }
-        
-        LinkEditPanel panel = new LinkEditPanel(link);
+
+        LinkEditPanel panel = new LinkEditPanel(copy);
         DialogDescriptor descriptor = new DialogDescriptor(panel, "Link");
-        DialogDisplayer.getDefault().notify(descriptor);
-        
-        if(link.hasContent()){
-            person.setLink(link);
+        if (DialogDisplayer.getDefault().notify(descriptor) == NotifyDescriptor.OK_OPTION
+                && link.hasContent()) {
+            person.setLink(copy);
             setValues();
         }
-        
     }//GEN-LAST:event_btnEditLinkActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditLink;

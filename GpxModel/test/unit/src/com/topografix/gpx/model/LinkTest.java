@@ -9,6 +9,13 @@ import static org.junit.Assert.*;
  */
 public class LinkTest {
     
+    @Test
+    public void testCopy(){
+        Link original = new Link("web", "url", "web.de");
+        Link copy = new Link(original);
+        assertTrue(copy.hasContent());
+    }
+    
     /**
      * Test of hasContent method, of class Link.
      */
