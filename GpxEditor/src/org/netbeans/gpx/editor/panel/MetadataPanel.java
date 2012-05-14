@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.JComponent;
-import javax.swing.ListModel;
 import org.netbeans.gpx.editor.binding.converter.XMLGregorianCalendarConverter;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
@@ -118,11 +117,6 @@ public class MetadataPanel extends AbstractMetadataPanel {
 
         btnEditLink.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.btnEditLink.text")); // NOI18N
         btnEditLink.setEnabled(false);
-        btnEditLink.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditLinkActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -188,10 +182,6 @@ public class MetadataPanel extends AbstractMetadataPanel {
                 .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnEditLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditLinkActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEditLinkActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddLink;

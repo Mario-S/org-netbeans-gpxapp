@@ -1,6 +1,7 @@
 package org.netbeans.gpx.editor.panel;
 
 import com.topografix.gpx.model.Gpx;
+import com.topografix.gpx.model.GpxModel.SchemaType;
 import org.junit.Before;
 import org.junit.Test;
 import org.netbeans.gpx.editor.GpxDataObject;
@@ -16,13 +17,15 @@ import static org.junit.Assert.*;
  *
  * @author msc
  */
-public class PanelFactoryTest {
+public class OverallPanelFactoryTest {
+    
+    private GpxDataObject dataObject;
     
     private OverallPanelFactory classUnderTest;
     
     @Before
     public void setUp() {
-        GpxDataObject dataObject = createNiceMock(GpxDataObject.class);
+        dataObject = createNiceMock(GpxDataObject.class);
         AbstractNode root = new AbstractNode(Children.LEAF);
         SectionView sectionView = createNiceMock(SectionView.class);
         expect(sectionView.getRoot()).andReturn(root).atLeastOnce();
@@ -40,7 +43,7 @@ public class PanelFactoryTest {
     @Test
     public void testWithUnknownKey() {
       
-      SectionInnerPanel panel = classUnderTest.createInnerPanel(new Object());  
+      SectionInnerPanel panel = classUnderTest.createInnerPanel(SchemaType.TRACK);  
       assertNull(panel);
       
       panel = classUnderTest.createInnerPanel(null);  
@@ -55,13 +58,17 @@ public class PanelFactoryTest {
         
         Gpx gpx = createMock(Gpx.class);
         expect(gpx.getVersion()).andReturn("1.1").atLeastOnce();
-        expect(gpx.getCreator()).andReturn("Test").atLeastOnce();
+        expect(gpx.getCreator()).andReturn("Test").once();
         replay(gpx);
         
-        SectionInnerPanel panel = classUnderTest.createInnerPanel(gpx);
+        expect(dataObject.getGpx()).andReturn(gpx).once();
+        replay(dataObject);
+        
+        SectionInnerPanel panel = classUnderTest.createInnerPanel(SchemaType.GPX);
         assertNotNull(panel);
         assertTrue("panel is not of expected type", panel instanceof GpxBasicPanel);
         
+        verify(dataObject);
         verify(gpx);
     }
 }
