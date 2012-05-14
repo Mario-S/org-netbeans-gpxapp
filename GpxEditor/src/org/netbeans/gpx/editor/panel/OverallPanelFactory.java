@@ -32,24 +32,26 @@ public class OverallPanelFactory implements InnerPanelFactory {
     @Override
     public SectionInnerPanel createInnerPanel(Object key) {
 
-        SectionInnerPanel panel;
-        SchemaType type = (SchemaType) key;
-        
-        switch (type) {
-            case GPX:
-                panel = new GpxBasicPanel(getSectionView(), gpxDataObject);
-                break;
-            case METADATA:
-                panel = new MetadataPanel(getSectionView(), gpxDataObject);
-                break;
-            case PERSON:
-                panel = new AuthorPanel(getSectionView(), gpxDataObject);
-                break;
-            case BOUNDS:
-                panel = new BoundsPanel(getSectionView(), gpxDataObject);
-                break;
-            default:
-                panel = null;
+        SectionInnerPanel panel = null;
+        if (key instanceof SchemaType) {
+            SchemaType type = (SchemaType) key;
+
+            switch (type) {
+                case GPX:
+                    panel = new GpxBasicPanel(getSectionView(), gpxDataObject);
+                    break;
+                case METADATA:
+                    panel = new MetadataPanel(getSectionView(), gpxDataObject);
+                    break;
+                case PERSON:
+                    panel = new AuthorPanel(getSectionView(), gpxDataObject);
+                    break;
+                case BOUNDS:
+                    panel = new BoundsPanel(getSectionView(), gpxDataObject);
+                    break;
+                default:
+                    panel = null;
+            }
         }
 
         return panel;

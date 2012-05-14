@@ -4,6 +4,8 @@ import com.topografix.gpx.model.Email;
 import com.topografix.gpx.model.Link;
 import com.topografix.gpx.model.Metadata;
 import com.topografix.gpx.model.Person;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.swing.JComponent;
 import org.netbeans.gpx.editor.binding.converter.EmailConverter;
 import org.netbeans.gpx.editor.GpxDataObject;
@@ -16,10 +18,11 @@ import org.openide.NotifyDescriptor;
  *
  * @author msc
  */
-public class AuthorPanel extends AbstractMetadataPanel {
+public class AuthorPanel extends AbstractMetadataPanel implements PropertyChangeListener {
 
     private Person person;
     private EmailConverter emailConverter;
+    private AuthorLinkEditAction linkEditAction;
 
     public AuthorPanel(SectionView sectionView, GpxDataObject gpxDataObject) {
         super(sectionView, gpxDataObject);
@@ -28,39 +31,40 @@ public class AuthorPanel extends AbstractMetadataPanel {
 
         Metadata metadata = getMetadata();
         if (metadata != null) {
-            this.person = metadata.getAuthor();
+            person = metadata.getAuthor();
+        } else {
+            person = new Person();
         }
 
         initComponents();
         setValues();
+        setLinkEditAction();
         addModifiers();
+    }
+
+    private void setValues() {
+
+        txtAuthorName.setText(person.getName());
+        Email email = person.getEmail();
+        if (email != null) {
+            txtAuthorEmail.setText(emailConverter.convertForward(email));
+        }
+        Link link = person.getLink();
+        if (link != null) {
+            lblLinkValue.setText(link.getText());
+            lblLinkValue.setToolTipText(link.getHref());
+        }
+    }
+
+    private void setLinkEditAction() {
+        linkEditAction = new AuthorLinkEditAction();
+        linkEditAction.addPropertyChangeListener(this);
+        btnEditLink.setAction(linkEditAction);
     }
 
     private void addModifiers() {
         addModifier(txtAuthorName);
         addModifier(txtAuthorEmail);
-    }
-
-    private void checkPerson() {
-        if (person == null) {
-            person = new Person();
-        }
-    }
-
-    private void setValues() {
-
-        if (person != null) {
-            txtAuthorName.setText(person.getName());
-            Email email = person.getEmail();
-            if (email != null) {
-                txtAuthorEmail.setText(emailConverter.convertForward(email));
-            }
-            Link link = person.getLink();
-            if (link != null) {
-                lblLinkValue.setText(link.getText());
-                lblLinkValue.setToolTipText(link.getHref());
-            }
-        }
     }
 
     /** This method is called from within the constructor to
@@ -89,11 +93,6 @@ public class AuthorPanel extends AbstractMetadataPanel {
         lblLinkValue.setText(org.openide.util.NbBundle.getMessage(AuthorPanel.class, "AuthorPanel.lblLinkValue.text")); // NOI18N
 
         btnEditLink.setText(org.openide.util.NbBundle.getMessage(AuthorPanel.class, "AuthorPanel.btnEditLink.text")); // NOI18N
-        btnEditLink.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditLinkActionPerformed(evt);
-            }
-        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -129,33 +128,12 @@ public class AuthorPanel extends AbstractMetadataPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(lblLinkValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(btnEditLink, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(lblAuthorLink, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(btnEditLink, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(lblAuthorLink, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnEditLinkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditLinkActionPerformed
-
-        checkPerson();
-
-        Link copy;
-        Link link = person.getLink();
-        if (link == null) {
-            copy = new Link();
-        }else{
-            copy = new Link(link);
-        }
-
-        LinkEditPanel panel = new LinkEditPanel(copy);
-        DialogDescriptor descriptor = new DialogDescriptor(panel, "Link");
-        if (DialogDisplayer.getDefault().notify(descriptor) == NotifyDescriptor.OK_OPTION
-                && link.hasContent()) {
-            person.setLink(copy);
-            setValues();
-        }
-    }//GEN-LAST:event_btnEditLinkActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditLink;
     private javax.swing.JLabel lblAuthorEmail;
@@ -168,7 +146,6 @@ public class AuthorPanel extends AbstractMetadataPanel {
 
     @Override
     public void setValue(JComponent source, Object value) {
-        checkPerson();
 
         if (source == txtAuthorName) {
             person.setName((String) value);
@@ -180,8 +157,13 @@ public class AuthorPanel extends AbstractMetadataPanel {
 
     @Override
     protected void merge() {
+
         Metadata metadata = checkMetadata();
-        metadata.setAuthor(person);
+        if (person.hasContent()) {
+            metadata.setAuthor(person);
+        } else {
+            metadata.setAuthor(null);
+        }
         super.merge();
     }
 
@@ -193,5 +175,31 @@ public class AuthorPanel extends AbstractMetadataPanel {
     @Override
     public JComponent getErrorComponent(String errorId) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent event) {
+
+        Link link = (Link) event.getNewValue();
+        if (link.hasContent()) {
+            person.setLink(link);
+            setValues();
+        }
+    }
+
+    /**
+     * specialized action for author's link
+     */
+    private class AuthorLinkEditAction extends LinkEditAction {
+
+        public AuthorLinkEditAction() {
+
+            Link link = person.getLink();
+            if (link != null) {
+                setLink(link);
+            } else {
+                setLink(new Link());
+            }
+        }
     }
 }
