@@ -4,8 +4,6 @@
 // Any modifications to this file will be lost upon recompilation of the source schema. 
 // Generated on: 2012.03.08 at 11:55:13 AM CET 
 //
-
-
 package com.topografix.gpx.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -13,7 +11,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * 
@@ -45,7 +44,7 @@ import javax.xml.bind.annotation.XmlType;
     "text",
     "type"
 })
-public class Link implements GpxModel{
+public class Link implements GpxModel {
 
     protected String text;
     protected String type;
@@ -64,16 +63,14 @@ public class Link implements GpxModel{
         this.type = type;
         this.href = href;
     }
-    
+
     /**
      * copy constructor
      * @param other 
      */
-    public Link(Link other){
+    public Link(Link other) {
         this(other.getText(), other.getType(), other.getHref());
     }
-    
-    
 
     /**
      * Gets the value of the text property.
@@ -148,10 +145,33 @@ public class Link implements GpxModel{
     }
 
     @Override
-    public boolean hasContent() {
-         return ((text != null && !text.isEmpty()) ||
-                 (href != null && !href.isEmpty()) ||
-                 (type != null && !type.isEmpty()));
+    public boolean equals(Object o) {
+        boolean equal = false;
+
+        if (this == o) {
+            equal = true;
+        } else if (o instanceof Link) {
+            Link other = (Link) o;
+            EqualsBuilder builder = new EqualsBuilder();
+            builder.append(text, other.getText()).append(href, other.getHref()).
+                    append(type, other.getType());
+            equal = builder.isEquals();
+        }
+
+        return equal;
     }
-    
+
+    @Override
+    public int hashCode() {
+        
+        HashCodeBuilder builder = new HashCodeBuilder();
+        return builder.append(text).append(href).append(type).hashCode();
+    }
+
+    @Override
+    public boolean hasContent() {
+        return ((text != null && !text.isEmpty())
+                || (href != null && !href.isEmpty())
+                || (type != null && !type.isEmpty()));
+    }
 }
