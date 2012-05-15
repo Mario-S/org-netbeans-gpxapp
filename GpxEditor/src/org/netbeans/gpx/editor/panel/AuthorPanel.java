@@ -10,9 +10,6 @@ import javax.swing.JComponent;
 import org.netbeans.gpx.editor.binding.converter.EmailConverter;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
-import org.openide.DialogDescriptor;
-import org.openide.DialogDisplayer;
-import org.openide.NotifyDescriptor;
 
 /**
  *
@@ -129,7 +126,8 @@ public class AuthorPanel extends AbstractMetadataPanel implements PropertyChange
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(lblLinkValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(btnEditLink, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(lblAuthorLink, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(lblAuthorLink, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .add(20, 20, 20))
         );
     }// </editor-fold>//GEN-END:initComponents
