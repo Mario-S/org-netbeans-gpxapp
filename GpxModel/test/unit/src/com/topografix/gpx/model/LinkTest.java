@@ -44,18 +44,16 @@ public class LinkTest {
     public void testEquals(){
         
         assertFalse(instance.equals(null));
+        assertFalse(instance.hashCode() == 0);
         assertTrue(instance.equals(instance));
         
         Link other = new Link();
         assertTrue(instance.equals(other));
+        assertTrue(instance.hashCode() == other.hashCode());
         
         other.setText("TEST");
         assertFalse(instance.equals(other));
+        assertFalse(instance.hashCode() == other.hashCode());
     }
-    
-    @Test
-    public void testHashCode(){
-        
-        assertFalse(instance.hashCode() == 0);
-    }
+
 }
