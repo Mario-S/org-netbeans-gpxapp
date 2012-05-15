@@ -27,12 +27,13 @@ public class LinkEditAction extends AbstractAction {
     @Override
     public void actionPerformed(ActionEvent event) {
 
+        Link oldValue = new Link(link);
         LinkEditPanel panel = new LinkEditPanel(link);
 
         DialogDescriptor descriptor = new DialogDescriptor(panel, "Link");
         if (DialogDisplayer.getDefault().notify(descriptor)
                 == NotifyDescriptor.OK_OPTION) {
-            firePropertyChange(LINK_PROP, null, link);
+            firePropertyChange(LINK_PROP, oldValue, link);
         }
     }
 }
