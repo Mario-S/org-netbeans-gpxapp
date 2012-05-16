@@ -6,6 +6,7 @@ import javax.swing.AbstractAction;
 import org.openide.DialogDescriptor;
 import org.openide.DialogDisplayer;
 import org.openide.NotifyDescriptor;
+import org.openide.util.NbBundle;
 
 /**
  * Action which displays the link edit dialog.
@@ -14,7 +15,12 @@ import org.openide.NotifyDescriptor;
 public class LinkEditAction extends AbstractAction {
 
     public static final String LINK_PROP = "link";
+
     private Link link;
+
+    public LinkEditAction() {
+        putValue(NAME, NbBundle.getMessage(getClass(), "CTL.EditLink"));
+    }
 
     public Link getLink() {
         return link;
@@ -32,8 +38,9 @@ public class LinkEditAction extends AbstractAction {
 
         DialogDescriptor descriptor = new DialogDescriptor(panel, "Link");
         if (DialogDisplayer.getDefault().notify(descriptor)
-                == NotifyDescriptor.OK_OPTION) {
+            == NotifyDescriptor.OK_OPTION) {
             firePropertyChange(LINK_PROP, oldValue, link);
         }
     }
+
 }
