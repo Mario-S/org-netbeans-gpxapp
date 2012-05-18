@@ -15,7 +15,11 @@ import com.topografix.gpx.model.Metadata;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListSelectionModel;
 import javax.swing.JComponent;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import org.netbeans.gpx.editor.binding.converter.XMLGregorianCalendarConverter;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
@@ -24,11 +28,13 @@ import org.netbeans.modules.xml.multiview.ui.SectionView;
  *
  * @author msc
  */
-public class MetadataPanel extends AbstractMetadataPanel {
+public class MetadataPanel extends AbstractMetadataPanel implements
+        ListSelectionListener {
 
     private XMLGregorianCalendarConverter calendarConverter;
-    
+    private ListSelectionModel listSelectionModel;
     private LinksListModel listModel;
+    private LinkEditAction linkEditAction;
 
     /** Creates new form MetadataPanel */
     public MetadataPanel(SectionView sectionView, GpxDataObject gpxDataObject) {
@@ -37,6 +43,11 @@ public class MetadataPanel extends AbstractMetadataPanel {
         calendarConverter = new XMLGregorianCalendarConverter();
 
         listModel = new LinksListModel();
+        listSelectionModel = new DefaultListSelectionModel();
+        listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listSelectionModel.addListSelectionListener(this);
+
+        linkEditAction = new LinkEditAction(false);
 
         initComponents();
 
@@ -108,6 +119,7 @@ public class MetadataPanel extends AbstractMetadataPanel {
         lblLinks.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblLinks.text")); // NOI18N
 
         lstLinks.setModel(listModel);
+        lstLinks.setSelectionModel(listSelectionModel);
         scrollLinks.setViewportView(lstLinks);
 
         btnAddLink.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.btnAddLink.text")); // NOI18N
@@ -115,8 +127,7 @@ public class MetadataPanel extends AbstractMetadataPanel {
         btnRemoveLink.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.btnRemoveLink.text")); // NOI18N
         btnRemoveLink.setEnabled(false);
 
-        btnEditLink.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.btnEditLink.text")); // NOI18N
-        btnEditLink.setEnabled(false);
+        btnEditLink.setAction(linkEditAction);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -182,7 +193,6 @@ public class MetadataPanel extends AbstractMetadataPanel {
                 .addGap(23, 23, 23))
         );
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddLink;
     private javax.swing.JButton btnEditLink;
@@ -225,6 +235,22 @@ public class MetadataPanel extends AbstractMetadataPanel {
         return null;
     }
 
+    @Override
+    public void valueChanged(ListSelectionEvent event) {
+        if (!event.getValueIsAdjusting()) {
+            if (listSelectionModel.isSelectionEmpty()) {
+                //No selection, disable actions
+                linkEditAction.setEnabled(false);
+            } else {
+                //Selection, enable actions
+                int index = listSelectionModel.getMinSelectionIndex();
+                Link link = listModel.getElementAt(index);
+                linkEditAction.setLink(link);
+                linkEditAction.setEnabled(true);
+            }
+        }
+    }
+
     private class LinksListModel extends AbstractListModel {
 
         private List<Link> links;
@@ -247,7 +273,7 @@ public class MetadataPanel extends AbstractMetadataPanel {
         }
 
         @Override
-        public Object getElementAt(int i) {
+        public Link getElementAt(int i) {
             return links.get(i);
         }
     }
