@@ -162,6 +162,7 @@
             </Property>
           </Properties>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="lstLinks.setSelectionModel(listSelectionModel);"/>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="MetadataPanel_lstLinks"/>
           </AuxValues>
         </Component>
@@ -184,11 +185,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnEditLink">
       <Properties>
-        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/Bundle.properties" key="MetadataPanel.btnEditLink.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
-        </Property>
-        <Property name="enabled" type="boolean" value="false"/>
+        <Property name="text" type="java.lang.String" value="..."/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btnEditLink.setAction(linkEditAction);"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

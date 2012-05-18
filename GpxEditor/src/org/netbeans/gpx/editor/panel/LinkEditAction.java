@@ -17,9 +17,14 @@ public class LinkEditAction extends AbstractAction {
     public static final String LINK_PROP = "link";
 
     private Link link;
-
+    
     public LinkEditAction() {
+        this(true);
+    }
+    
+    public LinkEditAction(boolean enabled){
         putValue(NAME, NbBundle.getMessage(getClass(), "CTL.EditLink"));
+        setEnabled(enabled);
     }
 
     public Link getLink() {
