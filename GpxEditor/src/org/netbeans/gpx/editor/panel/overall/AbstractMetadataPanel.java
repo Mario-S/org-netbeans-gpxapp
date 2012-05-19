@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.netbeans.gpx.editor.panel;
+package org.netbeans.gpx.editor.panel.overall;
 
 import com.topografix.gpx.model.Metadata;
 import org.netbeans.gpx.editor.GpxDataObject;
+import org.netbeans.gpx.editor.panel.AbstractInnerPanel;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
 
 /**

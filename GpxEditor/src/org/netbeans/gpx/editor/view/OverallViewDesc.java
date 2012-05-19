@@ -10,7 +10,6 @@ import java.awt.Image;
 import org.netbeans.modules.xml.multiview.DesignMultiViewDesc;
 import org.netbeans.core.spi.multiview.MultiViewElement;
 import org.netbeans.gpx.editor.GpxDataObject;
-import org.netbeans.gpx.editor.panel.OverallToolBarElement;
 import org.openide.util.ImageUtilities;
 
 /**

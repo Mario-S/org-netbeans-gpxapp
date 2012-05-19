@@ -4,7 +4,7 @@
  * $$LastChangedBy: msc $$ 
  * 
  */
-package org.netbeans.gpx.editor.panel;
+package org.netbeans.gpx.editor.panel.overall;
 
 import com.topografix.gpx.model.GpxModel.SchemaType;
 import com.topografix.gpx.model.Metadata;

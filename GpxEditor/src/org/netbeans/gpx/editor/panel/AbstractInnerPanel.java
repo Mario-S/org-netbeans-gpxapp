@@ -14,7 +14,7 @@ import org.netbeans.modules.xml.multiview.ui.SectionView;
  *
  * @author msc
  */
-abstract class AbstractInnerPanel extends SectionInnerPanel{
+public abstract class AbstractInnerPanel extends SectionInnerPanel{
     
     private Gpx gpx;
     
