@@ -12,11 +12,14 @@ package org.netbeans.gpx.editor.panel.overall;
 
 import com.topografix.gpx.model.Link;
 import com.topografix.gpx.model.Metadata;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JComponent;
+import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -119,6 +122,7 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         lblLinks.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.lblLinks.text")); // NOI18N
 
         lstLinks.setModel(listModel);
+        lstLinks.setCellRenderer(new LinkListCellRenderer());
         lstLinks.setSelectionModel(listSelectionModel);
         scrollLinks.setViewportView(lstLinks);
 
@@ -276,6 +280,20 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         @Override
         public Link getElementAt(int i) {
             return links.get(i);
+        }
+    }
+
+    private class LinkListCellRenderer extends DefaultListCellRenderer {
+
+        @Override
+        public Component getListCellRendererComponent(JList jlist, Object ob,
+                int i, boolean bln, boolean bln1) {
+            
+            Link link = (Link) ob;
+            String text = link.getText();
+            String href = link.getHref();
+            String value = (text != null && !text.isEmpty()) ? text : href;
+            return super.getListCellRendererComponent(jlist, value, i, bln, bln1);
         }
     }
 }
