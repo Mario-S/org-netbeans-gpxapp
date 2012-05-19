@@ -13,6 +13,9 @@ package org.netbeans.gpx.editor.panel.overall;
 import com.topografix.gpx.model.Link;
 import com.topografix.gpx.model.Metadata;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
@@ -32,11 +35,11 @@ import org.netbeans.modules.xml.multiview.ui.SectionView;
  * @author msc
  */
 public class MetadataPanel extends AbstractMetadataPanel implements
-        ListSelectionListener {
+        ListSelectionListener, PropertyChangeListener {
 
     private XMLGregorianCalendarConverter calendarConverter;
     private ListSelectionModel listSelectionModel;
-    private LinksListModel listModel;
+    private LinkListModel listModel;
     private LinkEditAction linkEditAction;
 
     /** Creates new form MetadataPanel */
@@ -45,12 +48,13 @@ public class MetadataPanel extends AbstractMetadataPanel implements
 
         calendarConverter = new XMLGregorianCalendarConverter();
 
-        listModel = new LinksListModel();
+        listModel = new LinkListModel();
         listSelectionModel = new DefaultListSelectionModel();
         listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listSelectionModel.addListSelectionListener(this);
 
-        linkEditAction = new LinkEditAction(false);
+        linkEditAction = new LinkListEditAction();
+        linkEditAction.addPropertyChangeListener(this);
 
         initComponents();
 
@@ -247,20 +251,37 @@ public class MetadataPanel extends AbstractMetadataPanel implements
                 //No selection, disable actions
                 linkEditAction.setEnabled(false);
             } else {
-                //Selection, enable actions
-                int index = listSelectionModel.getMinSelectionIndex();
-                Link link = listModel.getElementAt(index);
+                Link link = new Link(getSelectedLink());
                 linkEditAction.setLink(link);
                 linkEditAction.setEnabled(true);
             }
         }
     }
 
-    private class LinksListModel extends AbstractListModel {
+    private Link getSelectedLink() {
+        int index = listSelectionModel.getMinSelectionIndex();
+        return listModel.getElementAt(index);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent event) {
+
+        String propertyName = event.getPropertyName();
+        if (LinkEditAction.LINK_PROP.equals(propertyName)
+                && event.getSource() == linkEditAction) {
+
+            Link link = (Link) event.getNewValue();
+            int index = listSelectionModel.getMinSelectionIndex();
+            listModel.getLinks().remove(index);
+            listModel.getLinks().add(index, link);
+        }
+    }
+
+    private class LinkListModel extends AbstractListModel {
 
         private List<Link> links;
 
-        public LinksListModel() {
+        public LinkListModel() {
             links = new ArrayList<Link>();
         }
 
@@ -288,12 +309,25 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         @Override
         public Component getListCellRendererComponent(JList jlist, Object ob,
                 int i, boolean bln, boolean bln1) {
-            
+
             Link link = (Link) ob;
             String text = link.getText();
             String href = link.getHref();
             String value = (text != null && !text.isEmpty()) ? text : href;
             return super.getListCellRendererComponent(jlist, value, i, bln, bln1);
+        }
+    }
+
+    private class LinkListEditAction extends LinkEditAction {
+
+        public LinkListEditAction() {
+            super(false);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            super.actionPerformed(event);
+            listSelectionModel.clearSelection();
         }
     }
 }
