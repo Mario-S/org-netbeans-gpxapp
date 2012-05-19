@@ -90,6 +90,7 @@ public class AuthorPanel extends AbstractMetadataPanel implements PropertyChange
         lblAuthorLink.setText(org.openide.util.NbBundle.getMessage(AuthorPanel.class, "AuthorPanel.lblAuthorLink.text")); // NOI18N
 
         lblLinkValue.setText(org.openide.util.NbBundle.getMessage(AuthorPanel.class, "AuthorPanel.lblLinkValue.text")); // NOI18N
+        lblLinkValue.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 5, 0, 1));
 
         btnEditLink.setText(org.openide.util.NbBundle.getMessage(AuthorPanel.class, "AuthorPanel.btnEditLink.text")); // NOI18N
 
@@ -129,10 +130,10 @@ public class AuthorPanel extends AbstractMetadataPanel implements PropertyChange
                     .add(layout.createSequentialGroup()
                         .add(btnEditLink, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
-                    .add(layout.createSequentialGroup()
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, lblLinkValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, lblAuthorLink, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(lblAuthorLink, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(lblLinkValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE))
                         .add(20, 20, 20))))
         );
     }// </editor-fold>//GEN-END:initComponents
