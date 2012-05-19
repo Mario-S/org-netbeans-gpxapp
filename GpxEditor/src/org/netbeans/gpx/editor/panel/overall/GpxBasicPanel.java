@@ -4,7 +4,7 @@
  * $$LastChangedBy: msc $$ 
  * 
  */
-package org.netbeans.gpx.editor.panel;
+package org.netbeans.gpx.editor.panel.overall;
 
 import com.topografix.gpx.model.Gpx;
 import javax.swing.GroupLayout;
@@ -20,6 +20,7 @@ import org.jdesktop.beansbinding.BindingGroup;
 import org.jdesktop.beansbinding.Bindings;
 import org.jdesktop.beansbinding.ELProperty;
 import org.netbeans.gpx.editor.GpxDataObject;
+import org.netbeans.gpx.editor.panel.AbstractInnerPanel;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
 import org.openide.util.NbBundle;
 import org.netbeans.modules.xml.multiview.Error;
@@ -135,8 +136,8 @@ public class GpxBasicPanel extends AbstractInnerPanel {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblCreator.getAccessibleContext().setAccessibleName(NbBundle.getMessage(GpxBasicPanel.class, "GpxPanel.jLabel1.AccessibleContext.accessibleName")); // NOI18N
-        lblVersion.getAccessibleContext().setAccessibleName(NbBundle.getMessage(GpxBasicPanel.class, "GpxPanel.jLabel2.AccessibleContext.accessibleName")); // NOI18N
+        lblCreator.getAccessibleContext().setAccessibleName(null);
+        lblVersion.getAccessibleContext().setAccessibleName(null);
 
         bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents

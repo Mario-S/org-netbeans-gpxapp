@@ -1,14 +1,9 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
  * BoundsPanel.java
  *
  * Created on 31.03.2012, 21:43:52
  */
-package org.netbeans.gpx.editor.panel;
+package org.netbeans.gpx.editor.panel.overall;
 
 import com.topografix.gpx.model.Bounds;
 import com.topografix.gpx.model.Metadata;

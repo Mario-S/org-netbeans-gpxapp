@@ -1,4 +1,4 @@
-package org.netbeans.gpx.editor.panel;
+package org.netbeans.gpx.editor.panel.overall;
 
 import com.topografix.gpx.model.Link;
 import javax.swing.JPanel;

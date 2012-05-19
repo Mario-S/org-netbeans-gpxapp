@@ -4,12 +4,10 @@
  * $$LastChangedBy: msc $$ 
  * 
  */
-package org.netbeans.gpx.editor.panel;
+package org.netbeans.gpx.editor.view;
 
 import org.netbeans.gpx.editor.GpxDataObject;
-import org.netbeans.gpx.editor.view.OverallView;
-import org.netbeans.gpx.editor.panel.OverallPanelFactory;
-import org.netbeans.gpx.editor.view.AbstractGpxView;
+import org.netbeans.gpx.editor.panel.overall.OverallPanelFactory;
 import org.netbeans.modules.xml.multiview.ToolBarMultiViewElement;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
 import org.netbeans.modules.xml.multiview.ui.ToolBarDesignEditor;

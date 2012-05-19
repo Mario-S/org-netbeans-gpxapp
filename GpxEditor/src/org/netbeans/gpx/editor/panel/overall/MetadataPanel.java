@@ -8,7 +8,7 @@
  * MetadataPanel.java
  *
  */
-package org.netbeans.gpx.editor.panel;
+package org.netbeans.gpx.editor.panel.overall;
 
 import com.topografix.gpx.model.Link;
 import com.topografix.gpx.model.Metadata;
@@ -127,6 +127,7 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         btnRemoveLink.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.btnRemoveLink.text")); // NOI18N
         btnRemoveLink.setEnabled(false);
 
+        btnEditLink.setText("...");
         btnEditLink.setAction(linkEditAction);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
