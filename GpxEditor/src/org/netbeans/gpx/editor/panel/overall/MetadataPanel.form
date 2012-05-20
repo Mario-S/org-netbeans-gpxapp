@@ -177,6 +177,9 @@
           <ResourceString bundle="org/netbeans/gpx/editor/panel/overall/Bundle.properties" key="MetadataPanel.btnAddLink.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="btnAddLink.setAction(linkAddAction);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="btnRemoveLink">
       <Properties>

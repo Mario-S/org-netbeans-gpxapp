@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JComponent;
 import javax.swing.JList;
@@ -29,6 +30,7 @@ import javax.swing.event.ListSelectionListener;
 import org.netbeans.gpx.editor.binding.converter.XMLGregorianCalendarConverter;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
+import org.openide.util.NbBundle;
 
 /**
  *
@@ -39,8 +41,9 @@ public class MetadataPanel extends AbstractMetadataPanel implements
 
     private XMLGregorianCalendarConverter calendarConverter;
     private ListSelectionModel listSelectionModel;
-    private LinkListModel listModel;
+    private DefaultListModel listModel;
     private LinkEditAction linkEditAction;
+    private LinkEditAction linkAddAction;
 
     /** Creates new form MetadataPanel */
     public MetadataPanel(SectionView sectionView, GpxDataObject gpxDataObject) {
@@ -48,13 +51,16 @@ public class MetadataPanel extends AbstractMetadataPanel implements
 
         calendarConverter = new XMLGregorianCalendarConverter();
 
-        listModel = new LinkListModel();
+        listModel = new DefaultListModel();
         listSelectionModel = new DefaultListSelectionModel();
         listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listSelectionModel.addListSelectionListener(this);
 
         linkEditAction = new LinkListEditAction();
         linkEditAction.addPropertyChangeListener(this);
+
+        linkAddAction = new LinkAddAction();
+        linkAddAction.addPropertyChangeListener(this);
 
         initComponents();
 
@@ -80,8 +86,8 @@ public class MetadataPanel extends AbstractMetadataPanel implements
             txtAreaDesc.setText(metadata.getDesc());
 
             List<Link> links = metadata.getLinks();
-            if (!links.isEmpty()) {
-                listModel.setLinks(links);
+            for (Link link : links) {
+                listModel.addElement(link);
             }
         }
     }
@@ -131,6 +137,7 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         scrollLinks.setViewportView(lstLinks);
 
         btnAddLink.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.btnAddLink.text")); // NOI18N
+        btnAddLink.setAction(linkAddAction);
 
         btnRemoveLink.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.btnRemoveLink.text")); // NOI18N
         btnRemoveLink.setEnabled(false);
@@ -260,47 +267,24 @@ public class MetadataPanel extends AbstractMetadataPanel implements
 
     private Link getSelectedLink() {
         int index = listSelectionModel.getMinSelectionIndex();
-        return listModel.getElementAt(index);
+        return (Link) listModel.getElementAt(index);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent event) {
 
         String propertyName = event.getPropertyName();
-        if (LinkEditAction.LINK_PROP.equals(propertyName)
-                && event.getSource() == linkEditAction) {
-
+        if (LinkEditAction.LINK_PROP.equals(propertyName)) {
+            Object source = event.getSource();
             Link link = (Link) event.getNewValue();
-            int index = listSelectionModel.getMinSelectionIndex();
-            listModel.getLinks().remove(index);
-            listModel.getLinks().add(index, link);
-        }
-    }
 
-    private class LinkListModel extends AbstractListModel {
-
-        private List<Link> links;
-
-        public LinkListModel() {
-            links = new ArrayList<Link>();
-        }
-
-        List<Link> getLinks() {
-            return links;
-        }
-
-        void setLinks(List<Link> links) {
-            this.links = links;
-        }
-
-        @Override
-        public int getSize() {
-            return links.size();
-        }
-
-        @Override
-        public Link getElementAt(int i) {
-            return links.get(i);
+            if (source == linkEditAction) {
+                int index = listSelectionModel.getMinSelectionIndex();
+                listModel.remove(index);
+                listModel.add(index, link);
+            } else if (source == linkAddAction) {
+                listModel.addElement(link);
+            }
         }
     }
 
@@ -328,6 +312,20 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         public void actionPerformed(ActionEvent event) {
             super.actionPerformed(event);
             listSelectionModel.clearSelection();
+        }
+    }
+
+    private class LinkAddAction extends LinkEditAction {
+
+        public LinkAddAction() {
+            putValue(NAME, NbBundle.getMessage(getClass(), "CTL.AddLink"));
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent event) {
+            listSelectionModel.clearSelection();
+            setLink(new Link());
+            super.actionPerformed(event);
         }
     }
 }
