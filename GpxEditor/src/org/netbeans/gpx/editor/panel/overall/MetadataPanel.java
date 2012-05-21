@@ -16,9 +16,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
 import java.util.List;
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
@@ -50,17 +48,10 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         super(sectionView, gpxDataObject);
 
         calendarConverter = new XMLGregorianCalendarConverter();
-
-        listModel = new DefaultListModel();
-        listSelectionModel = new DefaultListSelectionModel();
-        listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        listSelectionModel.addListSelectionListener(this);
-
-        linkEditAction = new LinkListEditAction();
-        linkEditAction.addPropertyChangeListener(this);
-
-        linkAddAction = new LinkAddAction();
-        linkAddAction.addPropertyChangeListener(this);
+        
+        createListModels();
+        
+        createLinkActions();
 
         initComponents();
 
@@ -69,8 +60,23 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         setValues();
     }
 
-    private void addModifiers() {
+    private void createListModels() {
+        listModel = new DefaultListModel();
+        
+        listSelectionModel = new DefaultListSelectionModel();
+        listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        listSelectionModel.addListSelectionListener(this);
+    }
 
+    private void createLinkActions() {
+        linkEditAction = new LinkListEditAction();
+        linkEditAction.addPropertyChangeListener(this);
+
+        linkAddAction = new LinkAddAction();
+        linkAddAction.addPropertyChangeListener(this);
+    }
+
+    private void addModifiers() {
         addModifier(txtName);
         addModifier(txtTime);
         addModifier(txtKeywords);
