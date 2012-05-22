@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
+import javax.swing.AbstractAction;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
@@ -28,6 +29,9 @@ import javax.swing.event.ListSelectionListener;
 import org.netbeans.gpx.editor.binding.converter.XMLGregorianCalendarConverter;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
+import org.openide.DialogDescriptor;
+import org.openide.DialogDisplayer;
+import org.openide.NotifyDescriptor;
 import org.openide.util.NbBundle;
 
 /**
@@ -35,22 +39,28 @@ import org.openide.util.NbBundle;
  * @author msc
  */
 public class MetadataPanel extends AbstractMetadataPanel implements
-        ListSelectionListener, PropertyChangeListener {
+    ListSelectionListener, PropertyChangeListener {
 
     private XMLGregorianCalendarConverter calendarConverter;
+
     private ListSelectionModel listSelectionModel;
+
     private DefaultListModel listModel;
+
     private LinkEditAction linkEditAction;
+
     private LinkEditAction linkAddAction;
+
+    private LinkDeleteAction linkDeleteAction;
 
     /** Creates new form MetadataPanel */
     public MetadataPanel(SectionView sectionView, GpxDataObject gpxDataObject) {
         super(sectionView, gpxDataObject);
 
         calendarConverter = new XMLGregorianCalendarConverter();
-        
+
         createListModels();
-        
+
         createLinkActions();
 
         initComponents();
@@ -60,20 +70,29 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         setValues();
     }
 
+    /**
+     * creates models for the list
+     */
     private void createListModels() {
         listModel = new DefaultListModel();
-        
+
         listSelectionModel = new DefaultListSelectionModel();
         listSelectionModel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         listSelectionModel.addListSelectionListener(this);
     }
 
+    /**
+     * creates all the necesarry actions
+     */
     private void createLinkActions() {
-        linkEditAction = new LinkListEditAction();
-        linkEditAction.addPropertyChangeListener(this);
 
         linkAddAction = new LinkAddAction();
         linkAddAction.addPropertyChangeListener(this);
+
+        linkDeleteAction = new LinkDeleteAction();
+
+        linkEditAction = new LinkListEditAction();
+        linkEditAction.addPropertyChangeListener(this);
     }
 
     private void addModifiers() {
@@ -146,7 +165,6 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         btnAddLink.setAction(linkAddAction);
 
         btnRemoveLink.setText(org.openide.util.NbBundle.getMessage(MetadataPanel.class, "MetadataPanel.btnRemoveLink.text")); // NOI18N
-        btnRemoveLink.setEnabled(false);
 
         btnEditLink.setText("...");
         btnEditLink.setAction(linkEditAction);
@@ -214,6 +232,8 @@ public class MetadataPanel extends AbstractMetadataPanel implements
                     .addComponent(btnEditLink))
                 .addGap(23, 23, 23))
         );
+
+        btnRemoveLink.setAction(linkDeleteAction);
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddLink;
@@ -238,11 +258,14 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         Metadata metadata = checkMetadata();
         if (source == txtName) {
             metadata.setName((String) o);
-        } else if (source == txtTime) {
+        }
+        else if (source == txtTime) {
             metadata.setTime(calendarConverter.convertReverse((String) o));
-        } else if (source == txtKeywords) {
+        }
+        else if (source == txtKeywords) {
             metadata.setKeywords((String) o);
-        } else if (source == txtAreaDesc) {
+        }
+        else if (source == txtAreaDesc) {
             metadata.setDesc((String) o);
         }
     }
@@ -257,25 +280,43 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         return null;
     }
 
+    /**
+     * The value changed method is invoked when the selection in the list changes.
+     * @param event 
+     */
     @Override
     public void valueChanged(ListSelectionEvent event) {
         if (!event.getValueIsAdjusting()) {
             if (listSelectionModel.isSelectionEmpty()) {
                 //No selection, disable actions
                 linkEditAction.setEnabled(false);
-            } else {
-                Link link = new Link(getSelectedLink());
+                linkDeleteAction.setEnabled(false);
+            }
+            else {
+                int index = getSelectedIndex();
+
+                Link link = new Link(getSelectedLink(index));
                 linkEditAction.setLink(link);
                 linkEditAction.setEnabled(true);
+
+                linkDeleteAction.setIndex(index);
+                linkDeleteAction.setEnabled(true);
             }
         }
     }
 
-    private Link getSelectedLink() {
-        int index = listSelectionModel.getMinSelectionIndex();
+    private Link getSelectedLink(int index) {
         return (Link) listModel.getElementAt(index);
     }
 
+    private int getSelectedIndex() {
+        return listSelectionModel.getMinSelectionIndex();
+    }
+
+    /**
+     * The property change method is invoked from the actions.
+     * @param event 
+     */
     @Override
     public void propertyChange(PropertyChangeEvent event) {
 
@@ -285,29 +326,38 @@ public class MetadataPanel extends AbstractMetadataPanel implements
             Link link = (Link) event.getNewValue();
 
             if (source == linkEditAction) {
-                int index = listSelectionModel.getMinSelectionIndex();
+                int index = getSelectedIndex();
                 listModel.remove(index);
                 listModel.add(index, link);
-            } else if (source == linkAddAction) {
+            }
+            else if (source == linkAddAction) {
                 listModel.addElement(link);
             }
         }
     }
 
+    /**
+     * cell renderer for the list of links
+     */
     private class LinkListCellRenderer extends DefaultListCellRenderer {
 
         @Override
         public Component getListCellRendererComponent(JList jlist, Object ob,
-                int i, boolean bln, boolean bln1) {
+            int i, boolean bln, boolean bln1) {
 
             Link link = (Link) ob;
             String text = link.getText();
             String href = link.getHref();
-            String value = (text != null && !text.isEmpty()) ? text : href;
+            //take either name or href
+            String value = ( text != null && !text.isEmpty() ) ? text : href;
             return super.getListCellRendererComponent(jlist, value, i, bln, bln1);
         }
+
     }
 
+    /**
+     * action to edit a link
+     */
     private class LinkListEditAction extends LinkEditAction {
 
         public LinkListEditAction() {
@@ -319,12 +369,17 @@ public class MetadataPanel extends AbstractMetadataPanel implements
             super.actionPerformed(event);
             listSelectionModel.clearSelection();
         }
+
     }
 
+    /**
+     * action to add a new link
+     */
     private class LinkAddAction extends LinkEditAction {
 
         public LinkAddAction() {
-            putValue(NAME, NbBundle.getMessage(getClass(), "CTL.AddLink"));
+            String name = " " + NbBundle.getMessage(getClass(), "CTL.AddLink") + " ";
+            putValue(NAME, name);
         }
 
         @Override
@@ -333,5 +388,45 @@ public class MetadataPanel extends AbstractMetadataPanel implements
             setLink(new Link());
             super.actionPerformed(event);
         }
+
     }
+
+    /**
+     * action to delete a link
+     */
+    private class LinkDeleteAction extends AbstractAction {
+
+        /** index of the selected link in the list*/
+        private int index;
+
+        private String dlgTitle;
+
+        private String dlgMsg;
+
+        public LinkDeleteAction() {
+
+            dlgTitle = NbBundle.getMessage(getClass(), "DLG.DeleteLink.Title");
+            dlgMsg = NbBundle.getMessage(getClass(), "DLG.DeleteLink.Question");
+
+            String name = " " + NbBundle.getMessage(getClass(), "CTL.DeleteLink") + " ";
+            putValue(NAME, name);
+            setEnabled(false);
+        }
+
+        public void setIndex(int index) {
+            this.index = index;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+
+            NotifyDescriptor descr = new NotifyDescriptor.Confirmation(dlgMsg, dlgTitle, DialogDescriptor.YES_NO_OPTION);
+            if (DialogDisplayer.getDefault().notify(descr) == DialogDescriptor.YES_OPTION) {
+                listModel.remove(index);
+                listSelectionModel.clearSelection();
+            }
+        }
+
+    }
+
 }
