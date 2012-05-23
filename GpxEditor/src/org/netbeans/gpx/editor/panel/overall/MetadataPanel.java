@@ -117,6 +117,22 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         }
     }
 
+    @Override
+    protected void merge() {
+        
+        Metadata metadata = checkMetadata();
+        
+        metadata.getLinks().clear();
+        for(int i = 0, n = listModel.getSize(); i < n; i++){
+            Link link = (Link) listModel.getElementAt(i);
+            metadata.getLinks().add(link);
+        }
+        
+        super.merge();
+    }
+    
+    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
