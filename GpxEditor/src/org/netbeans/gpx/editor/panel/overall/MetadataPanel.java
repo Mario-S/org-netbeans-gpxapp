@@ -64,10 +64,10 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         createLinkActions();
 
         initComponents();
-
+        
+        setValues();
         addModifiers();
 
-        setValues();
     }
 
     /**
@@ -100,6 +100,7 @@ public class MetadataPanel extends AbstractMetadataPanel implements
         addModifier(txtTime);
         addModifier(txtKeywords);
         addModifier(txtAreaDesc);
+        addListDataListener(listModel);
     }
 
     private void setValues() {
@@ -119,19 +120,17 @@ public class MetadataPanel extends AbstractMetadataPanel implements
 
     @Override
     protected void merge() {
-        
+
         Metadata metadata = checkMetadata();
-        
+
         metadata.getLinks().clear();
-        for(int i = 0, n = listModel.getSize(); i < n; i++){
+        for (int i = 0, n = listModel.getSize(); i < n; i++) {
             Link link = (Link) listModel.getElementAt(i);
             metadata.getLinks().add(link);
         }
-        
+
         super.merge();
     }
-    
-    
 
     /** This method is called from within the constructor to
      * initialize the form.
