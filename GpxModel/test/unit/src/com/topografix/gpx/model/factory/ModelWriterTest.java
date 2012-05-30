@@ -26,13 +26,15 @@ public class ModelWriterTest {
 
     private ModelWriter classUnderTest;
     
-    private Logger logger;
+    private final Logger logger;
+
+    public ModelWriterTest() {
+        logger = Logger.getLogger(getClass().getName());
+    }
     
 
     @Before
     public void setUp() throws JAXBException {
-        
-        logger = Logger.getLogger(getClass().getName());
         
         String creator = "TEST";
         String trackName = "a track";

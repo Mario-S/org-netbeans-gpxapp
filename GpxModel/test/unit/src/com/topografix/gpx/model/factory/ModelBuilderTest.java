@@ -18,26 +18,31 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import javax.xml.bind.JAXBException;
 import org.junit.Test;
+import org.netbeans.junit.NbTestCase;
 import static org.junit.Assert.*;
 
 /**
  *
  * @author msc
  */
-public class ModelBuilderTest {
+public class ModelBuilderTest extends NbTestCase {
+
+    public ModelBuilderTest(String name) {
+        super(name);
+    }
 
     private Gpx build(String resource) throws FileNotFoundException, JAXBException {
-        String fileName = getClass().getResource(resource).getFile();
+        
+        String fileName = getDataDir().getAbsolutePath() + resource;
         File file = new File(fileName);
         ModelBuilder builder = new ModelBuilder(new FileInputStream(file));
         return builder.build();
     }
 
-    @Test
     public void testTrack() throws FileNotFoundException, JAXBException {
-        String resource = "track.gpx";
+        String resource = "/track.gpx";
         Gpx gpx = build(resource);
-        
+
         Metadata metadata = gpx.getMetadata();
         assertNotNull(metadata);
         List<Link> links = metadata.getLinks();
