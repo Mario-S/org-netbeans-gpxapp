@@ -9,6 +9,7 @@ import org.netbeans.jellytools.TopComponentOperator;
 import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.operators.DialogOperator;
 import org.netbeans.jemmy.operators.JButtonOperator;
+import org.netbeans.jemmy.operators.JTreeOperator;
 import org.netbeans.jemmy.operators.JTreeOperator.JTreeFinder;
 import org.netbeans.junit.NbModuleSuite;
 import org.netbeans.junit.NbModuleSuite.Configuration;
@@ -36,10 +37,10 @@ public class ExplorerTest extends JellyTestCase{
     public void testNewFile() throws Exception{
         
         TopComponentOperator fav = new TopComponentOperator("Favorites");
-        ComponentChooser treeFinder = new JTreeFinder();
-        Component tree = fav.findSubComponent(treeFinder);
-        Point loc = tree.getLocation();
-        fav.clickMouse(loc.x+25, loc.y+10, 1);
+        JTreeOperator tree = new JTreeOperator(fav);
+        tree.clickMouse();
+        tree.selectRow(0);
+        tree.expandRow(0);
         
         JButtonOperator btn = new JButtonOperator(MainWindowOperator.getDefault());
         assertTrue(btn.isEnabled());
