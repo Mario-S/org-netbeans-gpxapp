@@ -27,17 +27,16 @@ import org.openide.loaders.DataObjectNotFoundException;
  *
  * @author msc
  */
-public class OverallPanelTest extends JellyTestCase{
-    
+public class OverallPanelTest extends JellyTestCase {
+
     private static final String TEST_FILE = "meta.gpx";
-    
+
     private GpxDataObject dataObject;
 
     public OverallPanelTest(String testName) {
         super(testName);
     }
-    
-    
+
     /** 
      * Creates suite from particular test cases. 
      */
@@ -47,25 +46,29 @@ public class OverallPanelTest extends JellyTestCase{
         testConfig = testConfig.clusters(".*").enableModules(".*");
         return NbModuleSuite.create(testConfig);
     }
-    
-    public void testOverallPanel() throws DataObjectNotFoundException{
+
+    public void testOverallPanel() throws DataObjectNotFoundException {
         initDataObject();
         open(dataObject);
         TopComponentOperator ed = new TopComponentOperator(TEST_FILE);
         AbstractButtonOperator btnOperator = new AbstractButtonOperator(ed, 0);
+        
         assertTrue(btnOperator.isEnabled());
         assertEquals("General", btnOperator.getText());
         btnOperator.clickMouse();
+        
         JComboBoxOperator cmbOperator = new JComboBoxOperator(ed);
         assertTrue(cmbOperator.isEnabled());
-        cmbOperator.selectItem(1);
+        for (int i = 0; i < 5; i++) {
+            cmbOperator.selectItem(i);
+        }
     }
-    
+
     private void initDataObject() throws DataObjectNotFoundException {
         if (dataObject == null) {
             File f = new File(getDataDir().getAbsolutePath() + "/" + TEST_FILE);
             FileObject fo = FileUtil.toFileObject(f);
-            dataObject = ((GpxDataObject) DataObject.find(fo));
+            dataObject = ( (GpxDataObject) DataObject.find(fo) );
         }
     }
 
@@ -73,7 +76,8 @@ public class OverallPanelTest extends JellyTestCase{
         try {
             dObj.showElement(dObj.getGpx());
         } catch (Exception ex) {
-            throw new AssertionFailedErrorException("Failed to switch to Design View",ex);
+            throw new AssertionFailedErrorException("Failed to switch to Design View", ex);
         }
     }
+
 }
