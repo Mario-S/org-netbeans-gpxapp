@@ -22,7 +22,6 @@ public class OverallPanelFactory implements InnerPanelFactory {
 
     private GpxDataObject gpxDataObject;
     private ToolBarDesignEditor designEditor;
-    private Metadata metadata;
 
     public OverallPanelFactory(GpxDataObject gpxDataObject, ToolBarDesignEditor designEditor) {
         this.gpxDataObject = gpxDataObject;
