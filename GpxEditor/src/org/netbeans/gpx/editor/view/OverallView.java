@@ -37,10 +37,7 @@ public class OverallView extends AbstractGpxView {
     @Override
     public void addNodes(Children root, GpxDataObject gpxDataObject) {
         
-        Gpx gpx = gpxDataObject.getGpx();
         Node gpxNode = new GpxNode(gpxDataObject.getPrimaryFile().getName());
-        
-        Metadata metadata = gpx.getMetadata();
         
         Node [] metadataNodes = new Node[]{new GpxNode("Name"), 
             new GpxNode("Author"), new GpxNode("Bounds")};
@@ -51,7 +48,7 @@ public class OverallView extends AbstractGpxView {
         root.add(new Node[] {gpxNode, metadataNode});
         
         //add panels
-        SectionPanel gpxPanel = new SectionPanel(this, gpxNode, SchemaType.GPX, true);
+        SectionPanel gpxPanel = new SectionPanel(this, gpxNode, SchemaType.GPX);
         addSection(gpxPanel, true);
         
         SectionContainer metadataContainer = new SectionContainer(this,metadataNode,"Metadata");
