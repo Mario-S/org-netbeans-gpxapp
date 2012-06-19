@@ -16,7 +16,7 @@ import org.openide.util.ImageUtilities;
  *
  * @author msc
  */
-public class OverallViewDesc extends DesignMultiViewDesc{
+public class OverallViewDesc extends AbstractGpxViewDesc{
     
     private static final String NAME = "General";
 
@@ -26,8 +26,7 @@ public class OverallViewDesc extends DesignMultiViewDesc{
 
     @Override
     public MultiViewElement createElement() {
-        GpxDataObject dObj = (GpxDataObject) getDataObject();
-        return new OverallToolBarElement(dObj);
+        return new OverallToolBarElement(getDataObject());
     }
 
     @Override
