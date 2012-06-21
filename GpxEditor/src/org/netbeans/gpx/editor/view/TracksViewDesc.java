@@ -25,7 +25,7 @@ public class TracksViewDesc extends DesignMultiViewDesc{
 
     @Override
     public Image getIcon() {
-        return ImageUtilities.loadImage("org/netbeans/gpx/editor/resources/track.gif");
+        return ImageUtilities.loadImage("org/netbeans/gpx/editor/resources/track.png");
     }
 
     @Override
