@@ -1,23 +1,15 @@
 package org.netbeans.gpxeditor;
 
-import java.awt.Component;
 import java.io.File;
-import javax.swing.JToolBar;
 import junit.framework.Test;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.jellytools.JellyTestCase;
-import org.netbeans.jellytools.MainWindowOperator;
 import org.netbeans.jellytools.TopComponentOperator;
-import org.netbeans.jemmy.ComponentChooser;
 import org.netbeans.jemmy.operators.AbstractButtonOperator;
-import org.netbeans.jemmy.operators.JButtonOperator;
 import org.netbeans.jemmy.operators.JComboBoxOperator;
-import org.netbeans.jemmy.operators.JComboBoxOperator.JComboBoxFinder;
-import org.netbeans.jemmy.operators.JMenuBarOperator;
 import org.netbeans.junit.AssertionFailedErrorException;
 import org.netbeans.junit.NbModuleSuite;
 import org.netbeans.junit.NbModuleSuite.Configuration;
-import org.openide.cookies.EditCookie;
 import org.openide.filesystems.FileObject;
 import org.openide.filesystems.FileUtil;
 import org.openide.loaders.DataObject;
