@@ -10,17 +10,17 @@ import org.openide.util.ImageUtilities;
  *
  * @author msc
  */
-public class TracksViewDesc extends DesignMultiViewDesc{
+public class TrackViewDesc extends AbstractGpxViewDesc{
     
     private static final String NAME = "Tracks";
 
-    public TracksViewDesc(XmlMultiViewDataObject dObj) {
+    public TrackViewDesc(XmlMultiViewDataObject dObj) {
         super(dObj, NAME);
     }
 
     @Override
     public MultiViewElement createElement() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return new TrackToolBarElement(getDataObject());
     }
 
     @Override

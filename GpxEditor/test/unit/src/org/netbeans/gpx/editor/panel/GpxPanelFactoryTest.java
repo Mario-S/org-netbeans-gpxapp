@@ -1,10 +1,12 @@
-package org.netbeans.gpx.editor.panel.overall;
+package org.netbeans.gpx.editor.panel;
 
+import org.netbeans.gpx.editor.panel.GpxPanelFactory;
 import com.topografix.gpx.model.Gpx;
 import com.topografix.gpx.model.GpxModel.SchemaType;
 import org.junit.Before;
 import org.junit.Test;
 import org.netbeans.gpx.editor.GpxDataObject;
+import org.netbeans.gpx.editor.panel.overall.GpxBasicPanel;
 import org.netbeans.modules.xml.multiview.ui.SectionInnerPanel;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
 import org.netbeans.modules.xml.multiview.ui.ToolBarDesignEditor;
@@ -17,11 +19,11 @@ import static org.junit.Assert.*;
  *
  * @author msc
  */
-public class OverallPanelFactoryTest {
+public class GpxPanelFactoryTest {
     
     private GpxDataObject dataObject;
     
-    private OverallPanelFactory classUnderTest;
+    private GpxPanelFactory classUnderTest;
     
     @Before
     public void setUp() {
@@ -33,7 +35,7 @@ public class OverallPanelFactoryTest {
         
         ToolBarDesignEditor designEditor = new ToolBarDesignEditor();
         designEditor.setContentView(sectionView);
-        classUnderTest = new OverallPanelFactory(dataObject, designEditor);
+        classUnderTest = new GpxPanelFactory(designEditor, dataObject);
         
     }
 
