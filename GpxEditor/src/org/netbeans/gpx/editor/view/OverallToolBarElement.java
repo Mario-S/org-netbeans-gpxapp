@@ -7,6 +7,7 @@
 package org.netbeans.gpx.editor.view;
 
 import org.netbeans.gpx.editor.GpxDataObject;
+import org.netbeans.gpx.editor.panel.overall.OverallPanelFactory;
 import org.netbeans.modules.xml.multiview.ui.InnerPanelFactory;
 
 /**
@@ -14,13 +15,17 @@ import org.netbeans.modules.xml.multiview.ui.InnerPanelFactory;
  * @author msc
  */
 public class OverallToolBarElement extends AbstractToolBarElement {
+    
+    private InnerPanelFactory factory;
 
     public OverallToolBarElement(GpxDataObject gpxDataObject) {
         super(gpxDataObject);
+        
+        factory = new OverallPanelFactory(toolbarEditor, gpxDataObject);
     }
 
     @Override
-    protected AbstractGpxView getView(InnerPanelFactory factory) {
+    protected AbstractGpxView createView() {
         return new OverallView(factory);
     }
 
