@@ -1,5 +1,7 @@
 package org.netbeans.gpx.editor.panel.track;
 
+import com.topografix.gpx.model.Track;
+import java.util.List;
 import javax.swing.JComponent;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.gpx.editor.panel.AbstractInnerPanel;
@@ -11,11 +13,13 @@ import org.netbeans.modules.xml.multiview.ui.SectionView;
  */
 public class TrackPanel extends AbstractInnerPanel {
 
-    public TrackPanel(SectionView sectionView, GpxDataObject gpxDataObject) {
+    private int trackNumber;
+
+    public TrackPanel(SectionView sectionView, GpxDataObject gpxDataObject, int trackNumber) {
         super(sectionView, gpxDataObject);
+        this.trackNumber = this.trackNumber;
     }
 
-    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -25,19 +29,77 @@ public class TrackPanel extends AbstractInnerPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblName = new javax.swing.JLabel();
+        txtName = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
+        lblName.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblName.text")); // NOI18N
+
+        txtName.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.txtName.text")); // NOI18N
+        txtName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNameActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 400, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(lblName)
+                        .add(18, 18, 18)
+                        .add(txtName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 375, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 300, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(txtName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblName))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 275, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNameActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
+    
+    List<Track> getTracks() {
+        return getGpx().getTracks();
+    }
+
+    Track getCurrentTrack() {
+        return getGpx().getTracks().get(trackNumber);
+    }
 
     @Override
     public void setValue(JComponent source, Object value) {

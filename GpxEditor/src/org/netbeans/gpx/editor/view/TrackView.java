@@ -35,7 +35,7 @@ public class TrackView extends AbstractGpxView {
             Node trackNode = new GpxNode(track.getName());
             trackNodes[i] = trackNode;
             
-            SectionPanel trackPanel = new SectionPanel(this, trackNode, SchemaType.TRACK);
+            SectionPanel trackPanel = new SectionPanel(this, trackNode, i);
             if (i == 0) {
                 addSection(trackPanel, true);
             } else {

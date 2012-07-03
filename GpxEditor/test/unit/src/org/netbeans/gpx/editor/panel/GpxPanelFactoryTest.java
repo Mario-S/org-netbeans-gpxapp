@@ -1,6 +1,6 @@
 package org.netbeans.gpx.editor.panel;
 
-import org.netbeans.gpx.editor.panel.GpxPanelFactory;
+import org.netbeans.gpx.editor.panel.overall.OverallPanelFactory;
 import com.topografix.gpx.model.Gpx;
 import com.topografix.gpx.model.GpxModel.SchemaType;
 import org.junit.Before;
@@ -23,7 +23,7 @@ public class GpxPanelFactoryTest {
     
     private GpxDataObject dataObject;
     
-    private GpxPanelFactory classUnderTest;
+    private OverallPanelFactory classUnderTest;
     
     @Before
     public void setUp() {
@@ -35,7 +35,7 @@ public class GpxPanelFactoryTest {
         
         ToolBarDesignEditor designEditor = new ToolBarDesignEditor();
         designEditor.setContentView(sectionView);
-        classUnderTest = new GpxPanelFactory(designEditor, dataObject);
+        classUnderTest = new OverallPanelFactory(designEditor, dataObject);
         
     }
 
