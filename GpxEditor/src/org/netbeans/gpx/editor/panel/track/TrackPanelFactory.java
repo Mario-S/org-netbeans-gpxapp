@@ -2,7 +2,6 @@ package org.netbeans.gpx.editor.panel.track;
 
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.gpx.editor.panel.AbstractInnerPanelFactory;
-import org.netbeans.gpx.editor.panel.track.TrackPanel;
 import org.netbeans.modules.xml.multiview.ui.SectionInnerPanel;
 import org.netbeans.modules.xml.multiview.ui.ToolBarDesignEditor;
 
