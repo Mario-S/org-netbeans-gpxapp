@@ -1,9 +1,11 @@
 package org.netbeans.gpx.editor.panel.track;
 
 import com.topografix.gpx.model.Track;
+import java.math.BigInteger;
 import java.util.List;
 import javax.swing.JComponent;
 import org.netbeans.gpx.editor.GpxDataObject;
+import org.netbeans.gpx.editor.binding.converter.BigIntegerConverter;
 import org.netbeans.gpx.editor.panel.AbstractInnerPanel;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
 
@@ -14,10 +16,28 @@ import org.netbeans.modules.xml.multiview.ui.SectionView;
 public class TrackPanel extends AbstractInnerPanel {
 
     private int trackNumber;
+    
+    private BigIntegerConverter bigIntegerConverter;
 
     public TrackPanel(SectionView sectionView, GpxDataObject gpxDataObject, int trackNumber) {
         super(sectionView, gpxDataObject);
-        this.trackNumber = this.trackNumber;
+        this.trackNumber = trackNumber;
+        bigIntegerConverter = new BigIntegerConverter();
+        
+        initComponents();
+        
+        setValues();
+    }
+    
+    private void setValues(){
+        
+        Track track = getCurrentTrack();
+        txtNumber.setText(bigIntegerConverter.convertForward(track.getNumber()));
+        txtName.setText(track.getName());
+        txtCmt.setText(track.getCmt());
+        txtSource.setText(track.getSrc());
+        txtType.setText(track.getType());
+        txtAreaDescr.setText(track.getDesc());
     }
 
     /** This method is called from within the constructor to
@@ -33,15 +53,24 @@ public class TrackPanel extends AbstractInnerPanel {
         txtName = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        lblWayPoints = new javax.swing.JLabel();
+        lblSegments = new javax.swing.JLabel();
+        cmbSegments = new javax.swing.JComboBox();
+        lblCmt = new javax.swing.JLabel();
+        txtCmt = new javax.swing.JTextField();
+        lblNumber = new javax.swing.JLabel();
+        txtNumber = new javax.swing.JTextField();
+        lblSource = new javax.swing.JLabel();
+        txtSource = new javax.swing.JTextField();
+        txtType = new javax.swing.JTextField();
+        lblType = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtAreaDescr = new javax.swing.JTextArea();
+        lblDescr = new javax.swing.JLabel();
 
         lblName.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblName.text")); // NOI18N
 
         txtName.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.txtName.text")); // NOI18N
-        txtName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
-            }
-        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -56,6 +85,34 @@ public class TrackPanel extends AbstractInnerPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        lblWayPoints.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblWayPoints.text")); // NOI18N
+
+        lblSegments.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblSegments.text")); // NOI18N
+
+        cmbSegments.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        lblCmt.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblCmt.text")); // NOI18N
+
+        txtCmt.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.txtCmt.text")); // NOI18N
+
+        lblNumber.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblNumber.text")); // NOI18N
+
+        txtNumber.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.txtNumber.text")); // NOI18N
+
+        lblSource.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblSource.text")); // NOI18N
+
+        txtSource.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.txtSource.text")); // NOI18N
+
+        txtType.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.txtType.text")); // NOI18N
+
+        lblType.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblType.text")); // NOI18N
+
+        txtAreaDescr.setColumns(20);
+        txtAreaDescr.setRows(4);
+        jScrollPane2.setViewportView(txtAreaDescr);
+
+        lblDescr.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblDescr.text")); // NOI18N
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -64,33 +121,96 @@ public class TrackPanel extends AbstractInnerPanel {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(lblName)
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(lblCmt)
+                            .add(lblSource)
+                            .add(lblType)
+                            .add(lblDescr)
+                            .add(lblName)
+                            .add(lblNumber))
+                        .add(14, 14, 14)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(txtNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 86, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+                            .add(layout.createSequentialGroup()
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(txtName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                                    .add(txtSource, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                                    .add(txtCmt, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                                    .add(txtType, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE))
+                                .add(43, 43, 43))))
+                    .add(layout.createSequentialGroup()
+                        .add(lblSegments)
                         .add(18, 18, 18)
-                        .add(txtName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 321, Short.MAX_VALUE))
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 375, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .add(cmbSegments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(631, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(lblWayPoints)
+                        .addContainerGap(728, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblNumber)
+                    .add(txtNumber, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(txtName, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(lblName))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 275, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblCmt)
+                    .add(txtCmt, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(txtSource, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblSource))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(txtType, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblType))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(lblDescr)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(12, 12, 12)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(lblSegments)
+                    .add(cmbSegments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(lblWayPoints)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbSegments;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblCmt;
+    private javax.swing.JLabel lblDescr;
     private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblNumber;
+    private javax.swing.JLabel lblSegments;
+    private javax.swing.JLabel lblSource;
+    private javax.swing.JLabel lblType;
+    private javax.swing.JLabel lblWayPoints;
+    private javax.swing.JTextArea txtAreaDescr;
+    private javax.swing.JTextField txtCmt;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtNumber;
+    private javax.swing.JTextField txtSource;
+    private javax.swing.JTextField txtType;
     // End of variables declaration//GEN-END:variables
     
     List<Track> getTracks() {

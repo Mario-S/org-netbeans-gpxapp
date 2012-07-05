@@ -28,6 +28,7 @@ public class TrackView extends AbstractGpxView {
         
         int size = tracks.size();
         Node[] trackNodes = new Node[size];
+        SectionPanel[] panels = new SectionPanel[size];
         
         for (int i = 0; i < size; i++) {
             Track track = tracks.get(i);
@@ -35,16 +36,20 @@ public class TrackView extends AbstractGpxView {
             Node trackNode = new GpxNode(track.getName());
             trackNodes[i] = trackNode;
             
-            SectionPanel trackPanel = new SectionPanel(this, trackNode, i);
-            if (i == 0) {
-                addSection(trackPanel, true);
-            } else {
-                addSection(trackPanel);
-            }
-            
+            panels[i] = new SectionPanel(this, trackNode, i);
         }
         
         root.add(trackNodes);
+        
+        for (int i = 0; i < size; i++) {
+
+            if (i == 0) {
+                addSection(panels[i], true);
+            } else {
+                addSection(panels[i]);
+            }
+            
+        }
     }
     
     @Override
