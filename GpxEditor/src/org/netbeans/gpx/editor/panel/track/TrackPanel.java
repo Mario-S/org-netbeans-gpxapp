@@ -1,9 +1,15 @@
 package org.netbeans.gpx.editor.panel.track;
 
+import ca.odell.glazedlists.BasicEventList;
+import ca.odell.glazedlists.EventList;
+import ca.odell.glazedlists.swing.EventComboBoxModel;
 import com.topografix.gpx.model.Track;
-import java.math.BigInteger;
+import com.topografix.gpx.model.TrackSegment;
+import java.awt.Component;
 import java.util.List;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComponent;
+import javax.swing.JList;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.gpx.editor.binding.converter.BigIntegerConverter;
 import org.netbeans.gpx.editor.panel.AbstractInnerPanel;
@@ -14,22 +20,25 @@ import org.netbeans.modules.xml.multiview.ui.SectionView;
  * @author msc
  */
 public class TrackPanel extends AbstractInnerPanel {
-
+    
     private int trackNumber;
     
     private BigIntegerConverter bigIntegerConverter;
-
+    
+    private EventList<TrackSegment> segmentList;
+    
     public TrackPanel(SectionView sectionView, GpxDataObject gpxDataObject, int trackNumber) {
         super(sectionView, gpxDataObject);
         this.trackNumber = trackNumber;
         bigIntegerConverter = new BigIntegerConverter();
+        segmentList = new BasicEventList<TrackSegment>();
         
         initComponents();
         
         setValues();
     }
     
-    private void setValues(){
+    private void setValues() {
         
         Track track = getCurrentTrack();
         txtNumber.setText(bigIntegerConverter.convertForward(track.getNumber()));
@@ -38,6 +47,20 @@ public class TrackPanel extends AbstractInnerPanel {
         txtSource.setText(track.getSrc());
         txtType.setText(track.getType());
         txtAreaDescr.setText(track.getDesc());
+        
+        
+        EventComboBoxModel<TrackSegment> comboBoxModel = new EventComboBoxModel<TrackSegment>(segmentList);
+        cmbSegments.setModel(comboBoxModel);
+        List<TrackSegment> segments = track.getTrackSegments();
+        if (!segments.isEmpty()) {
+            segmentList.addAll(segments);
+            cmbSegments.setSelectedIndex(0);
+            
+            if (segments.size() > 1) {
+                cmbSegments.setEnabled(true);
+            }
+        }
+        
     }
 
     /** This method is called from within the constructor to
@@ -89,7 +112,8 @@ public class TrackPanel extends AbstractInnerPanel {
 
         lblSegments.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblSegments.text")); // NOI18N
 
-        cmbSegments.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbSegments.setEnabled(false);
+        cmbSegments.setRenderer(new ComboBoxRenderer());
 
         lblCmt.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblCmt.text")); // NOI18N
 
@@ -212,27 +236,40 @@ public class TrackPanel extends AbstractInnerPanel {
     private javax.swing.JTextField txtSource;
     private javax.swing.JTextField txtType;
     // End of variables declaration//GEN-END:variables
-    
+
     List<Track> getTracks() {
         return getGpx().getTracks();
     }
-
+    
     Track getCurrentTrack() {
         return getGpx().getTracks().get(trackNumber);
     }
-
+    
     @Override
     public void setValue(JComponent source, Object value) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+    
     @Override
     public void linkButtonPressed(Object ddBean, String ddProperty) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+    
     @Override
     public JComponent getErrorComponent(String errorId) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    private class ComboBoxRenderer extends DefaultListCellRenderer {
+        
+        @Override
+        public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+            boolean cellHasFocus) {
+            
+            String text = Integer.toString(segmentList.indexOf(value)+1);
+            return super.getListCellRendererComponent(list, text, index, isSelected, cellHasFocus);
+        }
+        
+    }
+    
 }
