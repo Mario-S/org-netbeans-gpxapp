@@ -8,7 +8,7 @@ import org.netbeans.modules.xml.multiview.XmlMultiViewDataObject;
  *
  * @author msc
  */
-abstract class AbstractGpxViewDesc extends DesignMultiViewDesc{
+public abstract class AbstractGpxViewDesc extends DesignMultiViewDesc{
 
     public AbstractGpxViewDesc(XmlMultiViewDataObject dObj, String name) {
         super(dObj, name);

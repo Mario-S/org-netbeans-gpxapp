@@ -1,8 +1,8 @@
-package org.netbeans.gpx.editor.view;
+package org.netbeans.gpx.editor.view.track;
 
 import java.awt.Image;
 import org.netbeans.core.spi.multiview.MultiViewElement;
-import org.netbeans.modules.xml.multiview.DesignMultiViewDesc;
+import org.netbeans.gpx.editor.view.AbstractGpxViewDesc;
 import org.netbeans.modules.xml.multiview.XmlMultiViewDataObject;
 import org.openide.util.ImageUtilities;
 

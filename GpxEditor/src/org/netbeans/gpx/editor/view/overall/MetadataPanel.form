@@ -98,7 +98,7 @@
     <Component class="javax.swing.JLabel" name="lblName">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/overall/Bundle.properties" key="MetadataPanel.lblName.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="org/netbeans/gpx/editor/view/overall/Bundle.properties" key="MetadataPanel.lblName.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -107,7 +107,7 @@
     <Component class="javax.swing.JLabel" name="lblDesc">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/overall/Bundle.properties" key="MetadataPanel.lblDesc.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="org/netbeans/gpx/editor/view/overall/Bundle.properties" key="MetadataPanel.lblDesc.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -129,7 +129,7 @@
     <Component class="javax.swing.JLabel" name="lblTime">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/overall/Bundle.properties" key="MetadataPanel.lblTime.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="org/netbeans/gpx/editor/view/overall/Bundle.properties" key="MetadataPanel.lblTime.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -138,7 +138,7 @@
     <Component class="javax.swing.JLabel" name="lblKeywords">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/overall/Bundle.properties" key="MetadataPanel.lblKeywords.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="org/netbeans/gpx/editor/view/overall/Bundle.properties" key="MetadataPanel.lblKeywords.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -147,7 +147,7 @@
     <Component class="javax.swing.JLabel" name="lblLinks">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/overall/Bundle.properties" key="MetadataPanel.lblLinks.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="org/netbeans/gpx/editor/view/overall/Bundle.properties" key="MetadataPanel.lblLinks.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
     </Component>
@@ -174,7 +174,7 @@
     <Component class="javax.swing.JButton" name="btnAddLink">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/overall/Bundle.properties" key="MetadataPanel.btnAddLink.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="org/netbeans/gpx/editor/view/overall/Bundle.properties" key="MetadataPanel.btnAddLink.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <AuxValues>
@@ -184,7 +184,7 @@
     <Component class="javax.swing.JButton" name="btnRemoveLink">
       <Properties>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-          <ResourceString bundle="org/netbeans/gpx/editor/panel/overall/Bundle.properties" key="MetadataPanel.btnRemoveLink.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+          <ResourceString bundle="org/netbeans/gpx/editor/view/overall/Bundle.properties" key="MetadataPanel.btnRemoveLink.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
         </Property>
       </Properties>
       <AuxValues>

@@ -1,6 +1,6 @@
 package org.netbeans.gpx.editor;
 
-import org.netbeans.gpx.editor.view.OverallViewDesc;
+import org.netbeans.gpx.editor.view.overall.OverallViewDesc;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,7 +31,7 @@ import com.topografix.gpx.model.factory.ModelWriter;
 import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.netbeans.gpx.editor.view.TrackViewDesc;
+import org.netbeans.gpx.editor.view.track.TrackViewDesc;
 import org.openide.loaders.MultiFileLoader;
 
 public class GpxDataObject extends XmlMultiViewDataObject {
