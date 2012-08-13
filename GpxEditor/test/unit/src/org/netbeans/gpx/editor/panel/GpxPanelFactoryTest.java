@@ -1,12 +1,12 @@
 package org.netbeans.gpx.editor.panel;
 
-import org.netbeans.gpx.editor.panel.overall.OverallPanelFactory;
+import org.netbeans.gpx.editor.view.overall.OverallPanelFactory;
 import com.topografix.gpx.model.Gpx;
 import com.topografix.gpx.model.GpxModel.SchemaType;
 import org.junit.Before;
 import org.junit.Test;
 import org.netbeans.gpx.editor.GpxDataObject;
-import org.netbeans.gpx.editor.panel.overall.GpxBasicPanel;
+import org.netbeans.gpx.editor.view.overall.GpxBasicPanel;
 import org.netbeans.modules.xml.multiview.ui.SectionInnerPanel;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
 import org.netbeans.modules.xml.multiview.ui.ToolBarDesignEditor;

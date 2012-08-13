@@ -3,7 +3,7 @@
  *
  * Created on 31.03.2012, 21:43:52
  */
-package org.netbeans.gpx.editor.panel.overall;
+package org.netbeans.gpx.editor.view.overall;
 
 import com.topografix.gpx.model.Bounds;
 import com.topografix.gpx.model.Metadata;

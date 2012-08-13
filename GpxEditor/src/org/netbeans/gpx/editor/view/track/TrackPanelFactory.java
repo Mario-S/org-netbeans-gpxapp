@@ -1,4 +1,4 @@
-package org.netbeans.gpx.editor.panel.track;
+package org.netbeans.gpx.editor.view.track;
 
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.gpx.editor.panel.AbstractInnerPanelFactory;

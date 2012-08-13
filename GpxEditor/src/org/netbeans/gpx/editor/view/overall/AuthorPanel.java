@@ -1,4 +1,4 @@
-package org.netbeans.gpx.editor.panel.overall;
+package org.netbeans.gpx.editor.view.overall;
 
 import com.topografix.gpx.model.Email;
 import com.topografix.gpx.model.Link;

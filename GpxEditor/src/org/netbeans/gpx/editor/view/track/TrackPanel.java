@@ -1,10 +1,12 @@
-package org.netbeans.gpx.editor.panel.track;
+package org.netbeans.gpx.editor.view.track;
 
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.swing.EventComboBoxModel;
+import ca.odell.glazedlists.swing.EventTableModel;
 import com.topografix.gpx.model.Track;
 import com.topografix.gpx.model.TrackSegment;
+import com.topografix.gpx.model.Waypoint;
 import java.awt.Component;
 import java.util.List;
 import javax.swing.DefaultListCellRenderer;
@@ -20,26 +22,26 @@ import org.netbeans.modules.xml.multiview.ui.SectionView;
  * @author msc
  */
 public class TrackPanel extends AbstractInnerPanel {
-    
+
     private int trackNumber;
-    
+
     private BigIntegerConverter bigIntegerConverter;
-    
+
     private EventList<TrackSegment> segmentList;
-    
+
     public TrackPanel(SectionView sectionView, GpxDataObject gpxDataObject, int trackNumber) {
         super(sectionView, gpxDataObject);
         this.trackNumber = trackNumber;
         bigIntegerConverter = new BigIntegerConverter();
         segmentList = new BasicEventList<TrackSegment>();
-        
+
         initComponents();
-        
+
         setValues();
     }
-    
+
     private void setValues() {
-        
+
         Track track = getCurrentTrack();
         txtNumber.setText(bigIntegerConverter.convertForward(track.getNumber()));
         txtName.setText(track.getName());
@@ -47,20 +49,34 @@ public class TrackPanel extends AbstractInnerPanel {
         txtSource.setText(track.getSrc());
         txtType.setText(track.getType());
         txtAreaDescr.setText(track.getDesc());
-        
-        
+        setComboBoxModel(track.getTrackSegments());
+
+    }
+
+    private void setComboBoxModel(List<TrackSegment> segments) {
+
         EventComboBoxModel<TrackSegment> comboBoxModel = new EventComboBoxModel<TrackSegment>(segmentList);
         cmbSegments.setModel(comboBoxModel);
-        List<TrackSegment> segments = track.getTrackSegments();
         if (!segments.isEmpty()) {
             segmentList.addAll(segments);
-            cmbSegments.setSelectedIndex(0);
-            
+            TrackSegment firstSegment = segments.get(0);
+            comboBoxModel.setSelectedItem(firstSegment);
+
             if (segments.size() > 1) {
                 cmbSegments.setEnabled(true);
             }
+
+
+            setTableModel(firstSegment.getTrackpoints());
         }
+    }
+
+    private void setTableModel(List<Waypoint> trackPoints) {
         
+        EventList<Waypoint> points = new BasicEventList<Waypoint>();
+        points.addAll(trackPoints);
+        EventTableModel<Waypoint> tableModel = new EventTableModel<Waypoint>(points, new WaypointTableFormat());
+        tblPoints.setModel(tableModel);
     }
 
     /** This method is called from within the constructor to
@@ -75,7 +91,7 @@ public class TrackPanel extends AbstractInnerPanel {
         lblName = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPoints = new javax.swing.JTable();
         lblWayPoints = new javax.swing.JLabel();
         lblSegments = new javax.swing.JLabel();
         cmbSegments = new javax.swing.JComboBox();
@@ -95,7 +111,7 @@ public class TrackPanel extends AbstractInnerPanel {
 
         txtName.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.txtName.text")); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPoints.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -106,7 +122,7 @@ public class TrackPanel extends AbstractInnerPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPoints);
 
         lblWayPoints.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblWayPoints.text")); // NOI18N
 
@@ -220,7 +236,6 @@ public class TrackPanel extends AbstractInnerPanel {
     private javax.swing.JComboBox cmbSegments;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblCmt;
     private javax.swing.JLabel lblDescr;
     private javax.swing.JLabel lblName;
@@ -229,6 +244,7 @@ public class TrackPanel extends AbstractInnerPanel {
     private javax.swing.JLabel lblSource;
     private javax.swing.JLabel lblType;
     private javax.swing.JLabel lblWayPoints;
+    private javax.swing.JTable tblPoints;
     private javax.swing.JTextArea txtAreaDescr;
     private javax.swing.JTextField txtCmt;
     private javax.swing.JTextField txtName;
@@ -240,36 +256,36 @@ public class TrackPanel extends AbstractInnerPanel {
     List<Track> getTracks() {
         return getGpx().getTracks();
     }
-    
+
     Track getCurrentTrack() {
         return getGpx().getTracks().get(trackNumber);
     }
-    
+
     @Override
     public void setValue(JComponent source, Object value) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public void linkButtonPressed(Object ddBean, String ddProperty) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     @Override
     public JComponent getErrorComponent(String errorId) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
     private class ComboBoxRenderer extends DefaultListCellRenderer {
-        
+
         @Override
         public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
             boolean cellHasFocus) {
-            
-            String text = Integer.toString(segmentList.indexOf(value)+1);
+
+            String text = Integer.toString(segmentList.indexOf(value) + 1);
             return super.getListCellRendererComponent(list, text, index, isSelected, cellHasFocus);
         }
-        
+
     }
-    
+
 }

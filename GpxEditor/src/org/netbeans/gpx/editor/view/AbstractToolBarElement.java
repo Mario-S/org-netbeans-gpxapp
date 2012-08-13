@@ -1,9 +1,7 @@
 package org.netbeans.gpx.editor.view;
 
 import org.netbeans.gpx.editor.GpxDataObject;
-import org.netbeans.gpx.editor.panel.overall.OverallPanelFactory;
 import org.netbeans.modules.xml.multiview.ToolBarMultiViewElement;
-import org.netbeans.modules.xml.multiview.ui.InnerPanelFactory;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
 import org.netbeans.modules.xml.multiview.ui.ToolBarDesignEditor;
 

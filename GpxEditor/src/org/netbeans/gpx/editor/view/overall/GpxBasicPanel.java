@@ -4,7 +4,7 @@
  * $$LastChangedBy: msc $$ 
  * 
  */
-package org.netbeans.gpx.editor.panel.overall;
+package org.netbeans.gpx.editor.view.overall;
 
 import com.topografix.gpx.model.Gpx;
 import javax.swing.GroupLayout;

@@ -4,14 +4,12 @@
  * $$LastChangedBy: msc $$ 
  * 
  */
-package org.netbeans.gpx.editor.view;
+package org.netbeans.gpx.editor.view.overall;
 
-import com.topografix.gpx.model.Gpx;
-import com.topografix.gpx.model.GpxModel;
 import com.topografix.gpx.model.GpxModel.SchemaType;
-import com.topografix.gpx.model.Metadata;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.gpx.editor.GpxNode;
+import org.netbeans.gpx.editor.view.AbstractGpxView;
 import org.netbeans.modules.xml.multiview.ui.InnerPanelFactory;
 import org.netbeans.modules.xml.multiview.ui.SectionContainer;
 import org.netbeans.modules.xml.multiview.ui.SectionContainerNode;

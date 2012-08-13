@@ -4,12 +4,12 @@
  * $$LastChangedBy: msc $$ 
  * 
  */
-package org.netbeans.gpx.editor.view;
+package org.netbeans.gpx.editor.view.overall;
 
 import java.awt.Image;
-import org.netbeans.modules.xml.multiview.DesignMultiViewDesc;
 import org.netbeans.core.spi.multiview.MultiViewElement;
 import org.netbeans.gpx.editor.GpxDataObject;
+import org.netbeans.gpx.editor.view.AbstractGpxViewDesc;
 import org.openide.util.ImageUtilities;
 
 /**
