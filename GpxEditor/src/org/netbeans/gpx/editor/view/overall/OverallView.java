@@ -8,7 +8,7 @@ package org.netbeans.gpx.editor.view.overall;
 
 import com.topografix.gpx.model.GpxModel.SchemaType;
 import org.netbeans.gpx.editor.GpxDataObject;
-import org.netbeans.gpx.editor.GpxNode;
+import org.netbeans.gpx.editor.view.GpxNode;
 import org.netbeans.gpx.editor.view.AbstractGpxView;
 import org.netbeans.modules.xml.multiview.ui.InnerPanelFactory;
 import org.netbeans.modules.xml.multiview.ui.SectionContainer;
