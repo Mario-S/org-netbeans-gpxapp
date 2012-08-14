@@ -33,12 +33,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.netbeans.gpx.editor.view.track.TrackViewDesc;
 import org.openide.loaders.MultiFileLoader;
+import org.openide.util.Lookup;
+import org.openide.util.lookup.AbstractLookup;
+import org.openide.util.lookup.InstanceContent;
+import org.openide.util.lookup.ProxyLookup;
 
 public class GpxDataObject extends XmlMultiViewDataObject {
 
     private final ModelSynchronizer modelSynchronizer;
     private boolean changedFromUI;
     private Gpx gpx;
+    private InstanceContent lookupContent;
+    private Lookup lookup;
+    
 
     public GpxDataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException {
         super(pf, loader);
@@ -50,6 +57,9 @@ public class GpxDataObject extends XmlMultiViewDataObject {
         cookies.add((Node.Cookie) new ValidateXMLSupport(is));
 
 //        cookies.add((Node.Cookie) DataEditorSupport.create(this, getPrimaryEntry(), cookies));
+        
+        lookupContent = new InstanceContent();
+        lookup = new AbstractLookup(lookupContent);
 
     }
 
@@ -61,6 +71,11 @@ public class GpxDataObject extends XmlMultiViewDataObject {
     @Override
     protected String getPrefixMark() {
         return null;
+    }
+
+    @Override
+    public Lookup getLookup() {
+        return new ProxyLookup(super.getLookup(), lookup);
     }
 
     @Override
@@ -117,7 +132,7 @@ public class GpxDataObject extends XmlMultiViewDataObject {
     }
 
     /**
-     * class to synchronize model with editor content
+     * class to synchronize model with editor lookupContent
      */
     private class ModelSynchronizer extends XmlMultiViewDataSynchronizer {
 
@@ -174,4 +189,10 @@ public class GpxDataObject extends XmlMultiViewDataObject {
     public void setChangedFromUI(boolean changedFromUI) {
         this.changedFromUI = changedFromUI;
     }
+
+    public InstanceContent getLookupContent() {
+        return lookupContent;
+    }
+    
+    
 }
