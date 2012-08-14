@@ -77,6 +77,8 @@ public class TrackPanel extends AbstractInnerPanel {
         points.addAll(trackPoints);
         EventTableModel<Waypoint> tableModel = new EventTableModel<Waypoint>(points, new WaypointTableFormat());
         tblPoints.setModel(tableModel);
+        
+        gpxDataObject.getLookupContent().add(trackPoints);
     }
 
     /** This method is called from within the constructor to
