@@ -1,4 +1,4 @@
-package org.netbeans.gpx.editor;
+package org.netbeans.gpx.editor.view;
 
 import org.openide.nodes.AbstractNode;
 import org.openide.nodes.Children;
