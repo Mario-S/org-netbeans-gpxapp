@@ -1,17 +1,12 @@
-package org.netbeans.gpx.editor.panel;
+package org.netbeans.gpx.editor.view.overall;
 
-import org.netbeans.gpx.editor.view.overall.OverallPanelFactory;
 import com.topografix.gpx.model.Gpx;
 import com.topografix.gpx.model.GpxModel.SchemaType;
 import org.junit.Before;
 import org.junit.Test;
 import org.netbeans.gpx.editor.GpxDataObject;
-import org.netbeans.gpx.editor.view.overall.GpxBasicPanel;
 import org.netbeans.modules.xml.multiview.ui.SectionInnerPanel;
-import org.netbeans.modules.xml.multiview.ui.SectionView;
 import org.netbeans.modules.xml.multiview.ui.ToolBarDesignEditor;
-import org.openide.nodes.AbstractNode;
-import org.openide.nodes.Children;
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.*;
 
@@ -19,7 +14,7 @@ import static org.junit.Assert.*;
  *
  * @author msc
  */
-public class GpxPanelFactoryTest {
+public class OverallPanelFactoryTest {
     
     private GpxDataObject dataObject;
     
@@ -28,13 +23,8 @@ public class GpxPanelFactoryTest {
     @Before
     public void setUp() {
         dataObject = createNiceMock(GpxDataObject.class);
-        AbstractNode root = new AbstractNode(Children.LEAF);
-        SectionView sectionView = createNiceMock(SectionView.class);
-        expect(sectionView.getRoot()).andReturn(root).atLeastOnce();
-        replay(sectionView);
         
         ToolBarDesignEditor designEditor = new ToolBarDesignEditor();
-        designEditor.setContentView(sectionView);
         classUnderTest = new OverallPanelFactory(designEditor, dataObject);
         
     }

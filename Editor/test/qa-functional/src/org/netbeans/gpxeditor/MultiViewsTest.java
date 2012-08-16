@@ -43,7 +43,7 @@ public class MultiViewsTest extends JellyTestCase {
         initDataObject();
         open(dataObject);
         TopComponentOperator operator = new TopComponentOperator(TEST_FILE);
-        AbstractButtonOperator btnOperator = new AbstractButtonOperator(operator, 0);
+        AbstractButtonOperator btnOperator = new AbstractButtonOperator(operator, 1);
         
         assertTrue(btnOperator.isEnabled());
         assertEquals("General", btnOperator.getText());
@@ -60,7 +60,7 @@ public class MultiViewsTest extends JellyTestCase {
         initDataObject();
         open(dataObject);
         TopComponentOperator operator = new TopComponentOperator(TEST_FILE);
-        AbstractButtonOperator btnOperator = new AbstractButtonOperator(operator, 1);
+        AbstractButtonOperator btnOperator = new AbstractButtonOperator(operator, 2);
         
         assertTrue(btnOperator.isEnabled());
         assertEquals("Tracks", btnOperator.getText());
