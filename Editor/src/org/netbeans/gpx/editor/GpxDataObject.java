@@ -41,11 +41,14 @@ import org.openide.util.lookup.ProxyLookup;
 public class GpxDataObject extends XmlMultiViewDataObject {
 
     private final ModelSynchronizer modelSynchronizer;
+
     private boolean changedFromUI;
+
     private Gpx gpx;
+
     private InstanceContent lookupContent;
+
     private Lookup lookup;
-    
 
     public GpxDataObject(FileObject pf, MultiFileLoader loader) throws DataObjectExistsException {
         super(pf, loader);
@@ -57,7 +60,7 @@ public class GpxDataObject extends XmlMultiViewDataObject {
         cookies.add((Node.Cookie) new ValidateXMLSupport(is));
 
 //        cookies.add((Node.Cookie) DataEditorSupport.create(this, getPrimaryEntry(), cookies));
-        
+
         lookupContent = new InstanceContent();
         lookup = new AbstractLookup(lookupContent);
 
@@ -80,8 +83,8 @@ public class GpxDataObject extends XmlMultiViewDataObject {
 
     @Override
     protected DesignMultiViewDesc[] getMultiViewDesc() {
-        return new DesignMultiViewDesc[]{ new OverallViewDesc(this), 
-            new TrackViewDesc(this)};
+        return new DesignMultiViewDesc[]{new OverallViewDesc(this),
+                    new TrackViewDesc(this)};
     }
 
     private void parseDocument() throws IOException {
@@ -118,9 +121,15 @@ public class GpxDataObject extends XmlMultiViewDataObject {
     private Gpx build(InputStream stream) throws IOException {
 
         Gpx model = null;
-        ModelBuilder builder = new ModelBuilder(stream);
+
         try {
-            model = builder.build();
+            int available = stream.available();
+            if (available != 0) {
+                ModelBuilder builder = new ModelBuilder(stream);
+                model = builder.build();
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(getClass().getName()).log(Level.INFO, null, ex);
         } catch (JAXBException ex) {
             throw new IOException(ex);
         }
@@ -193,6 +202,4 @@ public class GpxDataObject extends XmlMultiViewDataObject {
     public InstanceContent getLookupContent() {
         return lookupContent;
     }
-    
-
 }
