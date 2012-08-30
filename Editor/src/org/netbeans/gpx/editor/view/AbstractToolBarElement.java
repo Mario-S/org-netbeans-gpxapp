@@ -33,6 +33,7 @@ public abstract class AbstractToolBarElement extends ToolBarMultiViewElement {
     public void componentShowing() {
         super.componentShowing();
 
+        gpxDataObject.setChangedFromUI(false);
         gpxDataObject.updateModel();
 
         view = createView();
