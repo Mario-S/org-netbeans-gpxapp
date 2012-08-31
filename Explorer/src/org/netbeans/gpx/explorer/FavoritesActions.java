@@ -116,15 +116,17 @@ public final class FavoritesActions {
             putValue("iconBase","org/netbeans/gpx/explorer/resources/openDir.gif"); //NOI18N
         }
         
+        @Override
         public void actionPerformed(ActionEvent evt) {
 
-            final DataFolder f = FavoritesNode.getFolder();            
             List<DataObject> toShadows;
 
             try {
                 // show JFileChooser
                 FileObject fo = Add.chooseFileObject();
-                if (fo == null) return;
+                if (fo == null) {
+                    return;
+                }
                 toShadows = Collections.singletonList(DataObject.find(fo));
                 Add.addToFavorites(toShadows);
             } catch (DataObjectNotFoundException e) {
@@ -153,12 +155,14 @@ public final class FavoritesActions {
             return VIEW;
         }
         
+        @Override
         public void actionPerformed(ActionEvent evt) {
             final TopComponent projectsTab = Tab.findDefault();
             projectsTab.open();
             projectsTab.requestActive();
         }
 
+        @Override
         public HelpCtx getHelpCtx() {
             return new HelpCtx(View.class);
         }
@@ -180,6 +184,7 @@ public final class FavoritesActions {
             putValue("noIconInMenu", Boolean.TRUE); //NOI18N
         }
         
+        @Override
         protected void performAction(Node[] activatedNodes) {
             Tab tab = Tab.findDefault();
             tab.open();
@@ -187,6 +192,7 @@ public final class FavoritesActions {
             tab.doSelectNode(activatedNodes[0].getCookie(DataObject.class));
         }
 
+        @Override
         protected boolean enable(Node[] activatedNodes) {
             if (activatedNodes.length != 1) {
                 return false;
@@ -199,6 +205,7 @@ public final class FavoritesActions {
             /*return Tab.findDefault().containsNode(dobj);*/
           }
 
+        @Override
         public String getName() {
             return NbBundle.getMessage(Select.class, "ACT_Select_Main_Menu"); // NOI18N
         }
@@ -216,6 +223,7 @@ public final class FavoritesActions {
             return "org/netbeans/geo/explorer/resources/actionSelect.gif"; // NOI18N
         }
 
+        @Override
         public HelpCtx getHelpCtx() {
             return null;
         }
@@ -243,8 +251,11 @@ public final class FavoritesActions {
         
         /** Enabled only if the current project is ProjectDataObject.
         */
+        @Override
         public boolean enable (Node[] arr) {
-            if ((arr == null) || (arr.length == 0)) return false;
+            if ((arr == null) || (arr.length == 0)) {
+                return false;
+            }
 
             for (int i = 0; i < arr.length; i++) {
                 DataObject shad = arr[i].getCookie(DataObject.class);
@@ -260,6 +271,7 @@ public final class FavoritesActions {
         * presented as an item in a menu.
         * @return the name of the action
         */
+        @Override
         public String getName() {
             return NbBundle.getMessage (
                     FavoritesActions.class, "ACT_Remove"); // NOI18N
@@ -268,6 +280,7 @@ public final class FavoritesActions {
         /** Help context where to find more about the action.
         * @return the help context for this action
         */
+        @Override
         public HelpCtx getHelpCtx() {
             return new HelpCtx(Remove.class);
         }
@@ -277,6 +290,7 @@ public final class FavoritesActions {
         *
         * @param arr gives array of actually activated nodes.
         */
+        @Override
         protected void performAction (Node[] arr) {
             for (int i = 0; i < arr.length; i++) {
                 DataObject shad = arr[i].getCookie(DataObject.class);
@@ -320,17 +334,21 @@ public final class FavoritesActions {
         
         /** Enabled only if the current project is ProjectDataObject.
         */
+        @Override
         public boolean enable (Node[] arr) {
-            if ((arr == null) || (arr.length == 0)) return false;
-            if (arr.length == 1 && arr[0] instanceof FavoritesNode) return true;
-                
-            
+            if ((arr == null) || (arr.length == 0)) {
+                return false;
+            }
+            if (arr.length == 1 && arr[0] instanceof FavoritesNode) {
+                return true;
+            }
 
             for (int i = 0; i < arr.length; i++) {
                 DataObject dataObject = arr[i].getCookie(DataObject.class);
-                if (! isAllowed(dataObject))
+                if (! isAllowed(dataObject)) {
                     return false;
                 }
+            }
             return true;
         }
         
@@ -338,6 +356,7 @@ public final class FavoritesActions {
         * presented as an item in a menu.
         * @return the name of the action
         */
+        @Override
         public String getName() {
             return NbBundle.getMessage (
                     FavoritesActions.class, "ACT_Add"); // NOI18N
@@ -346,6 +365,7 @@ public final class FavoritesActions {
         /** Help context where to find more about the action.
         * @return the help context for this action
         */
+        @Override
         public HelpCtx getHelpCtx() {
             return new HelpCtx(Add.class);
         }
@@ -355,6 +375,7 @@ public final class FavoritesActions {
         *
         * @param activatedNodes gives array of actually activated nodes.
         */
+        @Override
         protected void performAction (final Node[] activatedNodes) {
             List<DataObject> toShadows;
             
@@ -373,14 +394,17 @@ public final class FavoritesActions {
                 if (activatedNodes.length == 1 && activatedNodes[0] instanceof FavoritesNode) {
                     // show JFileChooser
                     FileObject fo = chooseFileObject();
-                    if (fo == null) return;
+                    if (fo == null) {
+                        return;
+                    }
                     toShadows = Collections.singletonList(DataObject.find(fo));
                 } else {
                     toShadows = new ArrayList<DataObject>();
                     for (Node node : activatedNodes) {
                         DataObject obj = node.getCookie(DataObject.class);
-                        if (obj != null)
+                        if (obj != null) {
                             toShadows.add(obj);
+                        }
                 } 
                 }
                 addToFavorites(toShadows);
@@ -452,6 +476,7 @@ public final class FavoritesActions {
                 }
                 if (setSelected) {
                     SwingUtilities.invokeLater(new Runnable () {
+                        @Override
                         public void run() {
                             try {
                                 projectsTab.getExplorerManager().setExploredContextAndSelection(toSelect[0],toSelect);
