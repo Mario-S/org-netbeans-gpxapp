@@ -111,9 +111,9 @@ public final class FavoritesActions {
         
         public OpenDirAction() {
             putValue(NAME, NbBundle.getMessage(OpenDirAction.class,"ACT_opendir"));
-            Image image = ImageUtilities.loadImage("de/mario/geo/gpxeditor/resources/openDir.gif"); // NOI18N
+            Image image = ImageUtilities.loadImage("org/netbeans/gpx/explorer/resources/openDir.gif"); // NOI18N
             putValue(SMALL_ICON, new ImageIcon(image));
-            putValue("iconBase","de/mario/geo/gpxeditor/resources/openDir.gif"); //NOI18N
+            putValue("iconBase","org/netbeans/gpx/explorer/resources/openDir.gif"); //NOI18N
         }
         
         public void actionPerformed(ActionEvent evt) {
