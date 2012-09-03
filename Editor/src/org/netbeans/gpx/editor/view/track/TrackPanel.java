@@ -4,6 +4,7 @@ import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.swing.EventComboBoxModel;
 import ca.odell.glazedlists.swing.EventTableModel;
+import com.topografix.gpx.Selection;
 import com.topografix.gpx.model.Track;
 import com.topografix.gpx.model.TrackSegment;
 import com.topografix.gpx.model.Waypoint;
@@ -78,7 +79,7 @@ public class TrackPanel extends AbstractInnerPanel {
         EventTableModel<Waypoint> tableModel = new EventTableModel<Waypoint>(points, new WaypointTableFormat());
         tblPoints.setModel(tableModel);
         
-        gpxDataObject.getLookupContent().set(trackPoints, null);
+        Selection.INSTANCE.getContent().set(trackPoints, null);
     }
 
     /** This method is called from within the constructor to
