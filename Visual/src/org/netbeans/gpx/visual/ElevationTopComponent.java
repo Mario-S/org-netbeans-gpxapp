@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.netbeans.gpx.visual;
 
 import com.topografix.gpx.Selection;
@@ -19,7 +15,7 @@ import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
 
 /**
- * Top component which displays something.
+ * Top component which displays elevation profile.
  */
 @ConvertAsProperties(
     dtd = "-//org.netbeans.gpx.visual//Elevation//EN",
