@@ -1,8 +1,3 @@
-/*
- * (C) Copyright Dilax Intelcom GmbH.
- * 
- *  All Rights Reserved.
- */
 package com.topografix.gpx;
 
 import org.openide.util.Lookup;
@@ -10,7 +5,8 @@ import org.openide.util.lookup.AbstractLookup;
 import org.openide.util.lookup.InstanceContent;
 
 /**
- *
+ * Singleton for the lookup.
+ * 
  * @author msc
  */
 public enum Selection {
