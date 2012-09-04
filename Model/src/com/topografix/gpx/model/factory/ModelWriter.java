@@ -21,14 +21,14 @@ public class ModelWriter {
 
     private Gpx model;
     private Marshaller marshaller;
-    
+
     private static String schemaLocation = GpxModel.Schema.NAME_SPACE + " " + GpxModel.Schema.LOCATION;
 
     public ModelWriter(Gpx model) throws JAXBException {
         this.model = model;
         marshaller = createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, schemaLocation);
+        marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, "http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd");
     }
 
     private Marshaller createMarshaller() throws JAXBException {

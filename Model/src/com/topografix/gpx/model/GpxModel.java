@@ -32,13 +32,13 @@ public interface GpxModel {
         COPYRIGHT, POINT, POINTSEQUENCE,
         TRACK, TRACKSEGEMENT, ROUTE,
         WAYPOINT
-
     }
 
     /**
-     * Defines a method that should check if the object's filed differ from the initialized state.
-     *
-     * @return
+     * Defines a method that should check if the object's filed differ from the 
+     * initialized state.
+     * 
+     * @return 
      */
     boolean hasContent();
 }
