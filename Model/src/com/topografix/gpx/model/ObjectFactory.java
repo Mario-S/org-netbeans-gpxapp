@@ -6,22 +6,8 @@
 //
 
 
-package com.topografix.gpx.model.factory;
+package com.topografix.gpx.model;
 
-import com.topografix.gpx.model.Bounds;
-import com.topografix.gpx.model.Copyright;
-import com.topografix.gpx.model.Email;
-import com.topografix.gpx.model.Extensions;
-import com.topografix.gpx.model.Gpx;
-import com.topografix.gpx.model.Link;
-import com.topografix.gpx.model.Metadata;
-import com.topografix.gpx.model.Person;
-import com.topografix.gpx.model.Point;
-import com.topografix.gpx.model.PointSequence;
-import com.topografix.gpx.model.Route;
-import com.topografix.gpx.model.Track;
-import com.topografix.gpx.model.TrackSegment;
-import com.topografix.gpx.model.Waypoint;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
@@ -45,7 +31,7 @@ import javax.xml.namespace.QName;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Gpx_QNAME = new QName("http://www.topografix.com/GPX/1/1", "gpx");
+    private final static QName _Gpx_QNAME = new QName(GpxModel.Schema.NAME_SPACE.toString(), "gpx");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: com.topografix
