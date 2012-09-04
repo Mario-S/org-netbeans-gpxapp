@@ -6,8 +6,23 @@
 //
 
 
-package com.topografix.gpx.model;
+package com.topografix.gpx.model.factory;
 
+import com.topografix.gpx.model.Bounds;
+import com.topografix.gpx.model.Copyright;
+import com.topografix.gpx.model.Email;
+import com.topografix.gpx.model.Extensions;
+import com.topografix.gpx.model.Gpx;
+import com.topografix.gpx.model.GpxModel;
+import com.topografix.gpx.model.Link;
+import com.topografix.gpx.model.Metadata;
+import com.topografix.gpx.model.Person;
+import com.topografix.gpx.model.Point;
+import com.topografix.gpx.model.PointSequence;
+import com.topografix.gpx.model.Route;
+import com.topografix.gpx.model.Track;
+import com.topografix.gpx.model.TrackSegment;
+import com.topografix.gpx.model.Waypoint;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
