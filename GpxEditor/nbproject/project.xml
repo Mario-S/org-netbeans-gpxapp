@@ -136,10 +136,6 @@
                 <test-type>
                     <name>unit</name>
                     <test-dependency>
-                        <code-name-base>net.sf.cglib</code-name-base>
-                        <compile-dependency/>
-                    </test-dependency>
-                    <test-dependency>
                         <code-name-base>org.easymock</code-name-base>
                         <compile-dependency/>
                     </test-dependency>
@@ -149,10 +145,6 @@
                     </test-dependency>
                     <test-dependency>
                         <code-name-base>org.netbeans.modules.nbjunit</code-name-base>
-                        <compile-dependency/>
-                    </test-dependency>
-                    <test-dependency>
-                        <code-name-base>org.openjenesis</code-name-base>
                         <compile-dependency/>
                     </test-dependency>
                 </test-type>
