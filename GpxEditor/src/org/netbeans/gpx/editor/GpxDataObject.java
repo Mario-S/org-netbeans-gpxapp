@@ -115,7 +115,7 @@ public class GpxDataObject extends XmlMultiViewDataObject {
         try {
             int available = stream.available();
             if (available != 0) {
-                model = ModelConverter.buildModel(stream);
+                model = ModelConverter.readModel(stream);
             }
         } catch (IOException ex) {
             Logger.getLogger(getClass().getName()).log(Level.INFO, null, ex);

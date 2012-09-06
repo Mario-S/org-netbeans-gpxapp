@@ -5,24 +5,7 @@
         <data xmlns="http://www.netbeans.org/ns/nb-module-project/3">
             <code-name-base>org.easymock</code-name-base>
             <suite-component/>
-            <module-dependencies>
-                <dependency>
-                    <code-name-base>net.sf.cglib</code-name-base>
-                    <build-prerequisite/>
-                    <compile-dependency/>
-                    <run-dependency>
-                        <specification-version>1.0</specification-version>
-                    </run-dependency>
-                </dependency>
-                <dependency>
-                    <code-name-base>org.openjenesis</code-name-base>
-                    <build-prerequisite/>
-                    <compile-dependency/>
-                    <run-dependency>
-                        <specification-version>1.0</specification-version>
-                    </run-dependency>
-                </dependency>
-            </module-dependencies>
+            <module-dependencies/>
             <public-packages>
                 <package>org.easymock</package>
                 <package>org.easymock.internal</package>
@@ -31,6 +14,14 @@
             <class-path-extension>
                 <runtime-relative-path>ext/easymock-3.1.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/easymock-3.1.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/cglib-nodep-2.2.2.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/cglib-nodep-2.2.2.jar</binary-origin>
+            </class-path-extension>
+            <class-path-extension>
+                <runtime-relative-path>ext/objenesis-1.2.jar</runtime-relative-path>
+                <binary-origin>release/modules/ext/objenesis-1.2.jar</binary-origin>
             </class-path-extension>
         </data>
     </configuration>
