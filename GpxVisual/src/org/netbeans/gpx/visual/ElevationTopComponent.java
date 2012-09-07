@@ -1,10 +1,21 @@
 package org.netbeans.gpx.visual;
 
+import java.awt.BorderLayout;
 import org.netbeans.gpx.model.Selection;
 import org.netbeans.gpx.model.entity.Waypoint;
 import java.util.Collection;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.time.RegularTimePeriod;
+import org.jfree.data.time.Second;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
@@ -36,7 +47,7 @@ preferredID = "ElevationTopComponent")
     "HINT_ElevationTopComponent=This is a Elevation window"
 })
 public final class ElevationTopComponent extends TopComponent implements LookupListener {
-    
+
     private static final long serialVersionUID = -7900084742185260837L;
 
     private Lookup.Result<Waypoint> result;
@@ -57,32 +68,23 @@ public final class ElevationTopComponent extends TopComponent implements LookupL
 
         elevationPanel = new javax.swing.JPanel();
 
-        javax.swing.GroupLayout elevationPanelLayout = new javax.swing.GroupLayout(elevationPanel);
-        elevationPanel.setLayout(elevationPanelLayout);
-        elevationPanelLayout.setHorizontalGroup(
-            elevationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        elevationPanelLayout.setVerticalGroup(
-            elevationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        elevationPanel.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(elevationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(elevationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(elevationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(elevationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel elevationPanel;
     // End of variables declaration//GEN-END:variables
+
     @Override
     public void componentOpened() {
         result = Selection.INSTANCE.getLookup().lookupResult(Waypoint.class);
@@ -113,12 +115,40 @@ public final class ElevationTopComponent extends TopComponent implements LookupL
         Collection<? extends Waypoint> points = result.allInstances();
 
         if (!points.isEmpty()) {
+
+            //TODO sort the collection based on time
+
             StringBuilder builder = new StringBuilder();
             for (Waypoint p : points) {
-                builder.append("Elevation: ").append(p.getEle()).append("\n");
+                builder.append("Elevation: ").append(p.getElevation()).append("\n");
             }
 
             Logger.getLogger(getClass().getName()).log(Level.INFO, builder.toString());
+
+            ChartPanel chartPanel = new ChartPanel(buildChart(points));
+            elevationPanel.add(chartPanel, BorderLayout.CENTER);
         }
+    }
+
+    private JFreeChart buildChart(Collection<? extends Waypoint> points) {
+
+        //TODO i18n using Bundle
+        String timeAxis = "Time";
+        String valueAxis = "Elevation";
+        String seriesName = "Way Points";
+
+        TimeSeries series = new TimeSeries(seriesName);
+        for (Waypoint point : points) {
+            //TODO select period based on time difference between the waypoints
+            Date timeStamp = point.getTime().toGregorianCalendar().getTime();
+            RegularTimePeriod period = new Second(timeStamp);
+            series.add(period, point.getElevation());
+        }
+
+        TimeSeriesCollection dataSet = new TimeSeriesCollection(series);
+
+        JFreeChart chart = ChartFactory.createTimeSeriesChart(null, timeAxis, valueAxis,
+                dataSet, true, true, false);
+        return chart;
     }
 }
