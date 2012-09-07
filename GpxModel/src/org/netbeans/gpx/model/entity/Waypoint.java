@@ -121,7 +121,7 @@ public class Waypoint {
      *     {@link BigDecimal }
      *     
      */
-    public BigDecimal getEle() {
+    public BigDecimal getElevation() {
         return ele;
     }
 
@@ -133,7 +133,7 @@ public class Waypoint {
      *     {@link BigDecimal }
      *     
      */
-    public void setEle(BigDecimal value) {
+    public void setElevation(BigDecimal value) {
         this.ele = value;
     }
 
