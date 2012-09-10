@@ -6,7 +6,7 @@
  */
 package org.netbeans.gpx.model.factory;
 
-import org.netbeans.gpx.model.factory.ModelBuilder;
+import org.netbeans.gpx.model.factory.ModelReader;
 import org.netbeans.gpx.model.entity.Link;
 import org.netbeans.gpx.model.entity.Track;
 import java.util.List;
@@ -26,9 +26,9 @@ import static org.junit.Assert.*;
  *
  * @author msc
  */
-public class ModelBuilderTest extends NbTestCase {
+public class ModelReaderTest extends NbTestCase {
 
-    public ModelBuilderTest(String name) {
+    public ModelReaderTest(String name) {
         super(name);
     }
 
@@ -36,7 +36,7 @@ public class ModelBuilderTest extends NbTestCase {
         
         String fileName = getDataDir().getAbsolutePath() + resource;
         File file = new File(fileName);
-        ModelBuilder builder = new ModelBuilder(new FileInputStream(file));
+        ModelReader builder = new ModelReader(new FileInputStream(file));
         return builder.build();
     }
 
