@@ -37,7 +37,7 @@ public class ModelReaderTest extends NbTestCase {
         String fileName = getDataDir().getAbsolutePath() + resource;
         File file = new File(fileName);
         ModelReader builder = new ModelReader(new FileInputStream(file));
-        return builder.build();
+        return builder.read();
     }
 
     public void testTrack() throws FileNotFoundException, JAXBException {

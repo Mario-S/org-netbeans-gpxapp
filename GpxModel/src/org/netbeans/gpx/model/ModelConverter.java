@@ -31,7 +31,7 @@ public final class ModelConverter {
         Gpx model = null;
         try {
             ModelReader builder = new ModelReader(in);
-            model = builder.build();
+            model = builder.read();
         } catch (JAXBException ex) {
             throw new IOException(ex);
         }
