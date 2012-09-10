@@ -26,7 +26,7 @@ public class ModelReader {
         this.in = in;
     }
 
-    public Gpx build() throws JAXBException {
+    public Gpx read() throws JAXBException {
 
         JAXBContext context = JAXBContext.newInstance(Gpx.class);
         Unmarshaller unmarshaller = context.createUnmarshaller();
