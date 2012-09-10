@@ -7,7 +7,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
 import org.netbeans.gpx.model.entity.Gpx;
-import org.netbeans.gpx.model.factory.ModelBuilder;
+import org.netbeans.gpx.model.factory.ModelReader;
 import org.netbeans.gpx.model.factory.ModelWriter;
 
 /**
@@ -30,7 +30,7 @@ public final class ModelConverter {
 
         Gpx model = null;
         try {
-            ModelBuilder builder = new ModelBuilder(in);
+            ModelReader builder = new ModelReader(in);
             model = builder.build();
         } catch (JAXBException ex) {
             throw new IOException(ex);

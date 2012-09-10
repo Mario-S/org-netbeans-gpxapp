@@ -18,11 +18,11 @@ import javax.xml.bind.Unmarshaller;
  *
  * @author msc
  */
-public class ModelBuilder {
+public class ModelReader {
 
     private InputStream in;
 
-    public ModelBuilder(InputStream in) {
+    public ModelReader(InputStream in) {
         this.in = in;
     }
 
