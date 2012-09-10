@@ -5,11 +5,15 @@ import org.netbeans.gpx.model.Selection;
 import org.netbeans.gpx.model.entity.Waypoint;
 import java.util.Collection;
 import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
@@ -139,9 +143,7 @@ public final class ElevationTopComponent extends TopComponent implements LookupL
 
         TimeSeries series = new TimeSeries(seriesName);
         for (Waypoint point : points) {
-            //TODO select period based on time difference between the waypoints
-            Date timeStamp = point.getTime().toGregorianCalendar().getTime();
-            RegularTimePeriod period = new Second(timeStamp);
+            RegularTimePeriod period = buildTimePeriod(point);
             series.add(period, point.getElevation());
         }
 
@@ -149,6 +151,17 @@ public final class ElevationTopComponent extends TopComponent implements LookupL
 
         JFreeChart chart = ChartFactory.createTimeSeriesChart(null, timeAxis, valueAxis,
                 dataSet, true, true, false);
+
         return chart;
+    }
+
+    private RegularTimePeriod buildTimePeriod(Waypoint point) {
+        TimeZone timeZone = TimeZone.getDefault();
+        Locale locale = Locale.getDefault();
+        GregorianCalendar cal = point.getTime().
+                toGregorianCalendar(timeZone, locale, null);
+        //TODO select period based on time difference between the waypoints
+        RegularTimePeriod period = new Second(cal.getTime());
+        return period;
     }
 }
