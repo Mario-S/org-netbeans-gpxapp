@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+OpenIDE-Module: org.gavaghan.geodesy
+OpenIDE-Module-Localizing-Bundle: org/gavaghan/geodesy/Bundle.properties
+OpenIDE-Module-Specification-Version: 1.1.1
+
