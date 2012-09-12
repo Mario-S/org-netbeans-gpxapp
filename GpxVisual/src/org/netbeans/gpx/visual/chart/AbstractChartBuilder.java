@@ -9,7 +9,10 @@ import org.netbeans.gpx.model.entity.Waypoint;
  * @author msc
  */
 public abstract class AbstractChartBuilder {
-    protected static final String seriesName = "Way Points";
+    
+    protected String seriesName = "Way Points";
+    
+    protected String valueAxis = "Height (m)";
     
     public abstract JFreeChart buildChart(Collection<? extends Waypoint> points);
 }

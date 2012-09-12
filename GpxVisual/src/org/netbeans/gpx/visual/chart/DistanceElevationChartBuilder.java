@@ -8,7 +8,10 @@ import org.gavaghan.geodesy.GeodeticMeasurement;
 import org.gavaghan.geodesy.GlobalPosition;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.TickUnitSource;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.netbeans.gpx.model.entity.Waypoint;
@@ -32,8 +35,7 @@ class DistanceElevationChartBuilder extends AbstractChartBuilder {
     @Override
     public JFreeChart buildChart(Collection<? extends Waypoint> points) {
 	//TODO i18n using Bundle
-	String xAxis = "Distance";
-	String valueAxis = "Elevation";
+	String xAxis = "Distance (m)";
 
 	Iterator<? extends Waypoint> pointIterator = points.iterator();
 
@@ -44,7 +46,7 @@ class DistanceElevationChartBuilder extends AbstractChartBuilder {
 	JFreeChart chart = ChartFactory.createXYLineChart(null, xAxis, valueAxis,
 		dataSet, PlotOrientation.VERTICAL,
 		true, true, false);
-
+	
 	return chart;
     }
 

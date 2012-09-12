@@ -6,6 +6,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
@@ -16,13 +18,12 @@ import org.netbeans.gpx.model.entity.Waypoint;
  *
  * @author msc
  */
-class TimeElevationChartBuilder extends AbstractChartBuilder{
+class TimeElevationChartBuilder extends AbstractChartBuilder {
 
     @Override
     public JFreeChart buildChart(Collection<? extends Waypoint> points) {
 	//TODO i18n using Bundle
-	String timeAxis = "Time";
-	String valueAxis = "Elevation";
+	String timeAxis = "Time (h:m:s)";
 
 	TimeSeries series = new TimeSeries(seriesName);
 	for (Waypoint point : points) {
@@ -48,5 +49,4 @@ class TimeElevationChartBuilder extends AbstractChartBuilder{
 	RegularTimePeriod period = new Second(cal.getTime());
 	return period;
     }
-    
 }
