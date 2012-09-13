@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.DateAxis;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.XYPlot;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.netbeans.gpx.model.entity.Waypoint;
@@ -63,6 +66,10 @@ public class TimeElevationChartBuilderTest {
 
 	JFreeChart chart = classUnderTest.buildChart(points);
 	assertNotNull(chart);
+	
+	XYPlot plot = (XYPlot) chart.getPlot();
+	ValueAxis axis = plot.getDomainAxis();
+	assertTrue(axis instanceof DateAxis);
     }
     
 }
