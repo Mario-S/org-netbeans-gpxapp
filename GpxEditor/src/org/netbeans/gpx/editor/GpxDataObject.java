@@ -1,6 +1,6 @@
 package org.netbeans.gpx.editor;
 
-import org.netbeans.gpx.model.Selection;
+import org.netbeans.gpx.model.api.Selection;
 import org.netbeans.gpx.editor.view.overall.OverallViewDesc;
 import java.io.File;
 import java.io.FileInputStream;

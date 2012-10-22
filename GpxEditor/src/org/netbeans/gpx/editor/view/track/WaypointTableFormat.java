@@ -57,10 +57,10 @@ class WaypointTableFormat implements TableFormat<Waypoint> {
                 vaue = e.getTime();
                 break;
             case 1:
-                vaue = e.getLon();
+                vaue = e.getLongitude();
                 break;
             case 2:
-                vaue = e.getLat();
+                vaue = e.getLatitude();
                 break;
             case 3:
                 vaue = e.getElevation();
