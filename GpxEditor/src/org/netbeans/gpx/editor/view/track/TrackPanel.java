@@ -4,7 +4,7 @@ import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.swing.EventComboBoxModel;
 import ca.odell.glazedlists.swing.EventTableModel;
-import org.netbeans.gpx.model.Selection;
+import org.netbeans.gpx.model.api.Selection;
 import org.netbeans.gpx.model.entity.Track;
 import org.netbeans.gpx.model.entity.TrackSegment;
 import org.netbeans.gpx.model.entity.Waypoint;
