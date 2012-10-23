@@ -1,8 +1,3 @@
-/*
- * (C) Copyright Dilax Intelcom GmbH.
- * 
- *  All Rights Reserved.
- */
 package org.netbeans.gpx.visual.chart;
 
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
@@ -16,7 +11,6 @@ import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.netbeans.gpx.model.entity.Waypoint;
 
 /**
  *
@@ -26,36 +20,36 @@ public class TimeElevationChartBuilderTest {
 
     private TimeElevationChartBuilder classUnderTest;
 
-    private List<Waypoint> points;
+    private List<TestLocation> points;
 
     public TimeElevationChartBuilderTest() {
-	classUnderTest = new TimeElevationChartBuilder();
-	buildPoints();
+        classUnderTest = new TimeElevationChartBuilder();
+        buildPoints();
     }
 
     private void buildPoints() {
-	points = new ArrayList<Waypoint>();
-	
-	Waypoint point = new Waypoint();
-	XMLGregorianCalendar cal = new XMLGregorianCalendarImpl();
-	cal.setTime(10, 0, 0);
-	point.setTime(cal);
-	point.setElevation(BigDecimal.ZERO);
-	points.add(point);
-	
-	point = new Waypoint();
-	cal = new XMLGregorianCalendarImpl();
-	cal.setTime(10, 0, 2);
-	point.setTime(cal);
-	point.setElevation(BigDecimal.valueOf(5.0));
-	points.add(point);
-	
-	point = new Waypoint();
-	cal = new XMLGregorianCalendarImpl();
-	cal.setTime(10, 0, 4);
-	point.setTime(cal);
-	point.setElevation(BigDecimal.valueOf(10.0));
-	points.add(point);
+        points = new ArrayList<TestLocation>();
+
+        TestLocation point = new TestLocation();
+        XMLGregorianCalendar cal = new XMLGregorianCalendarImpl();
+        cal.setTime(10, 0, 0);
+        point.setTime(cal);
+        point.setElevation(BigDecimal.ZERO);
+        points.add(point);
+
+        point = new TestLocation();
+        cal = new XMLGregorianCalendarImpl();
+        cal.setTime(10, 0, 2);
+        point.setTime(cal);
+        point.setElevation(BigDecimal.valueOf(5.0));
+        points.add(point);
+
+        point = new TestLocation();
+        cal = new XMLGregorianCalendarImpl();
+        cal.setTime(10, 0, 4);
+        point.setTime(cal);
+        point.setElevation(BigDecimal.valueOf(10.0));
+        points.add(point);
     }
 
     /**
@@ -64,12 +58,11 @@ public class TimeElevationChartBuilderTest {
     @Test
     public void testBuildChart() {
 
-	JFreeChart chart = classUnderTest.buildChart(points);
-	assertNotNull(chart);
-	
-	XYPlot plot = (XYPlot) chart.getPlot();
-	ValueAxis axis = plot.getDomainAxis();
-	assertTrue(axis instanceof DateAxis);
+        JFreeChart chart = classUnderTest.buildChart(points);
+        assertNotNull(chart);
+
+        XYPlot plot = (XYPlot) chart.getPlot();
+        ValueAxis axis = plot.getDomainAxis();
+        assertTrue(axis instanceof DateAxis);
     }
-    
 }
