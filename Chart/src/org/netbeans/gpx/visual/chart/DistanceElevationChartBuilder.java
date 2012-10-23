@@ -2,15 +2,12 @@ package org.netbeans.gpx.visual.chart;
 
 import java.util.Collection;
 import java.util.Iterator;
-import org.gavaghan.geodesy.Ellipsoid;
-import org.gavaghan.geodesy.GeodeticCalculator;
-import org.gavaghan.geodesy.GeodeticMeasurement;
-import org.gavaghan.geodesy.GlobalPosition;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.netbeans.gpx.model.api.DistanceCalculator;
 import org.netbeans.gpx.model.api.Location;
 
 /**
@@ -19,14 +16,10 @@ import org.netbeans.gpx.model.api.Location;
  */
 class DistanceElevationChartBuilder extends AbstractChartBuilder {
 
-    /*the ellipsoid is always WGS 84 for GPX data*/
-    private static final Ellipsoid REF = Ellipsoid.WGS84;
-
-    private GeodeticCalculator geoCalculator;
-
-    public DistanceElevationChartBuilder() {
-
-	geoCalculator = new GeodeticCalculator();
+    private DistanceCalculator distanceCalculator;
+    
+    public DistanceElevationChartBuilder(){
+        distanceCalculator = DistanceCalculator.Instance;
     }
 
     @Override
@@ -65,19 +58,8 @@ class DistanceElevationChartBuilder extends AbstractChartBuilder {
     }
 
     private double getDistance(Location from, Location to) {
-
-	GlobalPosition fromPosition = buildPosition(from);
-	GlobalPosition toPosition = buildPosition(to);
-
-	GeodeticMeasurement measurement = geoCalculator.calculateGeodeticMeasurement(REF, fromPosition, toPosition);
-	return measurement.getPointToPointDistance();
+        return distanceCalculator.getDistance(from, to);
     }
 
-    private GlobalPosition buildPosition(Location from) {
-
-	double lat = from.getLatitude().doubleValue();
-	double lon = from.getLongitude().doubleValue();
-	double ele = from.getElevation().doubleValue();
-	return new GlobalPosition(lat, lon, ele);
-    }
+   
 }
