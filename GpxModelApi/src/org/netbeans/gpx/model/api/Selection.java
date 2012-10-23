@@ -13,7 +13,7 @@ import org.openide.util.lookup.InstanceContent;
  */
 public enum Selection {
     
-    INSTANCE;
+    Instance;
 
     private Lookup lookup;
 

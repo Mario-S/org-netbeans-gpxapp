@@ -1,5 +1,7 @@
 package org.netbeans.gpx.model.api;
 
+import java.util.Iterator;
+import java.util.List;
 import org.gavaghan.geodesy.Ellipsoid;
 import org.gavaghan.geodesy.GeodeticCalculator;
 import org.gavaghan.geodesy.GeodeticMeasurement;
@@ -22,6 +24,23 @@ public enum DistanceCalculator {
     
     private DistanceCalculator(){
         geodeticCalculator = new GeodeticCalculator();
+    }
+    
+    public double getTotal(List<? extends Location> locations){
+        double total = 0.0;
+        
+        if(!locations.isEmpty()){
+            Iterator<? extends Location> it = locations.iterator();
+            
+            Location previous = it.next();
+            
+            while(it.hasNext()){
+                Location next = it.next();
+                total = total + getDistance(previous, next);
+            }
+        }
+        
+        return total;
     }
 
     public double getDistance(Location from, Location to) {

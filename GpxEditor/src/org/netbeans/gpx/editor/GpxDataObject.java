@@ -68,7 +68,7 @@ public class GpxDataObject extends XmlMultiViewDataObject {
 
     @Override
     public Lookup getLookup() {
-        return new ProxyLookup(super.getLookup(), Selection.INSTANCE.getLookup());
+        return new ProxyLookup(super.getLookup(), Selection.Instance.getLookup());
     }
 
     @Override
