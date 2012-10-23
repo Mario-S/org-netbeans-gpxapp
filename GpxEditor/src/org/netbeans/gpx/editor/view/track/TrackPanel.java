@@ -9,6 +9,7 @@ import org.netbeans.gpx.model.entity.Track;
 import org.netbeans.gpx.model.entity.TrackSegment;
 import org.netbeans.gpx.model.entity.Waypoint;
 import java.awt.Component;
+import java.text.NumberFormat;
 import java.util.List;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComponent;
@@ -16,6 +17,7 @@ import javax.swing.JList;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.gpx.editor.binding.converter.BigIntegerConverter;
 import org.netbeans.gpx.editor.panel.AbstractInnerPanel;
+import org.netbeans.gpx.model.api.DistanceCalculator;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
 
 /**
@@ -29,12 +31,16 @@ public class TrackPanel extends AbstractInnerPanel {
     private BigIntegerConverter bigIntegerConverter;
 
     private EventList<TrackSegment> segmentList;
+    
+    private NumberFormat numberFormat;
 
     public TrackPanel(SectionView sectionView, GpxDataObject gpxDataObject, int trackNumber) {
         super(sectionView, gpxDataObject);
         this.trackNumber = trackNumber;
         bigIntegerConverter = new BigIntegerConverter();
         segmentList = new BasicEventList<TrackSegment>();
+        numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumFractionDigits(4);
 
         initComponents();
 
@@ -66,9 +72,10 @@ public class TrackPanel extends AbstractInnerPanel {
             if (segments.size() > 1) {
                 cmbSegments.setEnabled(true);
             }
-
-
-            setTableModel(firstSegment.getTrackpoints());
+            
+            final List<Waypoint> trackpoints = firstSegment.getTrackpoints();
+            setTableModel(trackpoints);
+            setTotalDistance(trackpoints);
         }
     }
 
@@ -79,7 +86,12 @@ public class TrackPanel extends AbstractInnerPanel {
         EventTableModel<Waypoint> tableModel = new EventTableModel<Waypoint>(points, new WaypointTableFormat());
         tblPoints.setModel(tableModel);
         
-        Selection.INSTANCE.getContent().set(trackPoints, null);
+        Selection.Instance.getContent().set(trackPoints, null);
+    }
+    
+     private void setTotalDistance(final List<Waypoint> trackpoints) {
+        double total = DistanceCalculator.Instance.getTotal(trackpoints);
+        lblTotalVal.setText(numberFormat.format(total));
     }
 
     /** This method is called from within the constructor to
@@ -109,6 +121,9 @@ public class TrackPanel extends AbstractInnerPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaDescr = new javax.swing.JTextArea();
         lblDescr = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        lblTotalVal = new javax.swing.JLabel();
+        cmbDistanceUnit = new javax.swing.JComboBox();
 
         lblName.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblName.text")); // NOI18N
 
@@ -156,6 +171,12 @@ public class TrackPanel extends AbstractInnerPanel {
 
         lblDescr.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblDescr.text")); // NOI18N
 
+        lblTotal.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblTotal.text")); // NOI18N
+
+        lblTotalVal.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblTotalVal.text")); // NOI18N
+
+        cmbDistanceUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "m", "km" }));
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,9 +184,6 @@ public class TrackPanel extends AbstractInnerPanel {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
-                        .addContainerGap())
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(lblCmt)
@@ -188,13 +206,23 @@ public class TrackPanel extends AbstractInnerPanel {
                                     .add(jScrollPane2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE))
                                 .add(43, 43, 43))))
                     .add(layout.createSequentialGroup()
-                        .add(lblSegments)
-                        .add(18, 18, 18)
-                        .add(cmbSegments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(631, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
-                        .add(lblWayPoints)
-                        .addContainerGap(728, Short.MAX_VALUE))))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
+                            .add(layout.createSequentialGroup()
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(lblWayPoints)
+                                    .add(layout.createSequentialGroup()
+                                        .add(lblSegments)
+                                        .add(18, 18, 18)
+                                        .add(cmbSegments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(35, 35, 35)
+                                        .add(lblTotal)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(cmbDistanceUnit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(lblTotalVal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 165, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                .add(0, 0, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -226,7 +254,10 @@ public class TrackPanel extends AbstractInnerPanel {
                 .add(12, 12, 12)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(lblSegments)
-                    .add(cmbSegments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(cmbSegments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblTotalVal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblTotal)
+                    .add(cmbDistanceUnit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(lblWayPoints)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -236,6 +267,7 @@ public class TrackPanel extends AbstractInnerPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox cmbDistanceUnit;
     private javax.swing.JComboBox cmbSegments;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -245,6 +277,8 @@ public class TrackPanel extends AbstractInnerPanel {
     private javax.swing.JLabel lblNumber;
     private javax.swing.JLabel lblSegments;
     private javax.swing.JLabel lblSource;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblTotalVal;
     private javax.swing.JLabel lblType;
     private javax.swing.JLabel lblWayPoints;
     private javax.swing.JTable tblPoints;

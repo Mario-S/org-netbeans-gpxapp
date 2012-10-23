@@ -112,7 +112,7 @@ public final class ElevationTopComponent extends TopComponent implements LookupL
     public void componentOpened() {
 	chartTypeChangeAction.addPropertyChangeListener(this);
 	
-	result = Selection.INSTANCE.getLookup().lookupResult(Location.class);
+	result = Selection.Instance.getLookup().lookupResult(Location.class);
 	result.allItems();
 	result.addLookupListener(this);
     }
