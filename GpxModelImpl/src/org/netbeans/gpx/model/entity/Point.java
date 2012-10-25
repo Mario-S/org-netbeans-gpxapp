@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
-import org.netbeans.gpx.model.api.Location;
+import org.netbeans.gpx.model.api.Position;
 
 
 /**
@@ -49,7 +49,7 @@ import org.netbeans.gpx.model.api.Location;
     "ele",
     "time"
 })
-public class Point implements Location{
+public class Point implements Position{
 
     protected BigDecimal ele;
     @XmlSchemaType(name = "dateTime")
