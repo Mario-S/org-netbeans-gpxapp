@@ -16,7 +16,7 @@ import org.jfree.data.time.RegularTimePeriod;
 import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
-import org.netbeans.gpx.model.api.Location;
+import org.netbeans.gpx.model.api.Position;
 
 /**
  *
@@ -31,12 +31,12 @@ class TimeElevationChartBuilder extends AbstractChartBuilder {
     }
 
     @Override
-    public JFreeChart buildChart(Collection<? extends Location> points) {
+    public JFreeChart buildChart(Collection<? extends Position> points) {
 
-	Location firstWayPoint = null; 
+	Position firstWayPoint = null; 
 	
 	TimeSeries series = new TimeSeries(seriesName);
-	for (Location point : points) {
+	for (Position point : points) {
 	    if(firstWayPoint == null){
 		firstWayPoint = point;
 	    }
@@ -56,21 +56,21 @@ class TimeElevationChartBuilder extends AbstractChartBuilder {
 	return chart;
     }
 
-    private RegularTimePeriod buildTimePeriod(Location point) {
+    private RegularTimePeriod buildTimePeriod(Position point) {
 	GregorianCalendar cal = getGregorianCalendar(point);
 	//TODO select period based on time difference between the waypoints
 	RegularTimePeriod period = new Second(cal.getTime());
 	return period;
     }
 
-    private GregorianCalendar getGregorianCalendar(Location point) {
+    private GregorianCalendar getGregorianCalendar(Position point) {
 	TimeZone timeZone = TimeZone.getDefault();
 	Locale locale = Locale.getDefault();
 	XMLGregorianCalendar cal = point.getTime();
 	return cal.toGregorianCalendar(timeZone, locale, null);
     }
 
-    private void formatDomainAxis(JFreeChart chart, Location firstWayPoint) {
+    private void formatDomainAxis(JFreeChart chart, Position firstWayPoint) {
 
 	RegularTimePeriod first = new Minute(getGregorianCalendar(firstWayPoint).getTime());
 	RelativeDateFormat relativedateformat = new RelativeDateFormat(first.getFirstMillisecond());

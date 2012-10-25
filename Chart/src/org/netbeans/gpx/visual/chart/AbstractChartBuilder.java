@@ -2,7 +2,7 @@ package org.netbeans.gpx.visual.chart;
 
 import java.util.Collection;
 import org.jfree.chart.JFreeChart;
-import org.netbeans.gpx.model.api.Location;
+import org.netbeans.gpx.model.api.Position;
 
 /**
  *
@@ -14,5 +14,5 @@ public abstract class AbstractChartBuilder {
     
     protected String valueAxis = "Height (m)";
     
-    public abstract JFreeChart buildChart(Collection<? extends Location> points);
+    public abstract JFreeChart buildChart(Collection<? extends Position> points);
 }

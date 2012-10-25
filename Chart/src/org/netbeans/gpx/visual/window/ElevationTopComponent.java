@@ -5,7 +5,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 import org.netbeans.gpx.model.api.Selection;
-import org.netbeans.gpx.model.api.Location;
+import org.netbeans.gpx.model.api.Position;
 import java.util.Collection;
 import java.util.logging.LogManager;
 import org.jfree.chart.ChartPanel;
@@ -47,9 +47,9 @@ public final class ElevationTopComponent extends TopComponent implements LookupL
     
     private static final long serialVersionUID = -7900084742185260837L;
     
-    private Lookup.Result<Location> result;
+    private Lookup.Result<Position> result;
     
-    private Collection<? extends Location> points;
+    private Collection<? extends Position> points;
     
     private ChartType chartType;
     
@@ -62,7 +62,7 @@ public final class ElevationTopComponent extends TopComponent implements LookupL
 	setName(Bundle.CTL_ElevationTopComponent());
 	setToolTipText(Bundle.HINT_ElevationTopComponent());
 	
-	points = new ArrayList<Location>();
+	points = new ArrayList<Position>();
 	
 	chartTypeChangeAction = new ChartTypeChangeAction();
 	cmbElevationType.setAction(chartTypeChangeAction);
@@ -112,7 +112,7 @@ public final class ElevationTopComponent extends TopComponent implements LookupL
     public void componentOpened() {
 	chartTypeChangeAction.addPropertyChangeListener(this);
 	
-	result = Selection.Instance.getLookup().lookupResult(Location.class);
+	result = Selection.Instance.getLookup().lookupResult(Position.class);
 	result.allItems();
 	result.addLookupListener(this);
     }

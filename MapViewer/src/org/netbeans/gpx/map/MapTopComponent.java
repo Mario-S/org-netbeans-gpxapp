@@ -1,15 +1,18 @@
-/*
- * (C) Copyright Dilax Intelcom GmbH.
- * 
- *  All Rights Reserved.
- */
 package org.netbeans.gpx.map;
 
 import java.awt.BorderLayout;
+import java.util.Collection;
 import org.jdesktop.swingx.JXMapKit;
+import org.jdesktop.swingx.mapviewer.GeoPosition;
 import org.netbeans.api.settings.ConvertAsProperties;
+import org.netbeans.gpx.model.api.Position;
+import org.netbeans.gpx.model.api.Selection;
+import org.netbeans.gpx.model.api.SpatialCalculator;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
+import org.openide.util.Lookup;
+import org.openide.util.LookupEvent;
+import org.openide.util.LookupListener;
 import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
 
@@ -34,18 +37,23 @@ preferredID = "MapTopComponent")
 	"CTL_MapTopComponent=Map Window",
 	"HINT_MapTopComponent=This is a Map window"
 })
-public final class MapTopComponent extends TopComponent {
+public final class MapTopComponent extends TopComponent implements LookupListener{
+    
 	private JXMapKit mapKit;
+    
+    private Lookup.Result<Position> result;
+    
+    private Collection<? extends Position> points;
 
 	public MapTopComponent() {
-		mapKit = new JXMapKit();
-		
-		mapKit.setDefaultProvider(JXMapKit.DefaultProviders.OpenStreetMaps);
 		
 		initComponents();
 		setName(Bundle.CTL_MapTopComponent());
 		setToolTipText(Bundle.HINT_MapTopComponent());
 
+        mapKit = new JXMapKit();
+		mapKit.setDefaultProvider(JXMapKit.DefaultProviders.OpenStreetMaps);
+        mapPanel.add(mapKit.getMainMap(), BorderLayout.CENTER);
 	}
 
 	/**
@@ -55,33 +63,36 @@ public final class MapTopComponent extends TopComponent {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panel = new javax.swing.JPanel();
+        mapPanel = new javax.swing.JPanel();
 
-        panel.setLayout(new java.awt.BorderLayout());
+        mapPanel.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(mapPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(mapPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel panel;
+    private javax.swing.JPanel mapPanel;
     // End of variables declaration//GEN-END:variables
 	@Override
 	public void componentOpened() {
-		panel.add(mapKit.getMainMap(), BorderLayout.CENTER);
+		result = Selection.Instance.getLookup().lookupResult(Position.class);
+        result.allItems();
+        result.addLookupListener(this);
 	}
 
 	@Override
 	public void componentClosed() {
-		// TODO add custom code on component closing
+		result.removeLookupListener(this);
+        result = null;
 	}
 
 	void writeProperties(java.util.Properties p) {
@@ -95,4 +106,20 @@ public final class MapTopComponent extends TopComponent {
 		String version = p.getProperty("version");
 		// TODO read your settings according to their version
 	}
+
+    @Override
+    public void resultChanged(LookupEvent le) {
+        points = result.allInstances();
+	
+        updateMap();
+    }
+
+    private void updateMap() {
+        if(!points.isEmpty()){
+            Position center = SpatialCalculator.Instance.getCentroid(points);
+            double lat = center.getLatitude().doubleValue();
+            double lon = center.getLongitude().doubleValue();
+            mapKit.setCenterPosition(new GeoPosition(lat, lon));
+        }
+    }
 }

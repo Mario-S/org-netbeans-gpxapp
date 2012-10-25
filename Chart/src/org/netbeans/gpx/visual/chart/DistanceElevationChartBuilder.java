@@ -7,8 +7,8 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.netbeans.gpx.model.api.DistanceCalculator;
-import org.netbeans.gpx.model.api.Location;
+import org.netbeans.gpx.model.api.SpatialCalculator;
+import org.netbeans.gpx.model.api.Position;
 
 /**
  *
@@ -16,18 +16,18 @@ import org.netbeans.gpx.model.api.Location;
  */
 class DistanceElevationChartBuilder extends AbstractChartBuilder {
 
-    private DistanceCalculator distanceCalculator;
+    private SpatialCalculator distanceCalculator;
     
     public DistanceElevationChartBuilder(){
-        distanceCalculator = DistanceCalculator.Instance;
+        distanceCalculator = SpatialCalculator.Instance;
     }
 
     @Override
-    public JFreeChart buildChart(Collection<? extends Location> points) {
+    public JFreeChart buildChart(Collection<? extends Position> points) {
 	//TODO i18n using Bundle
 	String xAxis = "Distance (m)";
 
-	Iterator<? extends Location> pointIterator = points.iterator();
+	Iterator<? extends Position> pointIterator = points.iterator();
 
 	XYSeries series = buildSeries(pointIterator);
 
@@ -40,15 +40,15 @@ class DistanceElevationChartBuilder extends AbstractChartBuilder {
 	return chart;
     }
 
-    private XYSeries buildSeries(Iterator<? extends Location> pointIterator) {
+    private XYSeries buildSeries(Iterator<? extends Position> pointIterator) {
 	XYSeries series = new XYSeries(seriesName);
 	
-	Location previous = pointIterator.next(); //get the first
+	Position previous = pointIterator.next(); //get the first
 	double distance = 0.0;
 	series.add(distance, previous.getElevation());
 	
 	while (pointIterator.hasNext()) {
-	    Location point = pointIterator.next();
+	    Position point = pointIterator.next();
 	    distance = distance + getDistance(previous, point);
 	    double ele = point.getElevation().doubleValue();
 	    series.add(distance, ele);
@@ -57,7 +57,7 @@ class DistanceElevationChartBuilder extends AbstractChartBuilder {
 	return series;
     }
 
-    private double getDistance(Location from, Location to) {
+    private double getDistance(Position from, Position to) {
         return distanceCalculator.getDistance(from, to);
     }
 

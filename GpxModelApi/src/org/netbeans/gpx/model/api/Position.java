@@ -6,10 +6,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
- * Interface that represent a 3 dimensional location on the geoid.
+ * Represents a geographical position with optional height and local time.
  * @author msc
  */
-public interface Location {
+public interface Position {
 
     /**
      * Gets the value of the elevation property.

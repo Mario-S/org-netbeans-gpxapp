@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.netbeans.gpx.model.api.Location;
+import org.netbeans.gpx.model.api.Position;
 
 
 /**
@@ -87,7 +87,7 @@ import org.netbeans.gpx.model.api.Location;
     "dgpsid",
     "extensions"
 })
-public class Waypoint implements Location{
+public class Waypoint implements Position{
 
     protected BigDecimal ele;
     @XmlSchemaType(name = "dateTime")

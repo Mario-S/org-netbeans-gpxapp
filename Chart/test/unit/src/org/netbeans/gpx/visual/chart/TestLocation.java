@@ -2,13 +2,13 @@ package org.netbeans.gpx.visual.chart;
 
 import java.math.BigDecimal;
 import javax.xml.datatype.XMLGregorianCalendar;
-import org.netbeans.gpx.model.api.Location;
+import org.netbeans.gpx.model.api.Position;
 
 /**
  *
  * @author msc
  */
-public class TestLocation implements Location {
+public class TestLocation implements Position {
 
     private BigDecimal elevation;
 
