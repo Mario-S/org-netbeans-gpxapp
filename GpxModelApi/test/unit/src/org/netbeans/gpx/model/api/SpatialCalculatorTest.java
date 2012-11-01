@@ -32,11 +32,11 @@ public class SpatialCalculatorTest {
     }
 
     /**
-     * Test of getCentroid method, of class SpatialCalculator.
+     * Test of getCentroid method, of class PositionCalculator.
      */
     @Test
     public void testGetCentroid() {
-        SpatialCalculator instance = SpatialCalculator.Instance;
+        PositionCalculator instance = PositionCalculator.Instance;
         Position result = instance.getCentroid(positions);
         assertNotNull(result);
         double lat = result.getLatitude().doubleValue();

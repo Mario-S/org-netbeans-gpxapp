@@ -7,7 +7,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.netbeans.gpx.model.api.SpatialCalculator;
+import org.netbeans.gpx.model.api.PositionCalculator;
 import org.netbeans.gpx.model.api.Position;
 
 /**
@@ -16,10 +16,10 @@ import org.netbeans.gpx.model.api.Position;
  */
 class DistanceElevationChartBuilder extends AbstractChartBuilder {
 
-    private SpatialCalculator distanceCalculator;
+    private PositionCalculator distanceCalculator;
     
     public DistanceElevationChartBuilder(){
-        distanceCalculator = SpatialCalculator.Instance;
+        distanceCalculator = PositionCalculator.Instance;
     }
 
     @Override

@@ -7,7 +7,7 @@ import org.jdesktop.swingx.mapviewer.GeoPosition;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.netbeans.gpx.model.api.Position;
 import org.netbeans.gpx.model.api.Selection;
-import org.netbeans.gpx.model.api.SpatialCalculator;
+import org.netbeans.gpx.model.api.PositionCalculator;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.util.Lookup;
@@ -116,7 +116,7 @@ public final class MapTopComponent extends TopComponent implements LookupListene
 
     private void updateMap() {
         if(!points.isEmpty()){
-            Position center = SpatialCalculator.Instance.getCentroid(points);
+            Position center = PositionCalculator.Instance.getCentroid(points);
             double lat = center.getLatitude().doubleValue();
             double lon = center.getLongitude().doubleValue();
             mapKit.setCenterPosition(new GeoPosition(lat, lon));
