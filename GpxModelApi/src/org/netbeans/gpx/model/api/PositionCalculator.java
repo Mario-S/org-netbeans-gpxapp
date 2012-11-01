@@ -13,7 +13,7 @@ import org.gavaghan.geodesy.GlobalPosition;
  *
  * @author msc
  */
-public enum SpatialCalculator {
+public enum PositionCalculator {
     
     Instance;
     
@@ -22,7 +22,7 @@ public enum SpatialCalculator {
     /*the ellipsoid is always WGS 84 for GPS data*/
     private static final Ellipsoid REF = Ellipsoid.WGS84;
     
-    private SpatialCalculator() {
+    private PositionCalculator() {
         geodeticCalculator = new GeodeticCalculator();
     }
 
