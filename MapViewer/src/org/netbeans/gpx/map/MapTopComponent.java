@@ -2,8 +2,12 @@ package org.netbeans.gpx.map;
 
 import java.awt.BorderLayout;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import org.jdesktop.swingx.JXMapKit;
 import org.jdesktop.swingx.mapviewer.GeoPosition;
+import org.jdesktop.swingx.mapviewer.Waypoint;
+import org.jdesktop.swingx.mapviewer.WaypointPainter;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.netbeans.gpx.model.api.Position;
 import org.netbeans.gpx.model.api.Selection;
@@ -43,7 +47,7 @@ public final class MapTopComponent extends TopComponent implements LookupListene
     
     private Lookup.Result<Position> result;
     
-    private Collection<? extends Position> points;
+    private Collection<? extends Position> positions;
     
     private PositionCalculateable positionCalculator;
 
@@ -115,17 +119,47 @@ public final class MapTopComponent extends TopComponent implements LookupListene
 
     @Override
     public void resultChanged(LookupEvent le) {
-        points = result.allInstances();
+        positions = result.allInstances();
 	
         updateMap();
     }
 
     private void updateMap() {
-        if(!points.isEmpty()){
-            Position center = positionCalculator.getCentroid(points);
-            double lat = center.getLatitude().doubleValue();
-            double lon = center.getLongitude().doubleValue();
-            mapKit.setCenterPosition(new GeoPosition(lat, lon));
+        if(!positions.isEmpty()){
+            
+            addWayPoints();
+            
+            centerMap();
         }
+    }
+    
+    private void addWayPoints(){
+        
+        Set<GeoPosition> geoPositions = new HashSet<GeoPosition>();
+        Set<Waypoint> wayPoints = new HashSet<Waypoint>();
+        for(Position pos : positions){
+            GeoPosition geoPosition = toGeoPosition(pos);
+            geoPositions.add(geoPosition);
+            wayPoints.add(new Waypoint(geoPosition));
+        }
+        
+        WaypointPainter painter = new WaypointPainter();
+        painter.setWaypoints(wayPoints);
+        
+        mapKit.getMainMap().setOverlayPainter(painter);
+        mapKit.getMainMap().calculateZoomFrom(geoPositions);
+    }
+
+    private GeoPosition toGeoPosition(Position center) {
+        double lat = center.getLatitude().doubleValue();
+        double lon = center.getLongitude().doubleValue();
+        GeoPosition geoPosition = new GeoPosition(lat, lon);
+        return geoPosition;
+    }
+
+    private void centerMap() {
+        Position center = positionCalculator.getCentroid(positions);
+        GeoPosition geoPosition = toGeoPosition(center);
+        mapKit.setCenterPosition(geoPosition);
     }
 }
