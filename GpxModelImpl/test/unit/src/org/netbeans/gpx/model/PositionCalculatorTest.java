@@ -17,11 +17,11 @@ import org.netbeans.gpx.model.entity.Point;
  *
  * @author msc
  */
-public class SpatialCalculatorTest {
+public class PositionCalculatorTest {
     
     private List<Position> positions;
     
-    public SpatialCalculatorTest() {
+    public PositionCalculatorTest() {
     }
     
     @Before
