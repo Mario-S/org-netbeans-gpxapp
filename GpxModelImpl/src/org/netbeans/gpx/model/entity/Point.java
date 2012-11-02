@@ -59,6 +59,20 @@ public class Point implements Position{
     @XmlAttribute(name = "lon", required = true)
     protected BigDecimal lon;
 
+    public Point() {
+    }
+    
+    public Point(double lat, double lon){
+        this(new BigDecimal(lat), new BigDecimal(lon));
+    }
+
+    public Point(BigDecimal lat, BigDecimal lon) {
+        this.lat = lat;
+        this.lon = lon;
+    }
+    
+    
+
     /**
      * Gets the value of the ele property.
      * 

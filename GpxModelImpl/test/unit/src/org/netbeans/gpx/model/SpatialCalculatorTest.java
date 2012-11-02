@@ -3,13 +3,15 @@
  * 
  *  All Rights Reserved.
  */
-package org.netbeans.gpx.model.api;
+package org.netbeans.gpx.model;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import org.netbeans.gpx.model.api.Position;
 import static org.junit.Assert.*;
+import org.netbeans.gpx.model.entity.Point;
 
 /**
  *
@@ -25,10 +27,10 @@ public class SpatialCalculatorTest {
     @Before
     public void setUp() {
         positions = new ArrayList<Position>();
-        positions.add(new ImmutablePosition(1.0, 1.0));
-        positions.add(new ImmutablePosition(1.0, 4.0));
-        positions.add(new ImmutablePosition(4.0, 1.0));
-        positions.add(new ImmutablePosition(4.0, 4.0));
+        positions.add(new Point(1.0, 1.0));
+        positions.add(new Point(1.0, 4.0));
+        positions.add(new Point(4.0, 1.0));
+        positions.add(new Point(4.0, 4.0));
     }
 
     /**
@@ -36,7 +38,7 @@ public class SpatialCalculatorTest {
      */
     @Test
     public void testGetCentroid() {
-        PositionCalculator instance = PositionCalculator.Instance;
+        PositionCalculator instance = new PositionCalculator();
         Position result = instance.getCentroid(positions);
         assertNotNull(result);
         double lat = result.getLatitude().doubleValue();

@@ -7,7 +7,7 @@ import org.jdesktop.swingx.mapviewer.GeoPosition;
 import org.netbeans.api.settings.ConvertAsProperties;
 import org.netbeans.gpx.model.api.Position;
 import org.netbeans.gpx.model.api.Selection;
-import org.netbeans.gpx.model.api.PositionCalculator;
+import org.netbeans.gpx.model.api.PositionCalculateable;
 import org.openide.awt.ActionID;
 import org.openide.awt.ActionReference;
 import org.openide.util.Lookup;
@@ -44,12 +44,16 @@ public final class MapTopComponent extends TopComponent implements LookupListene
     private Lookup.Result<Position> result;
     
     private Collection<? extends Position> points;
+    
+    private PositionCalculateable positionCalculator;
 
 	public MapTopComponent() {
 		
 		initComponents();
 		setName(Bundle.CTL_MapTopComponent());
 		setToolTipText(Bundle.HINT_MapTopComponent());
+        
+        positionCalculator = Lookup.getDefault().lookup(PositionCalculateable.class);
 
         mapKit = new JXMapKit();
 		mapKit.setDefaultProvider(JXMapKit.DefaultProviders.OpenStreetMaps);
@@ -116,7 +120,7 @@ public final class MapTopComponent extends TopComponent implements LookupListene
 
     private void updateMap() {
         if(!points.isEmpty()){
-            Position center = PositionCalculator.Instance.getCentroid(points);
+            Position center = positionCalculator.getCentroid(points);
             double lat = center.getLatitude().doubleValue();
             double lon = center.getLongitude().doubleValue();
             mapKit.setCenterPosition(new GeoPosition(lat, lon));

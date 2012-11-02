@@ -1,5 +1,6 @@
-package org.netbeans.gpx.model.api;
+package org.netbeans.gpx.model;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -7,32 +8,30 @@ import org.gavaghan.geodesy.Ellipsoid;
 import org.gavaghan.geodesy.GeodeticCalculator;
 import org.gavaghan.geodesy.GeodeticMeasurement;
 import org.gavaghan.geodesy.GlobalPosition;
+import org.netbeans.gpx.model.api.Position;
+import org.netbeans.gpx.model.api.PositionCalculateable;
+import org.netbeans.gpx.model.entity.Point;
+import org.openide.util.lookup.ServiceProvider;
 
 /**
  * Calculator for spatial data between {@link Position}s. It is based on the Ellipsoid WGS84
  *
  * @author msc
  */
-public enum PositionCalculator {
-    
-    Instance;
+@ServiceProvider(service=PositionCalculateable.class)
+public class PositionCalculator implements PositionCalculateable{
     
     private GeodeticCalculator geodeticCalculator;
 
     /*the ellipsoid is always WGS 84 for GPS data*/
     private static final Ellipsoid REF = Ellipsoid.WGS84;
     
-    private PositionCalculator() {
+    public PositionCalculator() {
         geodeticCalculator = new GeodeticCalculator();
     }
 
-    /**
-     * Calculates the sum of the distances between the positions.
-     *
-     * @param positions a collection of positions.
-     * @return the total distance
-     */
-    public double getTotal(List<? extends Position> positions) {
+    @Override
+    public double getDistance(List<? extends Position> positions) {
         double total = 0.0;
         
         if (!positions.isEmpty()) {
@@ -49,13 +48,7 @@ public enum PositionCalculator {
         return total;
     }
 
-    /**
-     * Calculates the distance between two positions.
-     *
-     * @param from the start position
-     * @param to the end position
-     * @return distanc
-     */
+    @Override
     public double getDistance(Position from, Position to) {
         
         GlobalPosition fromPosition = buildPosition(from);
@@ -73,21 +66,17 @@ public enum PositionCalculator {
         return new GlobalPosition(lat, lon, ele);
     }
 
-    /**
-     * Calculates the centroid for the given positions.<br/> The method return a position with onlylatitude and
-     * longitude set.
-     *
-     * @param positions collection of positions.
-     * @return the centroid in a 2D plane.
-     */
+    @Override
     public Position getCentroid(Collection<? extends Position> positions) {
         int size = positions.size();
-        double sLat = 0, sLon = 0;
+        BigDecimal sLat = new BigDecimal(0);
+        BigDecimal sLon = new BigDecimal(0);
         for (Position position : positions) {
-            sLat += position.getLatitude().doubleValue();
-            sLon += position.getLongitude().doubleValue();
+            sLat = sLat.add(position.getLatitude());
+            sLon = sLon.add(position.getLongitude());
         }
-        double lat = sLat / size, lon = sLon / size;
-        return new ImmutablePosition(lat, lon);
+        double lat = sLat.doubleValue() / size; 
+        double lon = sLon.doubleValue() / size;
+        return new Point(lat, lon);
     }
 }
