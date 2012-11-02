@@ -88,9 +88,11 @@ public final class MapTopComponent extends TopComponent implements LookupListene
     // End of variables declaration//GEN-END:variables
 	@Override
 	public void componentOpened() {
-		result = Selection.Instance.getLookup().lookupResult(Position.class);
-        result.allItems();
+        result = Selection.Instance.getLookup().lookupResult(Position.class);
         result.addLookupListener(this);
+        
+        //Call once to 'resultChanged' to activate the listener
+        resultChanged(new LookupEvent(result));
 	}
 
 	@Override
