@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import org.netbeans.gpx.model.api.Selection;
 import org.netbeans.gpx.model.api.Position;
 import java.util.Collection;
-import java.util.logging.LogManager;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.netbeans.api.settings.ConvertAsProperties;
@@ -44,30 +43,30 @@ preferredID = "ElevationTopComponent")
     "HINT_ElevationTopComponent=This is a Elevation window"
 })
 public final class ElevationTopComponent extends TopComponent implements LookupListener, PropertyChangeListener {
-    
+
     private static final long serialVersionUID = -7900084742185260837L;
-    
+
     private Lookup.Result<Position> result;
-    
+
     private Collection<? extends Position> points;
-    
+
     private ChartType chartType;
-    
+
     private ChartTypeChangeAction chartTypeChangeAction;
 
     private ChartPanel chartPanel;
-    
+
     public ElevationTopComponent() {
-	initComponents();
-	setName(Bundle.CTL_ElevationTopComponent());
-	setToolTipText(Bundle.HINT_ElevationTopComponent());
-	
-	points = new ArrayList<Position>();
-	
-	chartTypeChangeAction = new ChartTypeChangeAction();
-	cmbElevationType.setAction(chartTypeChangeAction);
-	
-	chartType = (ChartType) cmbElevationType.getSelectedItem();
+        initComponents();
+        setName(Bundle.CTL_ElevationTopComponent());
+        setToolTipText(Bundle.HINT_ElevationTopComponent());
+
+        points = new ArrayList<Position>();
+
+        chartTypeChangeAction = new ChartTypeChangeAction();
+        cmbElevationType.setAction(chartTypeChangeAction);
+
+        chartType = (ChartType) cmbElevationType.getSelectedItem();
     }
 
     /**
@@ -110,66 +109,68 @@ public final class ElevationTopComponent extends TopComponent implements LookupL
 
     @Override
     public void componentOpened() {
-	chartTypeChangeAction.addPropertyChangeListener(this);
-	
-	result = Selection.Instance.getLookup().lookupResult(Position.class);
-	result.allItems();
-	result.addLookupListener(this);
+        chartTypeChangeAction.addPropertyChangeListener(this);
+
+        result = Selection.Instance.getLookup().lookupResult(Position.class);
+        result.addLookupListener(this);
+        
+        //Call once to 'resultChanged' to activate the listener
+        resultChanged(new LookupEvent(result));
     }
-    
+
     @Override
     public void componentClosed() {
-	chartTypeChangeAction.removePropertyChangeListener(this);
-	
-	result.removeLookupListener(this);
-	result = null;
+        chartTypeChangeAction.removePropertyChangeListener(this);
+
+        result.removeLookupListener(this);
+        result = null;
     }
-    
+
     void writeProperties(java.util.Properties p) {
-	// better to version settings since initial version as advocated at
-	// http://wiki.apidesign.org/wiki/PropertyFiles
-	p.setProperty("version", "1.0");
-	// TODO store your settings
+        // better to version settings since initial version as advocated at
+        // http://wiki.apidesign.org/wiki/PropertyFiles
+        p.setProperty("version", "1.0");
+        // TODO store your settings
     }
-    
+
     void readProperties(java.util.Properties p) {
-	String version = p.getProperty("version");
-	// TODO read your settings according to their version
+        String version = p.getProperty("version");
+        // TODO read your settings according to their version
     }
-    
+
     @Override
     public void resultChanged(LookupEvent le) {
-	points = result.allInstances();
-	
-	updateChartPanel();
+        points = result.allInstances();
+
+        updateChartPanel();
     }
-    
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-	String propertyName = evt.getPropertyName();
-	if (propertyName.equals(ChartType.class.getSimpleName())) {
-	    chartType = (ChartType) evt.getNewValue();
-	    updateChartPanel();
-	}
+        String propertyName = evt.getPropertyName();
+        if (propertyName.equals(ChartType.class.getSimpleName())) {
+            chartType = (ChartType) evt.getNewValue();
+            updateChartPanel();
+        }
     }
-    
+
     private void updateChartPanel() {
-	if (!points.isEmpty()) {
-	    
-	    JFreeChart chart = buildChart();
-	    
-	    if (chartPanel == null) {
-		chartPanel = new ChartPanel(chart);
-		elevationPanel.add(chartPanel, BorderLayout.CENTER);
-	    } else {
-		chartPanel.setChart(chart);
-	    }
-	}
+        if (!points.isEmpty()) {
+
+            JFreeChart chart = buildChart();
+
+            if (chartPanel == null) {
+                chartPanel = new ChartPanel(chart);
+                elevationPanel.add(chartPanel, BorderLayout.CENTER);
+            } else {
+                chartPanel.setChart(chart);
+            }
+        }
     }
-    
+
     private JFreeChart buildChart() {
-	
-	AbstractChartBuilder chartBuilder = ElevationChartBuilderFactory.getChartBuilder(chartType);
-	return chartBuilder.buildChart(points);
+
+        AbstractChartBuilder chartBuilder = ElevationChartBuilderFactory.getChartBuilder(chartType);
+        return chartBuilder.buildChart(points);
     }
 }
