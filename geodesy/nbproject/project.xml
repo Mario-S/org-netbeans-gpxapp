@@ -6,10 +6,9 @@
             <code-name-base>org.gavaghan.geodesy</code-name-base>
             <suite-component/>
             <module-dependencies/>
-            <friend-packages>
-                <friend>org.netbeans.gpx.model.api</friend>
+            <public-packages>
                 <package>org.gavaghan.geodesy</package>
-            </friend-packages>
+            </public-packages>
             <class-path-extension>
                 <runtime-relative-path>ext/geodesy-1.1.1.jar</runtime-relative-path>
                 <binary-origin>release/modules/ext/geodesy-1.1.1.jar</binary-origin>

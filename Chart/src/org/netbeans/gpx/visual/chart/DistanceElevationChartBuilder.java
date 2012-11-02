@@ -7,8 +7,9 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
-import org.netbeans.gpx.model.api.PositionCalculator;
 import org.netbeans.gpx.model.api.Position;
+import org.netbeans.gpx.model.api.PositionCalculateable;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -16,50 +17,48 @@ import org.netbeans.gpx.model.api.Position;
  */
 class DistanceElevationChartBuilder extends AbstractChartBuilder {
 
-    private PositionCalculator distanceCalculator;
-    
-    public DistanceElevationChartBuilder(){
-        distanceCalculator = PositionCalculator.Instance;
+    private PositionCalculateable positionCalculator;
+
+    public DistanceElevationChartBuilder() {
+        positionCalculator = Lookup.getDefault().lookup(PositionCalculateable.class);
     }
 
     @Override
     public JFreeChart buildChart(Collection<? extends Position> points) {
-	//TODO i18n using Bundle
-	String xAxis = "Distance (m)";
+        //TODO i18n using Bundle
+        String xAxis = "Distance (m)";
 
-	Iterator<? extends Position> pointIterator = points.iterator();
+        Iterator<? extends Position> pointIterator = points.iterator();
 
-	XYSeries series = buildSeries(pointIterator);
+        XYSeries series = buildSeries(pointIterator);
 
-	XYSeriesCollection dataSet = new XYSeriesCollection(series);
+        XYSeriesCollection dataSet = new XYSeriesCollection(series);
 
-	JFreeChart chart = ChartFactory.createXYLineChart(null, xAxis, valueAxis,
-		dataSet, PlotOrientation.VERTICAL,
-		true, true, false);
-	
-	return chart;
+        JFreeChart chart = ChartFactory.createXYLineChart(null, xAxis, valueAxis,
+            dataSet, PlotOrientation.VERTICAL,
+            true, true, false);
+
+        return chart;
     }
 
     private XYSeries buildSeries(Iterator<? extends Position> pointIterator) {
-	XYSeries series = new XYSeries(seriesName);
-	
-	Position previous = pointIterator.next(); //get the first
-	double distance = 0.0;
-	series.add(distance, previous.getElevation());
-	
-	while (pointIterator.hasNext()) {
-	    Position point = pointIterator.next();
-	    distance = distance + getDistance(previous, point);
-	    double ele = point.getElevation().doubleValue();
-	    series.add(distance, ele);
-	    previous = point;
-	}
-	return series;
+        XYSeries series = new XYSeries(seriesName);
+
+        Position previous = pointIterator.next(); //get the first
+        double distance = 0.0;
+        series.add(distance, previous.getElevation());
+
+        while (pointIterator.hasNext()) {
+            Position point = pointIterator.next();
+            distance = distance + getDistance(previous, point);
+            double ele = point.getElevation().doubleValue();
+            series.add(distance, ele);
+            previous = point;
+        }
+        return series;
     }
 
     private double getDistance(Position from, Position to) {
-        return distanceCalculator.getDistance(from, to);
+        return positionCalculator.getDistance(from, to);
     }
-
-   
 }

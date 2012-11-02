@@ -17,8 +17,9 @@ import javax.swing.JList;
 import org.netbeans.gpx.editor.GpxDataObject;
 import org.netbeans.gpx.editor.binding.converter.BigIntegerConverter;
 import org.netbeans.gpx.editor.panel.AbstractInnerPanel;
-import org.netbeans.gpx.model.api.PositionCalculator;
+import org.netbeans.gpx.model.api.PositionCalculateable;
 import org.netbeans.modules.xml.multiview.ui.SectionView;
+import org.openide.util.Lookup;
 
 /**
  *
@@ -33,6 +34,8 @@ public class TrackPanel extends AbstractInnerPanel {
     private EventList<TrackSegment> segmentList;
     
     private NumberFormat numberFormat;
+    
+    private PositionCalculateable positionCalculator;
 
     public TrackPanel(SectionView sectionView, GpxDataObject gpxDataObject, int trackNumber) {
         super(sectionView, gpxDataObject);
@@ -41,6 +44,8 @@ public class TrackPanel extends AbstractInnerPanel {
         segmentList = new BasicEventList<TrackSegment>();
         numberFormat = NumberFormat.getInstance();
         numberFormat.setMaximumFractionDigits(4);
+        
+        positionCalculator = Lookup.getDefault().lookup(PositionCalculateable.class);
 
         initComponents();
 
@@ -90,7 +95,7 @@ public class TrackPanel extends AbstractInnerPanel {
     }
     
      private void setTotalDistance(final List<Waypoint> trackpoints) {
-        double total = PositionCalculator.Instance.getTotal(trackpoints);
+        double total = positionCalculator.getDistance(trackpoints);
         lblTotalVal.setText(numberFormat.format(total));
     }
 
