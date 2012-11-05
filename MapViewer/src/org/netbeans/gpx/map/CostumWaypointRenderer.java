@@ -17,6 +17,7 @@ public class CostumWaypointRenderer implements WaypointRenderer{
         gd.setColor(Color.RED);
         gd.drawLine(-4,-4,+4,+4);
         gd.drawLine(-4,+4,+4,-4);
+        gd.drawOval(-2, -2, 4, 4);
         return true;
     }
     
