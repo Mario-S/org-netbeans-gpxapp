@@ -7,6 +7,7 @@
             <suite-component/>
             <module-dependencies/>
             <public-packages>
+                <package>org.jdesktop.beans</package>
                 <package>org.jdesktop.dom</package>
                 <package>org.jdesktop.html.form</package>
                 <package>org.jdesktop.http</package>
@@ -20,6 +21,7 @@
                 <package>org.jdesktop.swingx.mapviewer.esri</package>
                 <package>org.jdesktop.swingx.mapviewer.util</package>
                 <package>org.jdesktop.swingx.mapviewer.wms</package>
+                <package>org.jdesktop.swingx.painter</package>
                 <package>org.jdesktop.swingx.ws.yahoo.rss</package>
                 <package>org.jdesktop.swingx.ws.yahoo.search</package>
                 <package>org.jdesktop.swingx.ws.yahoo.search.imagesearch</package>
