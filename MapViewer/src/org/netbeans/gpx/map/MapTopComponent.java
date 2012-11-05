@@ -21,7 +21,7 @@ import org.openide.windows.TopComponent;
 import org.openide.util.NbBundle.Messages;
 
 /**
- * Top component which displays something.
+ * Top component which displays the map.
  */
 @ConvertAsProperties(
     dtd = "-//org.netbeans.gpx.map//Map//EN",
