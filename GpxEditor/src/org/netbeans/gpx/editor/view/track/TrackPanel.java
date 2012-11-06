@@ -1,5 +1,7 @@
 package org.netbeans.gpx.editor.view.track;
 
+import org.netbeans.gpx.unit.LengthUnit;
+import org.netbeans.gpx.unit.LengthUnitConverter;
 import ca.odell.glazedlists.BasicEventList;
 import ca.odell.glazedlists.EventList;
 import ca.odell.glazedlists.swing.EventComboBoxModel;
@@ -9,6 +11,9 @@ import org.netbeans.gpx.model.entity.Track;
 import org.netbeans.gpx.model.entity.TrackSegment;
 import org.netbeans.gpx.model.entity.Waypoint;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 import java.util.List;
 import javax.swing.DefaultListCellRenderer;
@@ -25,7 +30,7 @@ import org.openide.util.Lookup;
  *
  * @author msc
  */
-public class TrackPanel extends AbstractInnerPanel {
+public class TrackPanel extends AbstractInnerPanel implements PropertyChangeListener {
 
     private int trackNumber;
 
@@ -33,21 +38,27 @@ public class TrackPanel extends AbstractInnerPanel {
 
     private EventList<TrackSegment> segmentList;
 
-    private NumberFormat numberFormat;
-
     private PositionCalculateable positionCalculator;
+
+    private LengthUnitAction lengthUnitAction;
+    
+    private NumberFormat numberFormat;
 
     public TrackPanel(SectionView sectionView, GpxDataObject gpxDataObject, int trackNumber) {
         super(sectionView, gpxDataObject);
         this.trackNumber = trackNumber;
         bigIntegerConverter = new BigIntegerConverter();
         segmentList = new BasicEventList<TrackSegment>();
-        numberFormat = NumberFormat.getInstance();
-        numberFormat.setMaximumFractionDigits(4);
 
         positionCalculator = Lookup.getDefault().lookup(PositionCalculateable.class);
+        numberFormat = NumberFormat.getInstance();
+        numberFormat.setMaximumFractionDigits(2);
 
         initComponents();
+
+        lengthUnitAction = new LengthUnitAction();
+        lengthUnitAction.addPropertyChangeListener(this);
+        cmbDistanceUnit.setAction(lengthUnitAction);
 
         setValues();
     }
@@ -96,7 +107,8 @@ public class TrackPanel extends AbstractInnerPanel {
 
     private void setTotalDistance(final List<Waypoint> trackpoints) {
         double total = positionCalculator.getDistance(trackpoints);
-        lblTotalVal.setText(numberFormat.format(total));
+        lengthUnitAction.setTotal(total);
+        lengthUnitAction.actionPerformed(null);
     }
 
     /**
@@ -179,7 +191,7 @@ public class TrackPanel extends AbstractInnerPanel {
 
         lblTotalVal.setText(org.openide.util.NbBundle.getMessage(TrackPanel.class, "TrackPanel.lblTotalVal.text")); // NOI18N
 
-        cmbDistanceUnit.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "m", "km" }));
+        cmbDistanceUnit.setModel(new javax.swing.DefaultComboBoxModel(LengthUnit.values()));
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -256,12 +268,13 @@ public class TrackPanel extends AbstractInnerPanel {
                     .add(lblDescr)
                     .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(12, 12, 12)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(lblSegments)
-                    .add(cmbSegments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(lblTotalVal, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(lblTotal)
-                    .add(cmbDistanceUnit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(lblSegments)
+                        .add(cmbSegments, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(lblTotal)
+                        .add(cmbDistanceUnit, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(lblWayPoints)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -314,6 +327,14 @@ public class TrackPanel extends AbstractInnerPanel {
     @Override
     public JComponent getErrorComponent(String errorId) {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals(LengthUnitAction.UNIT)) {
+            double dist = (Double)evt.getNewValue();
+            lblTotalVal.setText(numberFormat.format(dist));
+        }
     }
 
     private class ComboBoxRenderer extends DefaultListCellRenderer {

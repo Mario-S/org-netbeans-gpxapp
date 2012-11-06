@@ -65,12 +65,20 @@ public class Point implements Position{
     public Point(double lat, double lon){
         this(new BigDecimal(lat), new BigDecimal(lon));
     }
+    
+    public Point(double lat, double lon, double ele){
+        this(new BigDecimal(lat), new BigDecimal(lon), new BigDecimal(ele));
+    }
 
     public Point(BigDecimal lat, BigDecimal lon) {
-        this.lat = lat;
-        this.lon = lon;
+        this(lat, lon, null);
     }
     
+    public Point(BigDecimal lat, BigDecimal lon, BigDecimal ele) {
+        this.lat = lat;
+        this.lon = lon;
+        this.ele = ele;
+    }
     
 
     /**
