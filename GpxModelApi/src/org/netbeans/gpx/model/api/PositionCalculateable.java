@@ -22,7 +22,7 @@ public interface PositionCalculateable {
      * Calculates the sum of the distances between the positions.
      *
      * @param positions a collection of positions.
-     * @return the total distance
+     * @return the total distance in meter
      */
     double getDistance(List<? extends Position> positions);
 
@@ -31,7 +31,7 @@ public interface PositionCalculateable {
      *
      * @param from the start position
      * @param to the end position
-     * @return distanc
+     * @return distance in meter
      */
     double getDistance(Position from, Position to);
     

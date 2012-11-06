@@ -42,6 +42,7 @@ public class PositionCalculator implements PositionCalculateable{
             while (it.hasNext()) {
                 Position next = it.next();
                 total = total + getDistance(previous, next);
+                previous = next;
             }
         }
         

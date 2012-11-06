@@ -12,7 +12,7 @@ import org.openide.util.NbBundle;
  * Action which displays the link edit dialog.
  * @author msc
  */
-public class LinkEditAction extends AbstractAction {
+class LinkEditAction extends AbstractAction {
 
     public static final String LINK_PROP = "link";
 
