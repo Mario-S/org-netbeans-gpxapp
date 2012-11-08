@@ -6,7 +6,7 @@
 package org.netbeans.gpx.unit;
 
 /**
- *
+ * Contains unit values for length measurements.
  * @author msc
  */
 public enum LengthUnit {

@@ -15,7 +15,7 @@ import org.netbeans.modules.xml.multiview.ui.SectionView;
  */
 abstract class AbstractMetadataPanel extends AbstractInnerPanel {
     
-    private static Metadata metadata;
+    private volatile Metadata metadata;
 
     public AbstractMetadataPanel(SectionView sectionView, GpxDataObject gpxDataObject) {
         super(sectionView, gpxDataObject);
