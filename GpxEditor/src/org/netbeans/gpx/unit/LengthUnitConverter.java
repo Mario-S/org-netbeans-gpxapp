@@ -7,7 +7,7 @@ import org.netbeans.gpx.model.entity.Waypoint;
 import org.openide.util.Lookup;
 
 /**
- *
+ * Converter for length units.
  * @author msc
  */
 public class LengthUnitConverter {
@@ -22,6 +22,11 @@ public class LengthUnitConverter {
         targetUnit = LengthUnit.m;
     }
 
+    /**
+     * Converts the given parameter using the base and target unit
+     * @param totalthe value to be converted
+     * @return converted value
+     */
     public double convert(double total) {
         
         double converted = total;
@@ -41,6 +46,10 @@ public class LengthUnitConverter {
         return baseUnit;
     }
 
+    /**
+     * Set the unit to convert from
+     * @param baseUnit 
+     */
     public void setBaseUnit(LengthUnit baseUnit) {
         this.baseUnit = baseUnit;
     }
@@ -49,6 +58,10 @@ public class LengthUnitConverter {
         return targetUnit;
     }
 
+    /**
+     * Set unit to convert to
+     * @param targetUnit 
+     */
     public void setTargetUnit(LengthUnit targetUnit) {
         this.targetUnit = targetUnit;
     }
