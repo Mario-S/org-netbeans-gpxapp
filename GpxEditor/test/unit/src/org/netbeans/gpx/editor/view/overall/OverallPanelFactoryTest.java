@@ -35,7 +35,7 @@ public class OverallPanelFactoryTest {
     @Test
     public void testWithUnknownKey() {
       
-      SectionInnerPanel panel = classUnderTest.createInnerPanel(SchemaType.TRACK);  
+      SectionInnerPanel panel = classUnderTest.createInnerPanel(SchemaType.TRK);  
       assertNull(panel);
       
       panel = classUnderTest.createInnerPanel(null);  
