@@ -30,8 +30,15 @@ public interface GpxModel {
 
         GPX, METADATA, PERSON, BOUNDS, LINK,
         COPYRIGHT, POINT, POINTSEQUENCE,
-        TRACK, TRACKSEGEMENT, ROUTE,
-        WAYPOINT
+        TRK, TRKSEG, ROUTE,
+        TRKPT, WPT,
+        WAYPOINT, NAME, DESC, AUTHOR,
+        TIME, KEYWORDS, EMAIL, 
+        TEXT, TYPE, YEAR, LICENSE,
+        CMT, SRC, NUMBER,
+        ELE, MAGVAR, SYM,
+        FIX, SAT, HDOP, VDOP, PDOP,
+        AGEOFGPSDATA, DGPSID
     }
 
     /**
